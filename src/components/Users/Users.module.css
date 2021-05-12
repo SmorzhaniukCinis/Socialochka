@@ -1,0 +1,74 @@
+.container {
+    width: 1000px;
+    min-height: 200px;
+    background: darkturquoise;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.leftBlock {
+    float: left;
+    margin: 20px;
+}
+.rightBlock {
+    margin-right: 350px;
+    margin-top: 14px;
+    float: right;
+}
+.rightBlock span {
+    margin-top: 6px;
+}
+.rightBlock span:last-child {
+    margin-top: 14px;
+    font-size: 14px;
+
+}
+.leftBlock span  {
+    display: block;
+    text-align: center;
+}
+.rightBlock span {
+    display: block;
+}
+.container img {
+    width: 100px;
+    height: 100px;
+    border: black 1px solid;
+}
+.followButton {
+    width: 100px;
+    padding: 7px 15px;
+    background:  sandybrown;
+    border: 1.5px solid black;
+    font-weight: bold;
+    font-size: 13px;
+    margin: 5px 0 5px 0;
+}
+.followButton:hover {
+    transition: 0.4s;
+    background: salmon;
+}
+.selectedPage {
+    font-weight: bold;
+}
+.pagination {
+    margin: 20px;
+
+}
+.pagination span{
+    border: black 1px solid;
+    background: antiquewhite;
+    margin: 5px;
+    padding: 3px 10px 3px 10px;
+    border-radius: 2px;
+}
+.pagination span:hover {
+    background: peachpuff;
+    transition: 0.3s;
+}
+.userName {
+    color: black;
+}
+.nawLink {
+    text-decoration: none;
+}

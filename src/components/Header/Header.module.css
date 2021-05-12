@@ -1,0 +1,18 @@
+.headerBlock {
+    background-color: darkslategray;
+    line-height: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    margin-left: 20px;
+    height: 50px;
+    vertical-align: middle;
+}
+.loginButton {
+    color: white;
+    text-decoration: none;
+}
+.headerBlock div {
+    margin-right: 40px;
+}

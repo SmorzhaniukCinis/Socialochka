@@ -1,0 +1,26 @@
+.container li {
+    border-bottom: 1px black solid;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+
+}
+.container li:hover {
+    background: whitesmoke;
+    transition: 0.7s;
+}
+.container img {
+    height: 60px;
+    width: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.container span {
+    color: black;
+    font-size: 25px;
+    margin: 13px;
+}
+.container a {
+    text-decoration: none;
+}
+

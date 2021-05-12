@@ -1,0 +1,12 @@
+.BlockItem {
+    display: grid;
+    grid-template-rows: 8fr;
+    grid-template-areas: "item item item item item item item item";
+}
+.item {
+    grid-area: item;
+}
+.blockName {
+    font-size: 30px;
+    padding-left:35%;
+}

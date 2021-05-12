@@ -1,0 +1,19 @@
+.container textarea {
+    border: 2px solid ;
+}
+.sendMessageButton {
+    padding: 13px 30px;
+    margin: 0;
+    margin-left: 50px;
+    background: peachpuff;
+    font-size: 17px;
+}
+.sendMessageButton:hover {
+    background: rosybrown;
+    transition: 0.7s;
+}
+.sendMessageForm {
+    margin-left: 50px;
+    height: 100px;
+    width: 500px;
+}

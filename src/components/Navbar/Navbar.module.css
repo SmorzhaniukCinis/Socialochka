@@ -1,0 +1,16 @@
+.LiItem {
+    list-style: none;
+    font-size: 25px;
+
+}
+.item {
+    color: black;
+    text-decoration: none;
+}
+.item:hover {
+    transition: 0.7s;
+    color: darkslategray;
+}
+li .active {
+    color: rosybrown;
+}
