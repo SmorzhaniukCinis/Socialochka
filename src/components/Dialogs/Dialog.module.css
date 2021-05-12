@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 3fr ;
+    grid-template-rows: 100px 1fr;
+    grid-template-areas:
+            "pageName pageName"
+            "users message";
+}
+.container li {
+    list-style: none;
+    padding: 20px;
+    font-size: 20px;
+}
+.users {
+    grid-area: users;
+}
+.message {
+    grid-area: message;
+}
+.pageName {
+    grid-area: pageName;
+    margin: 20px 0 20px 200px;
+    font-size: 30px;
+
+}
