@@ -4,6 +4,7 @@ const UNSUBSCRIBE_USER = 'UNSUBSCRIBE-USER'
 const CHANGE_PAGE = 'CHANGE_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const DATA_FETCHING = 'DATA_FETCHING'
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS'
 
 
 let initialState = {
@@ -12,6 +13,7 @@ let initialState = {
     pageSize: 5,
     currentPage: 1,
     isFetching: true,
+    followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -48,6 +50,14 @@ const usersReducer = (state = initialState, action) => {
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalCount: action.totalCount}
+
+        case FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.status
+                    ?[...state.followingInProgress, action.id]
+                    :state.followingInProgress.filter(id=> id != action.id)
+            }
         default:
             return state
     }
@@ -59,5 +69,6 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const changePage = (page) => ({type: CHANGE_PAGE, page})
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const dataFetching = (status) => ({type: DATA_FETCHING, status})
+export const onFollowingProgress = (id, status) => ({type: FOLLOWING_IN_PROGRESS, id, status})
 
 export default usersReducer
