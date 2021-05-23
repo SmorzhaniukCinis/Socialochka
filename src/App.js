@@ -2,12 +2,13 @@ import './App.css';
 import React from 'react';
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import FriendsContainer from "./components/Friengs/FriendsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
+import Login from "./components/Login/Login";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
     return (
@@ -21,9 +22,10 @@ const App = (props) => {
                 </div>
                 <div className='content'>
                     <Route path="/profile/:userId?"  render={() => <ProfileContainer/>}/>
-                    <Route path="/messages" render={() => <Dialogs/>}/>
+                    <Route path="/messages" render={() => <DialogsContainer/>}/>
                     <Route path="/friends" render={() => <FriendsContainer/>}/>
                     <Route path="/users" render={() => <UsersContainer/>}/>
+                    <Route path="/login" render={() => <Login/>}/>
                 </div>
                 <div className='footer'>
                     <Footer/>

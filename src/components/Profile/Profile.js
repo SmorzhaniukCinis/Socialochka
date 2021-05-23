@@ -4,6 +4,8 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsBlockContainer from "./PostsBlock/PostsBlockContainer";
 
 const Profile = (props) => {
+
+
     return (
         <div className={s.contentWpapper}>
             <div className={s.themeBlock}>

@@ -19,36 +19,23 @@ let Users = (props) => {
             {props.users.map(u => <div key={u.id} className={s.container}>
 
                 <div className={s.leftBlock}>
-                    <NavLink className={s.nawLink} to={'/profile/'+ u.id}>
+                    <NavLink className={s.nawLink} to={'/profile/' + u.id}>
                         <img src={(u.photos.small === null)
                             ? avatarPhoto : u.photos.small} alt="ava"/>
                         <span className={s.userName}>{u.name}</span>
                     </NavLink>
 
                     {u.followed
-                        ? <button disabled={props.followingInProgress.some(id=>id===u.id)} className={s.followButton} onClick={() => {
-                            props.onFollowingProgress(u.id, true)
-                            usersAPI.unFollowUser(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.unFollowUser(u.id)
-                                    }
-                                    props.onFollowingProgress(u.id, false)
-                                })
-
-                        }}>Unfollow</button>
-                        : <button disabled={props.followingInProgress.some(id=>id===u.id)} className={s.followButton} onClick={() => {
-                                props.onFollowingProgress(u.id, true)
-                                usersAPI.FollowUser(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.followUser(u.id)
-                                    }
-                                    props.onFollowingProgress(u.id, false)
-                                })
-
-
-                        }}>Follow</button>}
+                        ?
+                        <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.followButton}
+                                onClick={() => {
+                                    props.unFollowUser(u.id)
+                                }}>Unfollow</button>
+                        :
+                        <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.followButton}
+                                onClick={() => {
+                                    props.followUser(u.id)
+                                }}>Follow</button>}
                 </div>
 
                 <div className={s.rightBlock}>

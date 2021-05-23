@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const SET_USERS = 'SET-USERS'
 const SUBSCRIBE_USER = 'SUBSCRIBE-USER'
 const UNSUBSCRIBE_USER = 'UNSUBSCRIBE-USER'
@@ -63,12 +65,52 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const followUser = (id) => ({type: SUBSCRIBE_USER, id})
-export const unFollowUser = (id) => ({type: UNSUBSCRIBE_USER, id})
+export const follow = (id) => ({type: SUBSCRIBE_USER, id})
+export const unFollow = (id) => ({type: UNSUBSCRIBE_USER, id})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const changePage = (page) => ({type: CHANGE_PAGE, page})
 export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const dataFetching = (status) => ({type: DATA_FETCHING, status})
 export const onFollowingProgress = (id, status) => ({type: FOLLOWING_IN_PROGRESS, id, status})
+
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+    dispatch(dataFetching(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data=> {
+            dispatch(dataFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+
+}}
+export const unFollowUser = (id) => {
+    return (dispatch) => {
+        debugger
+        dispatch(onFollowingProgress(id, true))
+        usersAPI.unFollowUser(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unFollow(id))
+                }
+                dispatch(onFollowingProgress(id, false))
+            })
+
+}}
+
+export const followUser = (id) => {
+    return (dispatch) => {
+        dispatch(onFollowingProgress(id, true))
+        usersAPI.FollowUser(id)
+            .then(data => {
+                debugger
+                if (data.resultCode === 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(onFollowingProgress(id, false))
+            })
+
+}}
 
 export default usersReducer
