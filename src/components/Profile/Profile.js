@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsBlockContainer from "./PostsBlock/PostsBlockContainer";
+import ProfileStatus from "./ProfileInfo/ProfileStatus/ProfileStatus";
 
 const Profile = (props) => {
 
@@ -14,7 +15,9 @@ const Profile = (props) => {
                     alt=""/>
             </div>
 
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo status={props.status}
+                         updateStatus={props.updateStatus}
+                         profile={props.profile}/>
             <PostsBlockContainer/>
         </div>
     );

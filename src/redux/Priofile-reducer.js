@@ -4,6 +4,8 @@ const ADD_POST = 'ADD-POST'
 const CHANGE_POST = 'CHANGE-POST'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_DATA = 'SET_PROFILE'
+const SET_STATUS = 'SET_STATUS'
+const UPDATE_STATUS = 'UPDATE_STATUS'
 
 let initialState = {
     posts: [
@@ -14,7 +16,8 @@ let initialState = {
     ],
     newPostText: '',
     profile: [],
-    settingData: false
+    settingData: false,
+    status: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -43,6 +46,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_DATA:
             return {...state, settingData: action.settingData}
 
+        case SET_STATUS:
+            return {...state, status: action.status}
+
         default:
             return state
     }
@@ -52,6 +58,7 @@ export const addPostAC = () => ({type: ADD_POST})
 export const changePostAC = (PostText) => ({type: CHANGE_POST, text: PostText})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setData = (settingData) => ({type: SET_DATA, settingData})
+export const setStatus = (status) => ({type: SET_STATUS, status})
 
 
 export const getProfile = (userId) => {
@@ -62,7 +69,26 @@ export const getProfile = (userId) => {
             })
     }
 }
-
+export const getStatus = (userId) => {
+    return (dispath) => {
+        profileAPI.getStatus(userId)
+            .then(data => {
+                dispath(setStatus(data))
+            })
+    }
+}
+export const updateStatus = (status) => {
+    return (dispath) => {
+        profileAPI.updateStatus(status)
+            .then(data =>{
+                debugger
+                if (data.resultCode === 0) {
+                    dispath(setStatus(status))
+                }
+            }
+    )
+    }
+}
 
 
 export default profileReducer

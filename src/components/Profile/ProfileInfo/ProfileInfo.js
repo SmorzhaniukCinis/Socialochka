@@ -1,6 +1,7 @@
 import s from "../Profile.module.css";
 import React from "react";
 import avatar from '../../../defaultData/avatarDefoult.png'
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const ProfileInfo = (props=null) => {
     return (
@@ -10,11 +11,10 @@ const ProfileInfo = (props=null) => {
                     src={(props.profile.photos === undefined)? avatar : props.profile.photos.small}
                     alt=""/>
             </div>
-            <div className={s.userName} >
-                <span>{props.profile.fullName}</span> <br/>
-                <span>{props.profile.lookingForAJobDescription}</span> <br/>
-                <span>{props.profile.aboutMe}</span> <br/>
-            </div>
+
+            <ProfileStatus status={props.status}
+                           updateStatus={props.updateStatus}
+                           profile={props.profile} />
         </div>
     )
 }
