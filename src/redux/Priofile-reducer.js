@@ -23,22 +23,14 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case  ADD_POST:
-            if (state.newPostText === '') {
+            if (action.text === '') {
                 alert('Enter your post')
                 return state
             } else {
                 return {
                     ...state,
-                    posts: [...state.posts, {postText: state.newPostText, id: 5, likeCount: 0}],
-                    newPostText: ''
+                    posts: [...state.posts, {postText: action.text, id: 5, likeCount: 0}],
                 }
-            }
-
-
-        case CHANGE_POST:
-            return {
-                ...state,
-                newPostText: action.text
             }
         case SET_PROFILE:
             return {...state, profile: action.profile}
@@ -54,8 +46,7 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostAC = () => ({type: ADD_POST})
-export const changePostAC = (PostText) => ({type: CHANGE_POST, text: PostText})
+export const addPostAC = (text) => ({type: ADD_POST, text})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setData = (settingData) => ({type: SET_DATA, settingData})
 export const setStatus = (status) => ({type: SET_STATUS, status})

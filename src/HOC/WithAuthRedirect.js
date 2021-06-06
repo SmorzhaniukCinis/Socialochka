@@ -18,3 +18,4 @@ export const WithAuthRedirect = (Component) => {
 
     return ConnectedAuthRedirectComponent
 }
+

@@ -7,6 +7,10 @@ import NewMessageFormContainer from "./NewMessageForm/NewMessageFormContainer";
 
 const Messages = (props) => {
 
+    let onSubmit = (formData) => {
+        props.pushMessage(formData.newMessage)
+    }
+
     let messages = props.message.map (item => <MessageItem messageItem={item.messageItem} key={item.id} />)
 
     return (
@@ -14,7 +18,7 @@ const Messages = (props) => {
             <ul>
                 {messages}
             </ul>
-            <NewMessageFormContainer store={props.store}/>
+            <NewMessageFormContainer onSubmit={onSubmit} store={props.store}/>
         </div>
     )
 }

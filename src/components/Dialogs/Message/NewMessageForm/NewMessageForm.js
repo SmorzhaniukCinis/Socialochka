@@ -1,27 +1,23 @@
 import React from "react";
 import s from './NewMessageForm.module.css'
+import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../../../FormsControl/FormsControl";
+import {maxLengthCreator} from "../../../../utils/validators/validators";
 
+let maxLength = maxLengthCreator(50)
 
 const NewMessageForm = (props) => {
-
-    let MessageText = () => {
-        props.onMessageText()
-    }
-
-    let updateMessage = (e) => {
-        let text = e.target.value
-        props.onUpdateMessage(text)
-    }
-
     return (
 
-        <div className={s.container}>
+        <form onSubmit={props.handleSubmit} className={s.container}>
             <div>
-                <textarea className={s.sendMessageForm} onChange={updateMessage} value={props.messageValue}/>
+                <Field component={Textarea} validate={[maxLength]} name={'newMessage'} className={s.sendMessageForm}  value={props.messageValue}/>
             </div>
-            <button className={s.sendMessageButton} onClick={MessageText}>Send</button>
-        </div>
+            <button className={s.sendMessageButton} >Send</button>
+        </form>
     )
 }
 
-export default NewMessageForm
+let ReduxNewMessageForm = reduxForm ({form:'newMessage'}) (NewMessageForm)
+
+export default ReduxNewMessageForm

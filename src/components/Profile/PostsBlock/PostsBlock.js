@@ -1,32 +1,20 @@
 import React from 'react';
 import s from './Posts.module.css'
 import MyPost from "./MyPost/MyPost"
-
+import ReduxPostForm from "./newPostForm/newPostForm";
 
 
 let PostsBlock = (props) => {
 
-    let AddPost = () => {
-        props.addPost()
+    let onSubmit = (formData) => {
+        props.addPost(formData.newPostField)
     }
 
-    let onPostChange = (e) => {
-        let PostText = e.target.value
-        props.updatePost(PostText)
-    }
-
-    return(
+    return (
         <div className={s.postBlock}>
             <div>
                 <h5>New post</h5>
-                <div className={s.newPostBlock}>
-                    <div>
-                        <textarea name="" cols="30" rows="3" onChange={onPostChange} value={props.newPostText}/>
-                    </div>
-                    <div>
-                        <button onClick={AddPost}>Send post</button>
-                    </div>
-                </div>
+                <ReduxPostForm onSubmit={onSubmit}/>
             </div>
             <div className={s.PostBlock}>
                 <h5>My posts</h5>
@@ -35,5 +23,6 @@ let PostsBlock = (props) => {
         </div>
     )
 }
+
 
 export default PostsBlock;

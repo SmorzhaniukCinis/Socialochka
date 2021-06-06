@@ -37,31 +37,21 @@ let initialstate = {
 const dialogsReducer = (state = initialstate, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
-
-            if (state.currentMessage === '') {
+            if (action.text === '') {
                 alert('Enter your message')
                 return state
             } else {
                 return  {
                     ...state,
-                    messageData : [...state.messageData, {id: 6, messageItem: state.currentMessage}],
+                    messageData : [...state.messageData, {id: 6, messageItem: action.text}],
                     currentMessage: ''
                 }
             }
-
-        case CHANGE_MESSAGE:
-            return  {...state,
-                currentMessage: action.text
-            }
-
-
-
         default:
             return state
     }
 }
 
-export const addMessageAC = () => ({type: ADD_MESSAGE})
-export const changeMessageAC = (text) => ({type: CHANGE_MESSAGE, text: text})
+export const addMessageAC = (text) => ({type: ADD_MESSAGE, text})
 
 export default dialogsReducer

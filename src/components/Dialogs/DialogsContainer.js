@@ -18,17 +18,8 @@ class DialogsContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    return ({
-
-    })
+    return ({})
 }
 
-compose(
-    connect (mapStateToProps, {}),
-    WithAuthRedirect
-) (DialogsContainer)
-
-let AuthRedirectComponent = WithAuthRedirect(DialogsContainer)
-
-export default connect (mapStateToProps, {}) (AuthRedirectComponent)
+export default connect(mapStateToProps, {})(DialogsContainer)
 

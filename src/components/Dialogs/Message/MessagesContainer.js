@@ -1,6 +1,7 @@
 import React from 'react'
 import Messages from "./Messages";
 import {connect} from "react-redux";
+import {addMessageAC} from "../../../redux/Dialods-reducer";
 
 
 let mapStateToProps = (state) => {
@@ -10,7 +11,9 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-
+        pushMessage: (text) => {
+            dispatch(addMessageAC(text))
+        }
     }
 }
 
