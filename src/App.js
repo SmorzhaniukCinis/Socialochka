@@ -9,6 +9,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
 import Login from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 
 const App = (props) => {
     return (
@@ -25,7 +26,7 @@ const App = (props) => {
                     <Route path="/messages" render={() => <DialogsContainer/>}/>
                     <Route path="/friends" render={() => <FriendsContainer/>}/>
                     <Route path="/users" render={() => <UsersContainer/>}/>
-                    <Route path="/login" render={() => <Login/>}/>
+                    <Route path="/login" render={() => <LoginContainer/>}/>
                 </div>
                 <div className='footer'>
                     <Footer/>
