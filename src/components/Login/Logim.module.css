@@ -28,5 +28,10 @@ button {
     font-size: 16px;
     font-weight: bold;
 }
-
+.FormSummaryError {
+    border-bottom: 1px solid red;
+    color: red;
+    display: inline-block;
+    margin-left: 120px;
+}
 

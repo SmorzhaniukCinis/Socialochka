@@ -1,4 +1,5 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 let SET_USER_AUTH_DATA = 'SET_USER_AUTH_DATA'
 
@@ -43,14 +44,9 @@ export const loginUser = (email, password, rememberMe=false) => {
     return (dispatch) => {
         authAPI.login(email, password, rememberMe)
             .then(responce=> {
-                switch(responce.resultCode){
-                    case 0 :
-                        dispatch(authUser())
-                        break
-                    case 1:
-                        alert('Invalid email or password')
-                        break
-                    default : alert('some error')
+                if(responce.resultCode=== 0){dispatch(authUser())}
+                else {
+                dispatch(stopSubmit("login", {_error: responce.messages}))   //stopSubmit це actionCreator з бібліотеки redux-form який дозволяє обробляти помилки, першим параметром треба задати ім'я форми а другим параметром ім'я конеретних елементів форми і їх помилку або _error для всієї форми.
                 }
             })
     }

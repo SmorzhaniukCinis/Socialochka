@@ -16,3 +16,8 @@
 .headerBlock div {
     margin-right: 40px;
 }
+.logoutButton {
+    padding: 3px 15px;
+    margin-right: 10px;
+    background: peachpuff;
+}
