@@ -9,14 +9,18 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import LoginContainer from "./components/Login/LoginContainer";
-import {authUser} from "./redux/Auth-reducer";
 import {connect} from "react-redux";
+import {initializeApp} from "./redux/App-reducer";
+import Preloader from "./components/Preloader/Preloader";
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.authUser()
+        this.props.initializeApp()
     }
     render() {
+        if(!this.props.initialized) {
+            return <Preloader/>
+        }
         return (
             <BrowserRouter>
                 <div className='appWrapper'>
@@ -41,5 +45,7 @@ class App extends React.Component {
         );
     }
 }
-
-export default connect(null, {authUser}) (App);
+const MapStateToProps = (state)=> ({
+    initialized: state.InitialApp.initialized
+})
+export default connect(MapStateToProps, {initializeApp}) (App);

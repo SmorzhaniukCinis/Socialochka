@@ -2,10 +2,8 @@ import React from 'react';
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsBlockContainer from "./PostsBlock/PostsBlockContainer";
-import ProfileStatus from "./ProfileInfo/ProfileStatus/ProfileStatus";
 
 const Profile = (props) => {
-
 
     return (
         <div className={s.contentWpapper}>
