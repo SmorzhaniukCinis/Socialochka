@@ -7,7 +7,7 @@ import Post from "./Post/Post";
 
 let MyPost = (props) => {
 
-    let postData = props.posts.map (text => <Post likeCount={text.likeCount} key={text.id} postText={text.postText}/>)
+    let postData = [...props.posts].reverse().map (text => <Post likeCount={text.likeCount} key={text.id} postText={text.postText}/>)
 
     return (
         <div className={s.PostBlock}>

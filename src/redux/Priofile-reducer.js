@@ -52,7 +52,7 @@ export const setData = (settingData) => ({type: SET_DATA, settingData})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 
 
-export const getProfile = (userId) => {
+export const requestProfile = (userId) => {
     return (dispath) => {
         profileAPI.getProfile(userId)
             .then(data => {
@@ -60,7 +60,7 @@ export const getProfile = (userId) => {
             })
     }
 }
-export const getStatus = (userId) => {
+export const requestStatus = (userId) => {
     return (dispath) => {
         profileAPI.getStatus(userId)
             .then(data => {

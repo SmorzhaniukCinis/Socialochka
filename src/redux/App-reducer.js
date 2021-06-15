@@ -1,6 +1,6 @@
 import {authUser} from "./Auth-reducer";
 
-let SET_INITIALIZED = 'SET_INITIALIZED'
+let SET_INITIALIZED = 'APP/SET_INITIALIZED'
 
 let initialState = {
     initialized: false
