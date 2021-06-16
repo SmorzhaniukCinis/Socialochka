@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {
     changePage,
     dataFetching,
-    followUser, getUsers, onFollowingProgress,
+    followUser, getUsers, onFollowingProgress, setCurrentPortion,
     setTotalUsersCount,
     setUsers,
     unFollowUser,
@@ -33,6 +33,7 @@ class UsersContainer extends React.Component {
                         onPageChanged={this.onPageChanged}
                         users={this.props.users}
                         totalCount={this.props.totalCount}
+                        portionCount={this.props.portionCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
                         followUser={this.props.followUser}
@@ -40,7 +41,8 @@ class UsersContainer extends React.Component {
                         isFetching={this.props.isFetching}
                         followingInProgress={this.props.followingInProgress}
                         onFollowingProgress={this.props.onFollowingProgress}
-
+                        setCurrentPortion={this.props.setCurrentPortion}
+                        PortionNumber={this.props.PortionNumber}
                     />}
             </div>
 
@@ -57,7 +59,9 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        portionCount: state.usersPage.portionCount,
+        PortionNumber: state.usersPage.PortionNumber
     }
 }
 
@@ -70,5 +74,6 @@ export default connect(mapStateToProps, {
     onFollowingProgress,
     getUsers,
     unFollowUser,
-    followUser
+    followUser,
+    setCurrentPortion
 })(UsersContainer)

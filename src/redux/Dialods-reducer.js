@@ -1,5 +1,4 @@
-const ADD_MESSAGE = 'DIALODS/ADD-MESSAGE'
-const CHANGE_MESSAGE = 'CHANGE-MESSAGE'
+const ADD_MESSAGE = 'DIALOGS/ADD-MESSAGE'
 
 let initialstate = {
     messageData: [

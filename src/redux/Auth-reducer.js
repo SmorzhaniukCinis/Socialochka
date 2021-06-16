@@ -26,43 +26,33 @@ const AuthReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserAuthData = (AuthData) => ({type: 'SET_USER_AUTH_DATA', AuthData})
+export const setUserAuthData = (AuthData) => ({type: SET_USER_AUTH_DATA, AuthData})
 
-export const authUser = () => {
-    return (dispatch) => {
-        return authAPI.authMe()
-            .then(responce => {
-                if(responce.data.resultCode===0){
-                    let {email, id, login } = responce.data.data
+export const authUser = () => async (dispatch) => {
+        let response = await authAPI.authMe()
+                if(response.data.resultCode===0){
+                    let {email, id, login } = response.data.data
                     dispatch(setUserAuthData({email, id, login, isAuth: true}))}
-                }
-            )
-    }
 }
 
-export const loginUser = (email, password, rememberMe=false) => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
-            .then(responce=> {
-                if(responce.resultCode=== 0){dispatch(authUser())}
+export const loginUser = (email, password, rememberMe=false) => async (dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe)
+                if(response.resultCode=== 0){dispatch(authUser())}
                 else {
-                dispatch(stopSubmit("login", {_error: responce.messages}))   //stopSubmit це actionCreator з бібліотеки redux-form який дозволяє обробляти помилки, першим параметром треба задати ім'я форми а другим параметром ім'я конеретних елементів форми і їх помилку або _error для всієї форми.
+                dispatch(stopSubmit("login", {_error: response.messages}))   //stopSubmit це actionCreator з бібліотеки redux-form який дозволяє обробляти помилки, першим параметром треба задати ім'я форми а другим параметром ім'я конеретних елементів форми і їх помилку або _error для всієї форми.
                 }
-            })
-    }
+
 }
-export const logoutUser = () => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(responce=> {
-                if(responce.resultCode===0){
+
+export const logoutUser = () => async (dispatch) => {
+    let response = await authAPI.logout()
+                if(response.resultCode===0){
                     let email = null
                     let id = null
                     let login = null
                     let AuthData = {email, id, login , isAuth: false}
                 dispatch((setUserAuthData(AuthData)))}
-            })
-    }
+
 }
 
 

@@ -1,11 +1,9 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = 'ADD-POST'
-const CHANGE_POST = 'CHANGE-POST'
-const SET_PROFILE = 'SET_PROFILE'
-const SET_DATA = 'SET_PROFILE'
-const SET_STATUS = 'SET_STATUS'
-const UPDATE_STATUS = 'UPDATE_STATUS'
+const ADD_POST = 'PROFILE/ADD-POST'
+const SET_PROFILE = 'PROFILE/SET_PROFILE'
+const SET_DATA = 'PROFILE/SET_PROFILE'
+const SET_STATUS = 'PROFILE/SET_STATUS'
 
 let initialState = {
     posts: [
@@ -52,32 +50,20 @@ export const setData = (settingData) => ({type: SET_DATA, settingData})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 
 
-export const requestProfile = (userId) => {
-    return (dispath) => {
-        profileAPI.getProfile(userId)
-            .then(data => {
-                dispath(setProfile(data))
-            })
-    }
+export const requestProfile = (userId) => async (dispatch) => {
+    let response = await profileAPI.getProfile(userId)
+    dispatch(setProfile(response))
+
 }
-export const requestStatus = (userId) => {
-    return (dispath) => {
-        profileAPI.getStatus(userId)
-            .then(data => {
-                dispath(setStatus(data))
-            })
-    }
+export const requestStatus = (userId) => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response))
+
 }
-export const updateStatus = (status) => {
-    return (dispath) => {
-        profileAPI.updateStatus(status)
-            .then(data =>{
-                debugger
-                if (data.resultCode === 0) {
-                    dispath(setStatus(status))
-                }
-            }
-    )
+export const updateStatus = (status) => async (dispatch) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.resultCode === 0) {
+        dispatch(setStatus(status))
     }
 }
 

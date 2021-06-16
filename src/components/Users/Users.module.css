@@ -72,3 +72,14 @@
 .nawLink {
     text-decoration: none;
 }
+.leftButton {
+    width: 110px;
+    height: 20px;
+    display: inline-block;
+}
+.rightButton {
+    width: 100px;
+    height: 20px;
+    padding-left: 10px;
+    display: inline-block;
+}
