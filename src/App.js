@@ -2,16 +2,18 @@ import './App.css';
 import React from 'react';
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import FriendsContainer from "./components/Friengs/FriendsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import LoginContainer from "./components/Login/LoginContainer";
+// import LoginContainer from "./components/Login/LoginContainer";
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
+import {WithSuspense} from "./HOC/WithSuspense";
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"))
+const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component {
     componentDidMount() {
@@ -33,8 +35,8 @@ class App extends React.Component {
                         <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                         <Route path="/messages" render={() => <DialogsContainer/>}/>
                         <Route path="/friends" render={() => <FriendsContainer/>}/>
-                        <Route path="/users" render={() => <UsersContainer/>}/>
-                        <Route path="/login" render={() => <LoginContainer/>}/>
+                        <Route path="/users" render={WithSuspense(UsersContainer)}/>
+                        <Route path="/login" render={WithSuspense(LoginContainer)}/>
                     </div>
                     <div className='footer'>
                         <Footer/>
