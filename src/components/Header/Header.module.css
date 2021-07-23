@@ -5,19 +5,39 @@
     justify-content: space-between;
 }
 .logo {
-    margin-left: 20px;
+    margin-left: 40px;
     height: 50px;
     vertical-align: middle;
+    margin-bottom: 10px;
 }
 .loginButton {
-    color: white;
     text-decoration: none;
+    padding: 0 20px 5px 20px;
+    font-size: 20px;
+    margin-left: 30px;
+    background: aliceblue;
 }
 .headerBlock div {
     margin-right: 40px;
 }
+.UserProfile{
+    color: white;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+.UserProfile:hover{
+    background-size: 100% 2px;
+}
 .logoutButton {
     padding: 3px 15px;
-    margin-right: 10px;
-    background: peachpuff;
+    margin-left: 30px;
+    background: aliceblue;
+}
+.logoutButton:hover {
+    background-color: cadetblue;
+    transition: 0.5s;
 }

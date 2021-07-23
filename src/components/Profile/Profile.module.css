@@ -15,7 +15,7 @@
     grid-area: avaBlock;
     margin-top: 15px;
     margin-left: 15px;
-
+    width: 150px;
 }
 .nameBlock {
     grid-area: nameBlock;
@@ -26,7 +26,6 @@
 }
 .userName span {
     margin: 3px;
-    margin-bottom: 3px;
     font-size: 18px;
 }
 .themeBlock img {
@@ -37,4 +36,8 @@
     width: 150px;
     height: 170px;
     outline: solid 1px black;
+    margin-bottom: 10px;
+}
+.selectAvaFile {
+    color: white;
 }

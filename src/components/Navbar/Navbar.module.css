@@ -1,9 +1,18 @@
 .LiItem {
     list-style: none;
     font-size: 25px;
-
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+.LiItem:hover {
+    background-size: 100% 2px;
 }
 .item {
+    width: 100%;
     color: black;
     text-decoration: none;
 }
@@ -11,6 +20,5 @@
     transition: 0.7s;
     color: darkslategray;
 }
-li .active {
-    color: rosybrown;
-}
+.LiItem .active {
+color: rgba(0,0,0,0.54)}

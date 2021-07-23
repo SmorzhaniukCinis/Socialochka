@@ -20,6 +20,14 @@ const LoginForm = (props) => {
             <div className={s.FormSummaryError}>
                 {props.error}
             </div>
+            <div className={s.captchaContainer} >
+                {props.captchaURL && <img className={s.captcha} src={props.captchaURL} alt=""/>}
+            </div>
+            <div className={s.itemForm} >
+                {props.captchaURL && <Field component={Input}
+                                            validate={[required]}
+                                            name={"captcha"} className={s.textInput}/>}
+            </div>
             <div className={s.itemForm}>
                 <button>Login</button>
             </div>

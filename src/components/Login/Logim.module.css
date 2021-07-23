@@ -34,4 +34,12 @@ button {
     display: inline-block;
     margin-left: 120px;
 }
+.captchaContainer{
+    margin-left: 117px;
+    margin-top: 10px;
+}
+.captcha {
+    border: black 1px solid;
+    display: inline-flex;
+}
 
