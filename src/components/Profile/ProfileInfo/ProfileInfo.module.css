@@ -1,0 +1,46 @@
+.nameBlock {
+    grid-area: nameBlock;
+    position: absolute;
+    display: inline-flex;
+    height: 185px;
+    width: 50%;
+}
+.avaBlock {
+    grid-area: avaBlock;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 150px;
+    transition: 1s;
+}
+.avaBlock:hover .sendPhotoButton {
+    display: inline;
+    transition: 1s;
+}
+.avaBlock img {
+    width: 150px;
+    height: 170px;
+    outline: solid 1px black;
+}
+.selectAvaFile {
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+.sendPhotoButton {
+    width: 140px;
+    padding: 5px ;
+    color: white;
+    opacity: 0.5;
+    font-size: 13px;
+    position: absolute;
+    left: 16px;
+    bottom: 0;
+    background: black;
+    text-align: center;
+    display: none;
+    cursor: pointer
+}
+.selectPhotoWrapper {
+
+}

@@ -1,9 +1,8 @@
-import s from "../Profile.module.css";
+import s from "./ProfileInfo.module.css";
 import React from "react";
 import avatar from '../../../defaultData/avatarDefoult.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
-import {uploadProfileData} from "../../../redux/Priofile-reducer";
 
 const ProfileInfo = (props) => {
     if(!props.profile) {
@@ -21,7 +20,10 @@ const ProfileInfo = (props) => {
             <div className={s.avaBlock}>
                 <img src={(props.profile.photos && props.profile.photos.small) || avatar} alt="avatarPhoto"/>
                 {!props.owner
-                    ? <input className={s.selectAvaFile} onChange={onPhotoSelected} type="file"/>
+                    ? <div className={s.selectPhotoWrapper}>
+                        <input className={s.selectAvaFile} id='selectAvaFile' onChange={onPhotoSelected} type="file"/>
+                        <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>
+                    </div>
                     : null}
             </div>
             <ProfileStatus status={props.status}

@@ -38,12 +38,14 @@ const profileReducer = (state = initialState, action) => {
             return stateClone
 
         case SET_STATUS:
-
             stateClone.status = action.status
             return stateClone
+
         case SET_AVATAR_PHOTO:
+            debugger
             stateClone.profile.photos = action.photo
             return stateClone
+
         default:
             return state
     }
