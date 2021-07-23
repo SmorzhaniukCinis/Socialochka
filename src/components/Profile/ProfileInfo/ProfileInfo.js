@@ -14,6 +14,8 @@ const ProfileInfo = (props) => {
             props.setNewAvatarImg(e.target.files[0])
         }
     }
+
+
     return (
         <div className={s.nameBlock}>
             <div className={s.avaBlock}>

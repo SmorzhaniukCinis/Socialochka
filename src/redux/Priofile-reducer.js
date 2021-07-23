@@ -1,4 +1,6 @@
 import {profileAPI} from "../api/api";
+import * as _ from 'lodash';
+
 
 const ADD_POST = 'PROFILE/ADD-POST'
 const SET_PROFILE = 'PROFILE/SET_PROFILE'
@@ -20,29 +22,28 @@ let initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
+    let stateClone = _.cloneDeep(state)
+
     switch (action.type) {
         case  ADD_POST:
-            if (action.text === '') {
-                alert('Enter your post')
-                return state
-            } else {
-                return {
-                    ...state,
-                    posts: [...state.posts, {postText: action.text, id: 5, likeCount: 0}],
-                }
-            }
+            stateClone.posts.push({postText: action.text, id: 5, likeCount: 0})
+            return stateClone
+
         case SET_PROFILE:
-            return {...state, profile: action.profile}
+            stateClone.profile = action.profile
+            return stateClone
 
         case SET_DATA:
-            return {...state, settingData: action.settingData}
+            stateClone.settingData = action.settingData
+            return stateClone
 
         case SET_STATUS:
-            return {...state, status: action.status}
 
+            stateClone.status = action.status
+            return stateClone
         case SET_AVATAR_PHOTO:
-                    return {...state, profile: {...state.profile, photos: action.photo} }
-
+            stateClone.profile.photos = action.photo
+            return stateClone
         default:
             return state
     }
