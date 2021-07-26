@@ -32,7 +32,11 @@ let ProfileDataForm = (props) => {
                 <input defaultValue={props.status} {...register("status")} />
             </div>
             <div>
-                <input type='checkbox' defaultValue={props.profile.lookingForAJob} {...register("lookingForAJob")} />
+                {props.profile.lookingForAJob
+                    ?<input type='checkbox' defaultChecked {...register("lookingForAJob")} />
+                    :<input type='checkbox'  {...register("lookingForAJob")} />
+                }
+                {/*<input type='checkbox' value={props.profile.lookingForAJob} {...register("lookingForAJob")} />*/}
             </div>
             <div>
                 <input defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription")} />
