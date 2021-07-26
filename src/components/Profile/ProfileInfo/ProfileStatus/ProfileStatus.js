@@ -39,11 +39,11 @@ const ProfileStatus = (props) => {
 const ProfileData = (props) => {
     return (
         <div className={s.profileInfo}>
-            <span>{props.profile.fullName}</span> <br/>
-            <span>{props.profile.aboutMe || '---'}</span> <br/>
+            <span className={s.userNameField}>{props.profile.fullName}</span> <br/>
             <span>{props.status || 'no status'}</span><br/>
+            <span>Location: <mark>{props.profile.aboutMe  || 'No location'}</mark></span> <br/>
             <span>Looking for a job : <mark className={s.lookingForAJobValue}>{props.profile.lookingForAJob ? "yes" : "no"}</mark></span> <br/>
-            <span>{props.profile.lookingForAJobDescription || '---'}</span> <br/>
+            <span>I want to work as a <span className={s.jobDescription}>{props.profile.lookingForAJobDescription || '---'}</span></span> <br/>
             {!props.owner ?
                 <button className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</button> : null}
         </div>

@@ -14,15 +14,15 @@ let ProfileDataForm = (props) => {
     return(
         <form className={s.profileDataForm} onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <input defaultValue={props.profile.fullName}{...register("fullName", { required: true })} />
+                <input placeholder="Enter your name" defaultValue={props.profile.fullName}{...register("fullName", { required: true })} />
                 {errors.exampleRequired && <span>This field is required</span>}
             </div>
             <div>
-                <input defaultValue={props.profile.aboutMe}{...register("AboutMe", { required: true })} />
-                {errors.exampleRequired && <span>This field is required</span>}
+                <input placeholder="Enter your status" defaultValue={props.status} {...register("status")} />
             </div>
             <div>
-                <input defaultValue={props.status} {...register("status")} />
+                <input placeholder="Where are you from?" defaultValue={props.profile.aboutMe}{...register("AboutMe", { required: true })} />
+                {errors.exampleRequired && <span>This field is required</span>}
             </div>
             <div>
                 {props.profile.lookingForAJob
@@ -32,7 +32,7 @@ let ProfileDataForm = (props) => {
                 <span className={s.jobQuestion}>you are looking for a job?</span>
             </div>
             <div>
-                <input defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription")} />
+                <input placeholder="What job are you looking for?" defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription")} />
             </div>
             <input type="submit" />
         </form>

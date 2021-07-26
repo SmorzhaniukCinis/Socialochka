@@ -23,9 +23,17 @@
     opacity: 100%;
 }
 .lookingForAJobValue {
-    background: none;
     font-weight: bold;
 }
 .profileInfo {
     padding-top: 6px;
+}
+.userNameField {
+    font-size: 19px;
+}
+mark {
+    background: none;
+}
+.jobDescription {
+    font-weight: bold;
 }
