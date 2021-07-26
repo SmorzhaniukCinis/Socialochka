@@ -38,11 +38,11 @@ const ProfileStatus = (props) => {
 
 const ProfileData = (props) => {
     return (
-        <div>
+        <div className={s.profileInfo}>
             <span>{props.profile.fullName}</span> <br/>
-            <span>{props.profile.aboutMe}</span> <br/>
+            <span>{props.profile.aboutMe || '---'}</span> <br/>
             <span>{props.status || 'no status'}</span><br/>
-            <span>{props.profile.lookingForAJob ? "I'm looking for a job" : "I'm not looking for a job"}</span> <br/>
+            <span>Looking for a job : <mark className={s.lookingForAJobValue}>{props.profile.lookingForAJob ? "yes" : "no"}</mark></span> <br/>
             <span>{props.profile.lookingForAJobDescription || '---'}</span> <br/>
             {!props.owner ?
                 <button className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</button> : null}

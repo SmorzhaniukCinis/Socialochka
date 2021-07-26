@@ -11,9 +11,21 @@
     padding: 4px 15px;
     border: black 2px solid;
     border-radius: 4px;
+    transition: 0.6s;
+    opacity: 30%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
 }
 .profileInfoButton:hover{
     border-radius: 10px;
     transition: 0.6s;
-
+    opacity: 100%;
+}
+.lookingForAJobValue {
+    background: none;
+    font-weight: bold;
+}
+.profileInfo {
+    padding-top: 6px;
 }
