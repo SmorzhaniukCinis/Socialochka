@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsBlockContainer from "./PostsBlock/PostsBlockContainer";
-import {uploadProfileData} from "../../redux/Priofile-reducer";
+import {requestProfile} from "../../redux/Priofile-reducer";
 
 const Profile = (props) => {
 
@@ -16,10 +16,12 @@ const Profile = (props) => {
 
 
             <ProfileInfo status={props.status}
+                         UserId={props.UserId}
                          updateStatus={props.updateStatus}
                          setNewAvatarImg={props.setNewAvatarImg}
                          owner={props.owner}
                          uploadProfileData={props.uploadProfileData}
+                         requestProfile={props.requestProfile}
                          profile={props.profile}/>
             <PostsBlockContainer/>
         </div>

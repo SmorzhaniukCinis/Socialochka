@@ -3,6 +3,7 @@ import React from "react";
 import avatar from '../../../defaultData/avatarDefoult.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
+import {requestProfile} from "../../../redux/Priofile-reducer";
 
 const ProfileInfo = (props) => {
     if(!props.profile) {
@@ -27,8 +28,10 @@ const ProfileInfo = (props) => {
                     : null}
             </div>
             <ProfileStatus status={props.status}
+                           UserId={props.UserId}
                            owner={props.owner}
                            updateStatus={props.updateStatus}
+                           requestProfile={props.requestProfile}
                            uploadProfileData={props.uploadProfileData}
                            profile={props.profile} />
         </div>

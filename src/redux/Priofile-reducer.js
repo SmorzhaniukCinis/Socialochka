@@ -42,7 +42,6 @@ const profileReducer = (state = initialState, action) => {
             return stateClone
 
         case SET_AVATAR_PHOTO:
-            debugger
             stateClone.profile.photos = action.photo
             return stateClone
 
@@ -80,11 +79,10 @@ export const setNewAvatarImg = (file) => async (dispatch) => {
         dispatch(setNewAvatarImgSuccess(response.data.photos))
     }
 }
-export const uploadProfileData = (profileData) => async (dispatch) => {
+export const uploadProfileData = (profileData, userId) => async (dispatch) => {
     let response = await profileAPI.uploadProfileData(profileData)
-
     if (response.resultCode === 0) {
-
+        dispatch(requestProfile(userId))
     }
 }
 

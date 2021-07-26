@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
+import {requestProfile} from "../../../../../redux/Priofile-reducer";
 
 
 let ProfileDataForm = (props) => {
@@ -10,8 +11,10 @@ let ProfileDataForm = (props) => {
     //     [props.status]
     // )
     const onSubmit = data => {
+        debugger
         props.updateStatus(data.status)
-        props.uploadProfileData(data)
+        debugger
+        props.uploadProfileData(data, props.UserId)
         props.deactivateEditMode()
     }
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -22,7 +25,7 @@ let ProfileDataForm = (props) => {
                 {errors.exampleRequired && <span>This field is required</span>}
             </div>
             <div>
-                <input defaultValue={props.profile.AboutMe}{...register("AboutMe", { required: true })} />
+                <input defaultValue={props.profile.aboutMe}{...register("AboutMe", { required: true })} />
                 {errors.exampleRequired && <span>This field is required</span>}
             </div>
             <div>

@@ -37,8 +37,8 @@ class ProfileContainer extends React.Component {
 
 
     render() {
-
         return(
+
             this.props.isAuth ? <Profile owner={this.props.match.params.userId} {...this.props}/> : <Redirect to={'/login'}/>
         )
 
