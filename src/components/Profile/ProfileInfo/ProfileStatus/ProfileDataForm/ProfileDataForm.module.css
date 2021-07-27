@@ -6,3 +6,11 @@
     padding: 2px 5px;
     margin: 1px;
 }
+.someError {
+    outline: 2px solid red;
+}
+.someErrorMessage {
+    color: red;
+    font-size: 11px;
+    margin-left: 5px;
+}

@@ -9,36 +9,38 @@ let ProfileDataForm = (props) => {
         props.deactivateEditMode()
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
 
-    return(
+    return (
         <form className={s.profileDataForm} onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <input placeholder="Enter your name" defaultValue={props.profile.fullName}{...register("fullName", { required: true })} />
-                {errors.exampleRequired && <span>This field is required</span>}
+                <input placeholder="Enter your name" className={errors.fullName && s.someError}
+                       defaultValue={props.profile.fullName}{...register("fullName", {minLength: 1, maxLength: 20, required: true})} />
+                {errors.fullName && <span className={s.someErrorMessage}>This field is required</span>}
             </div>
             <div>
-                <input placeholder="Enter your status" defaultValue={props.status} {...register("status")} />
+                <input placeholder="Enter your status" defaultValue={props.status} {...register("status", {maxLength: 20,})} />
             </div>
             <div>
-                <input placeholder="Where are you from?" defaultValue={props.profile.aboutMe}{...register("AboutMe", { required: true })} />
+                <input placeholder="Where are you from?"
+                       defaultValue={props.profile.aboutMe}{...register("AboutMe", {required: true, maxLength: 20, minLength: 1 })} />
                 {errors.exampleRequired && <span>This field is required</span>}
             </div>
             <div>
                 {props.profile.lookingForAJob
-                    ?<input type='checkbox' defaultChecked {...register("lookingForAJob")} />
-                    :<input type='checkbox'  {...register("lookingForAJob")} />
+                    ? <input type='checkbox' defaultChecked {...register("lookingForAJob")} />
+                    : <input type='checkbox'  {...register("lookingForAJob")} />
                 }
                 <span className={s.jobQuestion}>you are looking for a job?</span>
             </div>
             <div>
-                <input placeholder="What job are you looking for?" defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription")} />
+                <input placeholder="What job are you looking for?"
+                       defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription", {maxLength:20})} />
             </div>
-            <input type="submit" />
+            <input type="submit"/>
         </form>
     )
 }
-
 
 
 export default ProfileDataForm
