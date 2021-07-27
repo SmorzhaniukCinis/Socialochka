@@ -2,12 +2,7 @@ import {Field, reduxForm} from "redux-form";
 import s from "../Posts.module.css";
 import React from "react";
 import { useForm } from "react-hook-form";
-import {Textarea} from "../../../FormsControl/FormsControl";
-import {maxLengthCreator, required} from "../../../../utils/validators/validators";
 
-
-
-let maxLength = maxLengthCreator(100)
 
 const PostForm = (props) => {
     const { reset, register, handleSubmit, watch, formState: { errors } } = useForm();

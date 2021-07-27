@@ -4,7 +4,7 @@ import React from "react";
 
 const Pagination = (props) => {
 
-
+debugger
     let pages = []
     let TotalPortionCount = Math.ceil(props.totalCount / props.pageSize)
     for (let i = 1; i <=TotalPortionCount; i++) {

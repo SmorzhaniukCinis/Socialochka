@@ -6,6 +6,7 @@ import Pagination from "./Pagination/Pagination";
 
 
 let Users = (props) => {
+    debugger
     return (
         <div className={s.main}>
             {props.users.map(u => <div key={u.id} className={s.container}>
@@ -31,11 +32,11 @@ let Users = (props) => {
                 </div>
 
                 <div className={s.rightBlock}>
-                    <span>{'u.country'}</span>
-                    <span>{'u.city'}</span>
-                    <span>{'u.status'}</span>
+                    <span><mark className={s.statusTitle}>Status:</mark> {u.status || 'no status'}</span>
                 </div>
             </div>)}
+
+
             <Pagination portionCount={props.portionCount} totalCount={props.totalCount}
                         onPageChanged={props.onPageChanged} currentPage={props.currentPage}
                         pageSize={props.pageSize} setCurrentPortion={props.setCurrentPortion}

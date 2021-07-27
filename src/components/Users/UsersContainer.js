@@ -11,6 +11,7 @@ import {
     from "../../redux/Users-Reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {getProfile} from "../../redux/Selectors/ProfileSelectors";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -29,21 +30,7 @@ class UsersContainer extends React.Component {
 
         return (<div>
                 {this.props.isFetching ? <Preloader/> :
-                    <Users
-                        onPageChanged={this.onPageChanged}
-                        users={this.props.users}
-                        totalCount={this.props.totalCount}
-                        portionCount={this.props.portionCount}
-                        pageSize={this.props.pageSize}
-                        currentPage={this.props.currentPage}
-                        followUser={this.props.followUser}
-                        unFollowUser={this.props.unFollowUser}
-                        isFetching={this.props.isFetching}
-                        followingInProgress={this.props.followingInProgress}
-                        onFollowingProgress={this.props.onFollowingProgress}
-                        setCurrentPortion={this.props.setCurrentPortion}
-                        PortionNumber={this.props.PortionNumber}
-                    />}
+                    <Users {...this.props} onPageChanged={this.onPageChanged}/>}
             </div>
 
         )
@@ -61,7 +48,8 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
         portionCount: state.usersPage.portionCount,
-        PortionNumber: state.usersPage.PortionNumber
+        PortionNumber: state.usersPage.PortionNumber,
+        profile:getProfile(state),
     }
 }
 

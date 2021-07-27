@@ -11,24 +11,21 @@
     margin: 20px;
 }
 .rightBlock {
-    margin-right: 350px;
+    margin-left: 50px;
     margin-top: 14px;
-    float: right;
+}
+.statusTitle {
+    font-weight: bold;
 }
 .rightBlock span {
     margin-top: 6px;
-}
-.rightBlock span:last-child {
-    margin-top: 14px;
-    font-size: 14px;
-
+    font-size: 17px;
+    display: block;
+    margin-left: 230px;
 }
 .leftBlock span  {
     display: block;
     text-align: center;
-}
-.rightBlock span {
-    display: block;
 }
 .container img {
     width: 100px;
