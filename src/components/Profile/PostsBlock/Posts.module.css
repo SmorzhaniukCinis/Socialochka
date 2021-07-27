@@ -3,7 +3,7 @@
 }
 .postBlock h5   {
     font-size: 25px;
-    margin: 20px;
+    margin: 0 20px 30px 20px;
 }
 .newPostBlock {
     display: flex;
@@ -35,4 +35,6 @@
     border: 2px solid black ;
     padding: 5px;
     margin-left: 20px;
+    margin-bottom: 10px;
+    box-shadow: 8px 8px 4px rgb(47, 79, 79);
 }
