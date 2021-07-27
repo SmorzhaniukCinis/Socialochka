@@ -6,20 +6,21 @@ import PostForm from "./PostForm/PostForm";
 
 let PostsBlock = React.memo(
     (props) => {
-
-        let onSubmit = (formData) => {
-            props.addPost(formData.newPostField)
-        }
-
+        debugger
         return (
             <div className={s.postBlock}>
-                <div>
+                {!props.match.params.userId
+                    ? <div>
                     <h5>New post</h5>
                     <PostForm addPost={props.addPost}/>
-                </div>
+                </div> : null}
+
                 <div className={s.PostBlock}>
-                    <h5>My posts</h5>
-                    <MyPost posts={props.posts}/>
+                    {!props.match.params.userId
+                        ? <h5>My posts</h5>
+                        : <h5>Posts of {props.fullName}</h5>}
+
+                    <MyPost posts={props.posts} fullName={props.fullName}/>
                 </div>
             </div>
         )

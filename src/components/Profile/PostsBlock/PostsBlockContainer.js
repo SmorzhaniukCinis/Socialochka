@@ -1,13 +1,17 @@
 import {addPostAC} from "../../../redux/Priofile-reducer";
 import PostsBlock from "./PostsBlock";
 import {connect} from "react-redux";
+import {compose} from "redux";
+import {withRouter} from "react-router";
+
 
 
 
 let mapStateToProps = (state) => {
     return{
         posts : state.profile.posts,
-        newPostText : state.profile.newPostText
+        newPostText : state.profile.newPostText,
+        fullName: state.profile.profile.fullName
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -18,7 +22,7 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-
-let PostsBlockContainer = connect (mapStateToProps, mapDispatchToProps) (PostsBlock)
-
-export default PostsBlockContainer;
+export default compose (
+    withRouter,
+    connect (mapStateToProps, mapDispatchToProps)
+) (PostsBlock);
