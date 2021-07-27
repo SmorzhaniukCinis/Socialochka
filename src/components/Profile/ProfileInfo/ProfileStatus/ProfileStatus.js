@@ -24,7 +24,7 @@ const ProfileStatus = (props) => {
     }
 
     return (
-        <div className={s.userName}>
+        <div className={s.userInfoBlock}>
             {editMode
                 ? <ProfileDataForm requestProfile={props.requestProfile} uploadProfileData={props.uploadProfileData}
                                    UserId={props.UserId}

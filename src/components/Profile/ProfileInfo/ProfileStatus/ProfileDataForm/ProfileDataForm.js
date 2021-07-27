@@ -15,16 +15,24 @@ let ProfileDataForm = (props) => {
         <form className={s.profileDataForm} onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <input placeholder="Enter your name" className={errors.fullName && s.someError}
-                       defaultValue={props.profile.fullName}{...register("fullName", {minLength: 1, maxLength: 20, required: true})} />
+                       defaultValue={props.profile.fullName}{...register("fullName", {
+                    minLength: 1,
+                    maxLength: 20,
+                    required: true
+                })} />
                 {errors.fullName && <span className={s.someErrorMessage}>This field is required</span>}
             </div>
             <div>
-                <input placeholder="Enter your status" defaultValue={props.status} {...register("status", {maxLength: 20,})} />
+                <input placeholder="Enter your status"
+                       defaultValue={props.status} {...register("status", {maxLength: 20,})} />
             </div>
             <div>
-                <input placeholder="Where are you from?"
-                       defaultValue={props.profile.aboutMe}{...register("AboutMe", {required: true, maxLength: 20, minLength: 1 })} />
-                {errors.exampleRequired && <span>This field is required</span>}
+                <input placeholder="Where are you from?" className={errors.AboutMe && s.someError}
+                       defaultValue={props.profile.aboutMe}{...register("AboutMe", {
+                    required: true,
+                    maxLength: 20
+                })} />
+                {errors.AboutMe && <span className={s.someErrorMessage}>This field is required</span>}
             </div>
             <div>
                 {props.profile.lookingForAJob
@@ -34,10 +42,12 @@ let ProfileDataForm = (props) => {
                 <span className={s.jobQuestion}>you are looking for a job?</span>
             </div>
             <div>
-                <input placeholder="What job are you looking for?"
-                       defaultValue={props.profile.lookingForAJobDescription} {...register("lookingForAJobDescription", {maxLength:20})} />
+                <input className={errors.lookingForAJobDescription && s.someError} placeholder="What job are you looking for?"
+                       defaultValue={props.profile.lookingForAJobDescription}
+                       {...register("lookingForAJobDescription", {maxLength: 20, required: true})} />
+                {errors.lookingForAJobDescription && <span className={s.someErrorMessage}>This field is required</span>}
             </div>
-            <input type="submit"/>
+            <button className={s.submit} type="submit">Save changes</button>
         </form>
     )
 }

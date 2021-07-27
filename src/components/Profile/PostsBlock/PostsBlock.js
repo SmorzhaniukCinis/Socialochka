@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Posts.module.css'
 import MyPost from "./MyPost/MyPost"
-import ReduxPostForm from "./newPostForm/newPostForm";
+import PostForm from "./PostForm/PostForm";
 
 
 let PostsBlock = React.memo(
@@ -15,7 +15,7 @@ let PostsBlock = React.memo(
             <div className={s.postBlock}>
                 <div>
                     <h5>New post</h5>
-                    <ReduxPostForm onSubmit={onSubmit}/>
+                    <PostForm addPost={props.addPost}/>
                 </div>
                 <div className={s.PostBlock}>
                     <h5>My posts</h5>

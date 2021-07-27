@@ -1,5 +1,4 @@
-import React from 'react';
-import {addPostAC, changePostAC} from "../../../redux/Priofile-reducer";
+import {addPostAC} from "../../../redux/Priofile-reducer";
 import PostsBlock from "./PostsBlock";
 import {connect} from "react-redux";
 

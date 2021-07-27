@@ -18,10 +18,16 @@
     font-weight: bold;
     font-size: 15px;
     color: #fff;
+    transition: 0.3s;
+}
+.SendPostButton:disabled {
+    opacity: 70%;
+    transition: 0.3s;
 }
 .newPostField {
-    height: 100px;
-    width: 400px;
+    resize: none;
+    height: 200px;
+    width: 600px;
     border: 2px solid black ;
     padding: 5px;
     margin-left: 20px;
