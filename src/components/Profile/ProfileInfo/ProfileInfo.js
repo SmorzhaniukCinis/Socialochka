@@ -6,11 +6,11 @@ import Preloader from "../../Preloader/Preloader";
 import {requestProfile} from "../../../redux/Priofile-reducer";
 
 const ProfileInfo = (props) => {
-    if(!props.profile) {
+    if (!props.profile) {
         return <Preloader/>
     }
-    let onPhotoSelected = (e) =>{
-        if(e.target.files.length){
+    let onPhotoSelected = (e) => {
+        if (e.target.files.length) {
             props.setNewAvatarImg(e.target.files[0])
         }
     }
@@ -24,19 +24,19 @@ const ProfileInfo = (props) => {
                         <input className={s.selectAvaFile} id='selectAvaFile' onChange={onPhotoSelected} type="file"/>
                         <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>
                     </div>
-                    : props.subscription
-                            ? <button disabled={props.followingInProgress.some(id => id === props.UserId)} className={s.followButton}
-                                    onClick={() => {props.unFollowUser(props.UserId)}}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === props.UserId)} className={s.followButton}
-                                    onClick={() => {props.followUser(props.UserId)}}>Follow</button>}
+                    : null}
             </div>
             <ProfileStatus status={props.status}
                            UserId={props.UserId}
                            owner={props.owner}
                            updateStatus={props.updateStatus}
                            requestProfile={props.requestProfile}
+                           subscription={props.subscription}
+                           followingInProgress={props.followingInProgress}
                            uploadProfileData={props.uploadProfileData}
-                           profile={props.profile} />
+                           followUser={props.followUser}
+                           unFollowUser={props.unFollowUser}
+                           profile={props.profile}/>
         </div>
     )
 }

@@ -12,6 +12,10 @@
     width: 150px;
     transition: 1s;
 }
+.avaBlock div {
+    display: flex;
+    margin: 0 auto;
+}
 .avaBlock:hover .sendPhotoButton {
     display: inline;
     transition: 1s;
@@ -40,7 +44,4 @@
     text-align: center;
     display: none;
     cursor: pointer
-}
-.selectPhotoWrapper {
-
 }

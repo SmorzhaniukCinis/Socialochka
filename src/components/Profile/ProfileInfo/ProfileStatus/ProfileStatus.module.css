@@ -37,3 +37,15 @@ mark {
 .jobDescription {
     font-weight: bold;
 }
+.followButton {
+    margin-top: 10px;
+    padding: 5px 13px ;
+    border: 2px solid black;
+    transition: 0.3s;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.followButton:hover {
+    background: #c9dadb;
+    transition: 0.3s;
+}
