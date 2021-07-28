@@ -32,7 +32,7 @@ class ProfileContainer extends React.Component {
         }
         this.props.requestProfile(userId)
         this.props.requestStatus(userId)
-        this.props.requestCurrentUser(this.props.profile.fullName)
+        // this.props.requestCurrentUser(this.props.profile.fullName)
     }
 
     componentDidMount() {

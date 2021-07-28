@@ -47,7 +47,8 @@ const profileReducer = (state = initialState, action) => {
             stateClone.profile.photos = action.photo
             return stateClone
         case SET_SUBSCRIPTION:
-            stateClone.profile.subscription = action.subscription
+            debugger
+            stateClone.subscription = action.subscription
             return stateClone
         default:
             return state
@@ -65,7 +66,7 @@ export const setSubscription = (subscription) => ({type: SET_SUBSCRIPTION, subsc
 export const requestProfile = (userId) => async (dispatch) => {
     let response = await profileAPI.getProfile(userId)
     dispatch(setProfile(response))
-
+    dispatch(requestCurrentUser(response.fullName))
 }
 export const requestStatus = (userId) => async (dispatch) => {
     let response = await profileAPI.getStatus(userId)
@@ -94,7 +95,6 @@ export const requestCurrentUser = (name) => async (dispatch) => {
     debugger
     let response = await usersAPI.getUsersName(name)
     if (response.items.length) {
-        debugger
         dispatch(setSubscription(response.items[0].followed))
     }
 }
