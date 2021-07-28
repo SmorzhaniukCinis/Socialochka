@@ -58,7 +58,7 @@ const ProfileData = (props) => {
                         <button disabled={props.followingInProgress.some(id => id === props.UserId)}
                                 className={s.followButton}
                                 onClick={() => {
-                                    props.unFollowUser(props.UserId)
+                                    props.unFollowUser(props.profile.userId)
                                 }}>Unfollow
                         </button>
 
@@ -67,7 +67,7 @@ const ProfileData = (props) => {
                         <button disabled={props.followingInProgress.some(id => id === props.UserId)}
                                 className={s.followButton}
                                 onClick={() => {
-                                    props.followUser(props.UserId)
+                                    props.followUser(props.profile.userId)
                                 }}>Follow
                         </button>
                     </div>}

@@ -1,4 +1,5 @@
 import {usersAPI} from "../api/api";
+import {setSubscription} from "./Priofile-reducer";
 
 const SET_USERS = 'USER/SET-USERS'
 const SUBSCRIBE_USER = 'USER/SUBSCRIBE-USER'
@@ -95,6 +96,8 @@ export const unFollowUser = (id) => async (dispatch) => {
     let response = await usersAPI.unFollowUser(id)
     if (response.resultCode === 0) {
         dispatch(unFollow(id))
+        debugger
+        dispatch(setSubscription(true))
     }
     dispatch(onFollowingProgress(id, false))
 }
@@ -103,6 +106,8 @@ export const followUser = (id) => async (dispatch) => {
     let response = await usersAPI.FollowUser(id)
     if (response.resultCode === 0) {
         dispatch(follow(id))
+        dispatch(setSubscription(false))
+
     }
     dispatch(onFollowingProgress(id, false))
 }
