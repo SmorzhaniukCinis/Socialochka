@@ -1,4 +1,4 @@
-import {profileAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
 
 
@@ -7,6 +7,7 @@ const SET_PROFILE = 'PROFILE/SET_PROFILE'
 const SET_DATA = 'PROFILE/SET_PROFILE'
 const SET_STATUS = 'PROFILE/SET_STATUS'
 const SET_AVATAR_PHOTO = 'PROFILE/SET_AVATAR_PHOTO'
+const SET_SUBSCRIPTION = 'PROFILE/SET_SUBSCRIPTION'
 
 let initialState = {
     posts: [
@@ -17,6 +18,7 @@ let initialState = {
     ],
     newPostText: '',
     profile: [],
+    subscription: null,
     settingData: false,
     status: ''
 }
@@ -44,7 +46,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_AVATAR_PHOTO:
             stateClone.profile.photos = action.photo
             return stateClone
-
+        case SET_SUBSCRIPTION:
+            stateClone.profile.subscription = action.subscription
+            return stateClone
         default:
             return state
     }
@@ -55,6 +59,7 @@ export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setData = (settingData) => ({type: SET_DATA, settingData})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 export const setNewAvatarImgSuccess = (photo) => ({type: SET_AVATAR_PHOTO, photo})
+export const setSubscription = (subscription) => ({type: SET_SUBSCRIPTION, subscription})
 
 
 export const requestProfile = (userId) => async (dispatch) => {
@@ -83,6 +88,14 @@ export const uploadProfileData = (profileData, userId) => async (dispatch) => {
     let response = await profileAPI.uploadProfileData(profileData)
     if (response.resultCode === 0) {
         dispatch(requestProfile(userId))
+    }
+}
+export const requestCurrentUser = (name) => async (dispatch) => {
+    debugger
+    let response = await usersAPI.getUsersName(name)
+    if (response.items.length) {
+        debugger
+        dispatch(setSubscription(response.items[0].followed))
     }
 }
 

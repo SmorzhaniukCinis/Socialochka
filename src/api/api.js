@@ -16,6 +16,12 @@ export const usersAPI = {
             ).then(response=> response.data)
         )
     },
+    getUsersName (name) {
+        return (
+            instance.get(`users?term=${name}`
+            ).then(response=> response.data)
+        )
+    },
     unFollowUser (id) {
         return (
             instance.delete(`follow/${id}`)

@@ -21,6 +21,7 @@ const Profile = (props) => {
                          requestProfile={props.requestProfile}
                          followUser={props.followUser}
                          unFollowUser={props.unFollowUser}
+                         subscription={props.subscription}
                          followingInProgress={props.followingInProgress}
                          profile={props.profile}/>
             <PostsBlockContainer/>

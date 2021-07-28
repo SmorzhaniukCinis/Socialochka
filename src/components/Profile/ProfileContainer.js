@@ -12,7 +12,8 @@ import {
     requestStatus,
     setNewAvatarImg,
     updateStatus,
-    uploadProfileData
+    uploadProfileData,
+    requestCurrentUser
 } from "../../redux/Priofile-reducer";
 import {compose} from "redux";
 import {Redirect} from 'react-router'
@@ -31,6 +32,7 @@ class ProfileContainer extends React.Component {
         }
         this.props.requestProfile(userId)
         this.props.requestStatus(userId)
+        this.props.requestCurrentUser(this.props.profile.fullName)
     }
 
     componentDidMount() {
@@ -57,9 +59,10 @@ let mapStateToProps = (state) => ({
     UserId: getUserId(state),
     isAuth: getIsAuth(state),
     followingInProgress: getFollowingInProgress(state),
+    subscription: state.profile.subscription
 })
 
 export default compose(
-    connect(mapStateToProps, {unFollowUser, followUser, uploadProfileData, setNewAvatarImg, requestProfile, requestStatus, updateStatus}),
+    connect(mapStateToProps, {requestCurrentUser, unFollowUser, followUser, uploadProfileData, setNewAvatarImg, requestProfile, requestStatus, updateStatus}),
     withRouter,
 )(ProfileContainer)
