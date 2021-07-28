@@ -100,3 +100,12 @@ export const securityAPI = {
     }
 }
 
+export const friendsAPI = {
+    getFriends () {
+        return(
+            instance.get('users?friend=true&count=100').
+            then(response => response.data)
+        )
+    }
+}
+

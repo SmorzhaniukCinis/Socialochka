@@ -25,7 +25,17 @@ const ProfileInfo = (props) => {
                         <input className={s.selectAvaFile} id='selectAvaFile' onChange={onPhotoSelected} type="file"/>
                         <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>
                     </div>
-                    : null}
+                    : props.UserId
+                            ?
+                            <button disabled={props.followingInProgress.some(id => id === props.UserId)} className={s.followButton}
+                                    onClick={() => {
+                                        props.unFollowUser(props.UserId)
+                                    }}>Unfollow</button>
+                            :
+                            <button disabled={props.followingInProgress.some(id => id === props.UserId)} className={s.followButton}
+                                    onClick={() => {
+                                        props.followUser(props.UserId)
+                                    }}>Follow</button>}
             </div>
             <ProfileStatus status={props.status}
                            UserId={props.UserId}

@@ -19,6 +19,9 @@ const Profile = (props) => {
                          owner={props.owner}
                          uploadProfileData={props.uploadProfileData}
                          requestProfile={props.requestProfile}
+                         followUser={props.followUser}
+                         unFollowUser={props.unFollowUser}
+                         followingInProgress={props.followingInProgress}
                          profile={props.profile}/>
             <PostsBlockContainer/>
         </div>

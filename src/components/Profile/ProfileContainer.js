@@ -3,6 +3,11 @@ import {connect} from "react-redux";
 import Profile from "./Profile";
 import {withRouter} from "react-router";
 import {
+    followUser,
+    unFollowUser,
+}
+    from "../../redux/Users-Reducer";
+import {
     requestProfile,
     requestStatus,
     setNewAvatarImg,
@@ -13,6 +18,7 @@ import {compose} from "redux";
 import {Redirect} from 'react-router'
 import {getProfile, getStatus} from "../../redux/Selectors/ProfileSelectors";
 import {getIsAuth, getUserId} from "../../redux/Selectors/AuthSelectors";
+import {getFollowingInProgress} from "../../redux/Selectors/UsersSelector";
 
 
 
@@ -49,10 +55,11 @@ let mapStateToProps = (state) => ({
     profile:getProfile(state),
     status: getStatus(state),
     UserId: getUserId(state),
-    isAuth: getIsAuth(state)
+    isAuth: getIsAuth(state),
+    followingInProgress: getFollowingInProgress(state),
 })
 
 export default compose(
-    connect(mapStateToProps, {uploadProfileData, setNewAvatarImg, requestProfile, requestStatus, updateStatus}),
+    connect(mapStateToProps, {unFollowUser, followUser, uploadProfileData, setNewAvatarImg, requestProfile, requestStatus, updateStatus}),
     withRouter,
 )(ProfileContainer)
