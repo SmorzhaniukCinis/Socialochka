@@ -1,10 +1,22 @@
 import * as _ from 'lodash';
 import {friendsAPI} from "../api/api";
 
+
 const SET_FRIENDS = 'SET_FRIENDS'
 const PRELOADER = 'PRELOADER'
 
-let initialState = {
+type friendsType =  {
+    name: string | null,
+    id: number| null,
+    photos: string| null,
+    status: string| null,
+    followed: boolean | null
+}
+type initialStateType = {
+    friends: friendsType
+    preloader: boolean
+}
+let initialState:initialStateType = {
     friends: {
         name: null,
         id: null,
@@ -16,7 +28,8 @@ let initialState = {
 }
 
 
-const friendsReducer = (state=initialState, action) => {
+
+const friendsReducer = (state=initialState, action:any):initialStateType => {
     let stateClone = _.cloneDeep(state)
     switch (action.type) {
         case SET_FRIENDS :
@@ -30,12 +43,20 @@ const friendsReducer = (state=initialState, action) => {
     }
 
 }
+type setFriendsType= {
+    type: typeof SET_FRIENDS
+    friends: friendsType
+}
+const setFriends = (friends:friendsType):setFriendsType => ({type: SET_FRIENDS, friends})
 
-const setFriends = friends => ({type: SET_FRIENDS, friends})
-const viewPreloader = (value) => ({type: PRELOADER, value})
+type viewPreloaderType= {
+    type: typeof PRELOADER
+    value: boolean
+}
+const viewPreloader = (value:boolean):viewPreloaderType => ({type: PRELOADER, value})
 
 
-export const getFriends = () => async (dispatch) => {
+export const getFriends = () => async (dispatch:any) => {
     dispatch(viewPreloader(true))
     let response = await friendsAPI.getFriends()
     if (response.error === null) {

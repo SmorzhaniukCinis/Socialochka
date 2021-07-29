@@ -4,7 +4,15 @@ import {stopSubmit} from "redux-form";
 let SET_USER_AUTH_DATA = 'AUTH/SET_USER_AUTH_DATA'
 let SET_CAPTCHA_URL = 'AUTH/SET_CAPTCHA_URL'
 
-let initialState = {
+type initialStateType = {
+    id: number | null
+    login: string | null
+    email: string | null
+    isAuth : boolean
+    captchaURL : string | null
+}
+
+let initialState:initialStateType = {
     id: null,
     login: null,
     email: null,
@@ -13,7 +21,7 @@ let initialState = {
 }
 
 
-const AuthReducer = (state = initialState, action) => {
+const AuthReducer = (state = initialState, action:any):initialStateType => {
     switch (action.type) {
         case SET_USER_AUTH_DATA:
             return {
@@ -32,18 +40,32 @@ const AuthReducer = (state = initialState, action) => {
             return state
     }
 }
+export type AuthDataType = {
+    id: number | null,
+    login: string | null,
+    email: string | null,
+    isAuth: boolean
+}
+type setUserAuthDataType = {
+    type: typeof SET_USER_AUTH_DATA
+    AuthData: AuthDataType
+}
+export const setUserAuthData = (AuthData:AuthDataType):setUserAuthDataType => ({type: SET_USER_AUTH_DATA, AuthData})
 
-export const setUserAuthData = (AuthData) => ({type: SET_USER_AUTH_DATA, AuthData})
-export const setCaptchaURL = (url) => ({type: SET_CAPTCHA_URL, url})
+type setCaptchaURLType = {
+    type: typeof SET_CAPTCHA_URL
+    url: string
+}
+export const setCaptchaURL = (url:string):setCaptchaURLType => ({type: SET_CAPTCHA_URL, url})
 
-export const authUser = () => async (dispatch) => {
+export const authUser = () => async (dispatch:any) => {
         let response = await authAPI.authMe()
                 if(response.data.resultCode===0){
                     let {email, id, login } = response.data.data
                     dispatch(setUserAuthData({email, id, login, isAuth: true}))}
 }
 
-export const loginUser = (email, password, rememberMe=false, captcha) => async (dispatch) => {
+export const loginUser = (email:string, password:number, rememberMe=false, captcha:string) => async (dispatch:any) => {
         let response = await authAPI.login(email, password, rememberMe, captcha )
                 if(response.resultCode=== 0){dispatch(authUser())}
                 else {
@@ -55,17 +77,17 @@ export const loginUser = (email, password, rememberMe=false, captcha) => async (
 
 }
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = () => async (dispatch:any) => {
     let response = await authAPI.logout()
                 if(response.resultCode===0){
                     let email = null
                     let id = null
                     let login = null
-                    let AuthData = {email, id, login , isAuth: false}
+                    let AuthData:AuthDataType = {email, id, login , isAuth: false}
                 dispatch((setUserAuthData(AuthData)))}
 
 }
-export const getCaptcha = () => async (dispatch) => {
+export const getCaptcha = () => async (dispatch:any) => {
     let response = await securityAPI.getCaptchaURL()
                    dispatch((setCaptchaURL(response.url)))}
 
