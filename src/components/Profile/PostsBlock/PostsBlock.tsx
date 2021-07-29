@@ -6,6 +6,7 @@ import PostForm from "./PostForm/PostForm";
 
 let PostsBlock = React.memo(
     (props) => {
+        debugger
         return (
             <div className={s.postBlock}>
                 {!props.match.params.userId
@@ -17,14 +18,9 @@ let PostsBlock = React.memo(
                 <div className={s.PostBlock}>
                     {!props.match.params.userId
                         ? <h5>My posts</h5>
-                        : <h5>Posts of {props.profile.fullName}</h5>}
-                    {props.posts.length
-                        ?<MyPost posts={props.posts} fullName={props.profile.fullName}/>
-                        : <h4 className={s.noPostTitle}>{!props.match.params.userId
-                            ?'You have no post'
-                            :'This user have no post'}</h4>
-                    }
+                        : <h5>Posts of {props.fullName}</h5>}
 
+                    <MyPost posts={props.posts} fullName={props.fullName}/>
                 </div>
             </div>
         )
