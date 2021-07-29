@@ -11,7 +11,7 @@ let mapStateToProps = (state) => {
     return{
         posts : state.profile.posts,
         newPostText : state.profile.newPostText,
-        fullName: state.profile.profile.fullName
+        profile: state.profile.profile
     }
 }
 let mapDispatchToProps = (dispatch) => {

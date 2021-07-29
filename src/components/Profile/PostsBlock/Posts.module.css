@@ -39,3 +39,8 @@
     margin-bottom: 10px;
     box-shadow: 8px 8px 4px rgb(47, 79, 79);
 }
+.noPostTitle {
+    margin-left: 20px;
+    opacity: 70%;
+    font-size: 20px;
+}

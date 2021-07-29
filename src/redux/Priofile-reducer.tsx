@@ -10,12 +10,7 @@ const SET_AVATAR_PHOTO = 'PROFILE/SET_AVATAR_PHOTO'
 const SET_SUBSCRIPTION = 'PROFILE/SET_SUBSCRIPTION'
 
 let initialState = {
-    posts: [
-        {postText: "df673tsdf", id: 1, likeCount: 10},
-        {postText: "dgdfgdfgdfsdsdf", id: 2, likeCount: 10},
-        {postText: "dgdfg", id: 3, likeCount: 10},
-        {postText: "ertete", id: 4, likeCount: 10},
-    ],
+    posts: [],
     newPostText: '',
     profile: [],
     subscription: null,
