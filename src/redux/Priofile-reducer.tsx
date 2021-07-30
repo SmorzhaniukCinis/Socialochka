@@ -1,5 +1,6 @@
 import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
+import {photosType} from "../Type/Type";
 
 
 const ADD_POST = 'PROFILE/ADD-POST'
@@ -24,10 +25,6 @@ type contactsType = {
     website: string | null
     youtube: string | null
     mainLink: string | null
-}
-type photosType = {
-    small: string | null
-    large: string | null
 }
 type profileType = {
     userId: number | null
@@ -99,7 +96,7 @@ const profileReducer = (state = initialState, action:any) => {
             stateClone.profile.photos = action.photo
             return stateClone
         case SET_SUBSCRIPTION:
-            debugger
+
             stateClone.subscription = action.subscription
             return stateClone
         default:
@@ -177,7 +174,6 @@ export const requestCurrentUser = (name:string) => async (dispatch:any) => {
     debugger
     let response = await usersAPI.getUsersName(name)
     if (response.items.length) {
-        debugger
         dispatch(setSubscription(response.items[0].followed))
     }
 }

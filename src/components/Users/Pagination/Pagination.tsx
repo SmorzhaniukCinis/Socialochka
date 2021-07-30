@@ -1,11 +1,20 @@
 import s from "../Users.module.css";
 import React from "react";
 
+type props = {
+    totalCount:number
+    pageSize:number
+    PortionNumber: number
+    portionCount: number
+    currentPage: number
 
-const Pagination = (props) => {
+    setCurrentPortion: (PortionNumber:number) => void
+    onPageChanged: (page:number) => void
+}
 
-debugger
-    let pages = []
+const Pagination: React.FC<props> = (props) => {
+
+    let pages: Array<number> = []
     let TotalPortionCount = Math.ceil(props.totalCount / props.pageSize)
     for (let i = 1; i <=TotalPortionCount; i++) {
         pages.push(i)
@@ -21,9 +30,10 @@ debugger
             {pages
                 .filter(p=> p >= LeftPortionPageNumber && p <= rightPortionNumber)
                 .map(p => {
-                    return <span onClick={() => {
-                        props.onPageChanged(p)
-                    }} className={props.currentPage === p && s.selectedPage}>{p}</span>
+                    return <span
+                        // @ts-ignore
+                        className={props.currentPage === p && s.selectedPage}
+                        onClick={() => {props.onPageChanged(p)}} >{p}</span>
                 })}
             <div className={s.rightButton} >
                 {props.portionCount > props.PortionNumber &&

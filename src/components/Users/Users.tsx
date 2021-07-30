@@ -1,12 +1,27 @@
-import React, {useState} from "react";
+import React from "react";
 import s from "./Users.module.css";
 import avatarPhoto from "../../defaultData/avatarDefoult.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
+import {usersDataType} from "../../Type/Type";
 
 
-let Users = (props) => {
-    debugger
+type props = {
+    users: Array<usersDataType>
+    totalCount:number
+    pageSize:number
+    PortionNumber: number
+    portionCount: number
+    currentPage: number
+
+    followingInProgress: Array<number>
+    unFollowUser: (id:number| null) => void
+    followUser: (id:number| null) => void
+    onPageChanged: (page:number) => void
+    setCurrentPortion: (PortionNumber:number) => void
+}
+
+let Users: React.FC<props> = (props) => {
     return (
         <div className={s.main}>
             {props.users.map(u => <div key={u.id} className={s.container}>

@@ -19,21 +19,46 @@ import {
     getPortionCount,
     getPortionNumber, getTotalCount, getUsersData
 } from "../../redux/Selectors/UsersSelector";
+import {usersDataType} from "../../Type/Type";
+import {AppStateType} from "../../redux/redux-store";
 
-class UsersContainer extends React.Component {
+
+
+type propsStateType = {
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    users: Array<usersDataType>
+    totalCount: number
+    PortionNumber: number
+    portionCount: number
+}
+type propsDispatchType = {
+    getUsers: (currentPage: number, pageSize: number) => void
+    changePage: (page: number) => void
+    followingInProgress: Array<number>
+    unFollowUser: (id: number | null) => void
+    followUser: (id: number | null) => void
+    onPageChanged: (page: number) => void
+    setCurrentPortion: (PortionNumber: number) => void
+}
+type propsType =    propsStateType & propsDispatchType
+
+
+
+class UsersContainer extends React.Component<propsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
 
     }
 
-    onPageChanged = (page) => {
+    onPageChanged = (page: number) => {
         this.props.changePage(page)
         this.props.getUsers(page, this.props.pageSize)
     }
 
 
     render() {
-
 
         return (<div>
                 {this.props.isFetching ? <Preloader/> :
@@ -46,7 +71,7 @@ class UsersContainer extends React.Component {
 
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         users: getUsersData(state),
         totalCount: getTotalCount(state),
@@ -55,13 +80,14 @@ let mapStateToProps = (state) => {
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
         portionCount: getPortionCount(state),
-        PortionNumber:getPortionNumber(state),
-        profile:getProfile(state),
+        PortionNumber: getPortionNumber(state),
+        profile: getProfile(state),
     }
 }
 
 
-export default connect(mapStateToProps, {
+export default connect<propsStateType, propsDispatchType, null,  AppStateType>(mapStateToProps, {
+    // @ts-ignore
     changePage,
     setTotalUsersCount,
     setUsers,
@@ -71,4 +97,5 @@ export default connect(mapStateToProps, {
     unFollowUser,
     followUser,
     setCurrentPortion
+    // @ts-ignore
 })(UsersContainer)
