@@ -1,14 +1,9 @@
+import {DialogsDataType, messageDataType} from "../Type/Type";
+
 const ADD_MESSAGE = 'DIALOGS/ADD-MESSAGE'
 
-type messageDataType = {
-    id: number
-    messageItem: string
-}
-type DialogsDataType = {
-    id: number
-    name: string
-    photo: string
-}
+
+
 
 type initialStateType = {
     messageData: Array <messageDataType>

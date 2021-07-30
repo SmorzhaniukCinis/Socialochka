@@ -6,7 +6,12 @@ import {maxLengthCreator} from "../../../../utils/validators/validators";
 
 let maxLength = maxLengthCreator(50)
 
-const NewMessageForm = (props) => {
+type props = {
+    handleSubmit: () => void
+    messageValue: string
+}
+
+const NewMessageForm: React.FC<props> = (props) => {
     return (
 
         <form onSubmit={props.handleSubmit} className={s.container}>
@@ -18,6 +23,7 @@ const NewMessageForm = (props) => {
     )
 }
 
+// @ts-ignore
 let ReduxNewMessageForm = reduxForm ({form:'newMessage'}) (NewMessageForm)
 
 export default ReduxNewMessageForm

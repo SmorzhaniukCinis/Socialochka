@@ -3,10 +3,13 @@ import s from './Dialog.module.css'
 import UsersDialogsContainer from "./UsersMassage/UsersDialogsContainer";
 import MessagesContainer from "./Message/MessagesContainer";
 
+type props = {
 
-const Dialogs = (props) => {
+}
 
-        return(
+const Dialogs: React.FC<props> = (props) => {
+
+    return(
         <div className={s.container}>
             <h4 className={s.pageName}>Massages</h4>
             <div className={s.users}>

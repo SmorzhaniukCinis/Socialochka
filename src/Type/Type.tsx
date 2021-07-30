@@ -10,4 +10,12 @@ export type usersDataType = {
     status: string | null,
     followed: boolean
 }
-
+export type messageDataType = {
+    id: number
+    messageItem: string
+}
+export type DialogsDataType = {
+    id: number
+    name: string
+    photo: string
+}
