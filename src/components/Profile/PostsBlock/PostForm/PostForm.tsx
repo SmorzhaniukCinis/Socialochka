@@ -1,12 +1,14 @@
-import {Field, reduxForm} from "redux-form";
 import s from "../Posts.module.css";
 import React from "react";
 import { useForm } from "react-hook-form";
 
+type props = {
+    addPost: (text:string) => void
+}
 
-const PostForm = (props) => {
+const PostForm:React.FC<props> = (props) => {
     const { reset, register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => {
+    const onSubmit = (data: { PostField: any; }) => {
         props.addPost(data.PostField)
         reset()
     }
@@ -14,6 +16,7 @@ const PostForm = (props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.fieldWrapper}>
+                {/*@ts-ignore*/}
                 <textarea placeholder={errors.PostField ? 'Enter you post' : null} className={s.newPostField} {...register("PostField", { required: true })} />
             </div>
             <div>

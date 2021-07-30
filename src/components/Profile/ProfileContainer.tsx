@@ -20,41 +20,52 @@ import {Redirect} from 'react-router'
 import {getProfile, getStatus} from "../../redux/Selectors/ProfileSelectors";
 import {getIsAuth, getUserId} from "../../redux/Selectors/AuthSelectors";
 import {getFollowingInProgress} from "../../redux/Selectors/UsersSelector";
+import {AppStateType} from "../../redux/redux-store";
 
+type props = {
+    match: any
+    UserId: number
+    history: any
+    requestProfile: (userId: number) => void
+    requestStatus: (userId: number) => void
+    isAuth: boolean
+}
 
-
-class ProfileContainer extends React.Component {
-    refreshProfile () {
+class ProfileContainer extends React.Component<props> {
+    refreshProfile() {
         let userId = this.props.match.params.userId
-        if (!userId) {userId = this.props.UserId}
+        if (!userId) {
+            userId = this.props.UserId
+        }
         if (!userId) {
             this.props.history.push('/login')
         }
         this.props.requestProfile(userId)
         this.props.requestStatus(userId)
-        // this.props.requestCurrentUser(this.props.profile.fullName)
     }
 
     componentDidMount() {
         this.refreshProfile()
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.match.params.userId !== prevProps.match.params.userId)
-        this.refreshProfile()
+
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId)
+            this.refreshProfile()
     }
 
 
     render() {
-        return(
-
-            this.props.isAuth ? <Profile owner={this.props.match.params.userId} {...this.props}/> : <Redirect to={'/login'}/>
+        return (
+             // @ts-ignore
+            this.props.isAuth ? <Profile owner={this.props.match.params.userId} {...this.props}/> :
+                <Redirect to={'/login'}/>
         )
 
     }
 }
 
-let mapStateToProps = (state) => ({
-    profile:getProfile(state),
+let mapStateToProps = (state: AppStateType) => ({
+    profile: getProfile(state),
     status: getStatus(state),
     UserId: getUserId(state),
     isAuth: getIsAuth(state),
@@ -63,6 +74,15 @@ let mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {requestCurrentUser, unFollowUser, followUser, uploadProfileData, setNewAvatarImg, requestProfile, requestStatus, updateStatus}),
+    connect(mapStateToProps, {
+        requestCurrentUser,
+        unFollowUser,
+        followUser,
+        uploadProfileData,
+        setNewAvatarImg,
+        requestProfile,
+        requestStatus,
+        updateStatus
+    }),
     withRouter,
 )(ProfileContainer)

@@ -8,7 +8,7 @@ type props = {
 }
 
 const Friends: React.FC<props> = (props) => {
-debugger
+    // @ts-ignore
     let YourFriends = props.friends.map( users => <FriendsList className={style.item} friends={users}/> )
 
     return (

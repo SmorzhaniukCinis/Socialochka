@@ -2,9 +2,16 @@ import React from 'react';
 import s from './Posts.module.css'
 import MyPost from "./MyPost/MyPost"
 import PostForm from "./PostForm/PostForm";
+import {postsType, profileType} from "../../../Type/Type";
 
+type props = {
+    match:any
+    addPost: (post:string) => void
+    profile:profileType
+    posts: Array<postsType>
+}
 
-let PostsBlock = React.memo(
+let PostsBlock:React.FC<props> = React.memo(
     (props) => {
         return (
             <div className={s.postBlock}>
@@ -19,6 +26,7 @@ let PostsBlock = React.memo(
                         ? <h5>My posts</h5>
                         : <h5>Posts of {props.profile.fullName}</h5>}
                     {props.posts.length
+                        // @ts-ignore
                         ?<MyPost posts={props.posts} fullName={props.profile.fullName}/>
                         : <h4 className={s.noPostTitle}>{!props.match.params.userId
                             ?'You have no post'

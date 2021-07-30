@@ -1,6 +1,6 @@
 import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
-import {photosType} from "../Type/Type";
+import {photosType, postsType, profileType} from "../Type/Type";
 
 
 const ADD_POST = 'PROFILE/ADD-POST'
@@ -11,29 +11,6 @@ const SET_AVATAR_PHOTO = 'PROFILE/SET_AVATAR_PHOTO'
 const SET_SUBSCRIPTION = 'PROFILE/SET_SUBSCRIPTION'
 
 
-type postsType = {
-    postText: string
-    id: number
-    likeCount: number}
-
-type contactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram:string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
-}
-type profileType = {
-    userId: number | null
-    lookingForAJob: boolean | null
-    lookingForAJobDescription: string | null
-    fullName: string | null
-    contacts: contactsType
-    photos: photosType
-}
 
 
 type initialStateType = {

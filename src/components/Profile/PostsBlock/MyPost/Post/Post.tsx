@@ -2,7 +2,13 @@ import React from 'react';
 import s from './Post.module.css'
 import { AiOutlineHeart } from "react-icons/ai";
 
-let Post = (props) => {
+type props = {
+    fullName: string
+    postText: string
+    likeCount: number
+}
+
+let Post: React.FC<props> = (props) => {
     return (
         <div className={s.Item}>
             <div>
