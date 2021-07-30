@@ -1,8 +1,13 @@
 import React from 'react'
 import style from './Friends.module.css'
 import FriendsList from './FriendsList/FriendsList'
+import {friendsType} from "../../Type/Type";
 
-const Friends = (props) => {
+type props = {
+    friends: Array<friendsType>
+}
+
+const Friends: React.FC<props> = (props) => {
 debugger
     let YourFriends = props.friends.map( users => <FriendsList className={style.item} friends={users}/> )
 

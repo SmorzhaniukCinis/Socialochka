@@ -19,3 +19,10 @@ export type DialogsDataType = {
     name: string
     photo: string
 }
+export type friendsType =  {
+    name: string | null,
+    id: number| null,
+    photos: string| null,
+    status: string| null,
+    followed: boolean | null
+}

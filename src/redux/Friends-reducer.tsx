@@ -1,29 +1,18 @@
 import * as _ from 'lodash';
 import {friendsAPI} from "../api/api";
+import {friendsType} from "../Type/Type";
 
 
 const SET_FRIENDS = 'SET_FRIENDS'
 const PRELOADER = 'PRELOADER'
 
-type friendsType =  {
-    name: string | null,
-    id: number| null,
-    photos: string| null,
-    status: string| null,
-    followed: boolean | null
-}
+
 type initialStateType = {
-    friends: friendsType
+    friends: Array<friendsType>
     preloader: boolean
 }
 let initialState:initialStateType = {
-    friends: {
-        name: null,
-        id: null,
-        photos: null,
-        status: null,
-        followed: null
-    },
+    friends: [],
     preloader: true
 }
 
