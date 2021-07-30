@@ -4,8 +4,15 @@ import { reduxForm, Field} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Input} from "../../FormsControl/FormsControl";
 
+type props ={
+    handleSubmit: () => void
+    error: string
+    captchaURL?: string
+}
+
+
 let maxLength = maxLengthCreator(40)
-const LoginForm = (props) => {
+const LoginForm:React.FC<props> = (props) => {
     return (
         <form className={s.form} onSubmit={props.handleSubmit}>
             <div className={s.itemForm}>
@@ -35,6 +42,7 @@ const LoginForm = (props) => {
     )
 }
 
+// @ts-ignore
 const LoginReduxForm = reduxForm ({form: 'login'})(LoginForm)
 
 export default LoginReduxForm

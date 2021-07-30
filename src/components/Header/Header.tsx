@@ -2,7 +2,13 @@ import React from 'react';
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 
-const Header = (props) => {
+
+type props = {
+    login: string | null
+    logoutUser: () => void
+}
+
+const Header: React.FC<props> = (props) => {
     return (
         <div className={s.headerBlock}>
             <div>
