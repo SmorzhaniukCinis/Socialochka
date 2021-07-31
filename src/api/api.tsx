@@ -1,4 +1,5 @@
-import * as axios from "axios";
+import axios from "axios";
+import {profileType, usersDataType} from "../Type/Type";
 
 
 const instance = axios.create ({
@@ -9,59 +10,76 @@ const instance = axios.create ({
     }
 })
 
+type getUsersType = {
+    Items: usersDataType
+    totalCount: number
+    error: string
+}
+type defaultResponce ={
+    resultCode: number
+    messages: Array<string>,
+    data: any
+}
+
+
 export const usersAPI = {
-    getUsers (currentPage, pageSize) {
+    getUsers (currentPage:number, pageSize:number) {
         return (
-            instance.get(`users?page=${currentPage}&count=${pageSize}`
+            instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`
             ).then(response=> response.data)
         )
     },
-    getUsersName (name) {
+    getUsersName (name:string) {
         return (
-            instance.get(`users?term=${name}`
+            instance.get<getUsersType>(`users?term=${name}`
             ).then(response=> response.data)
         )
     },
-    unFollowUser (id) {
+    unFollowUser (id:number) {
         return (
-            instance.delete(`follow/${id}`)
+            instance.delete<defaultResponce>(`follow/${id}`)
                 .then(response=> response.data)
         )
     },
-    FollowUser (id) {
+    FollowUser (id:number) {
         return (
-            instance.post(`follow/${id}`, null  )
+            instance.post<defaultResponce>(`follow/${id}`, null  )
                 .then(response=> response.data)
         )
     }
 }
 
+
+
+
+
+
 export const profileAPI = {
-    getProfile (userId) {
+    getProfile (userId:number) {
         return (
-            instance.get(`profile/${userId}`)
+            instance.get<profileType>(`profile/${userId}`)
                 .then(response=> response.data)
         )
     },
-    getStatus (userId) {
+    getStatus (userId:number) {
         return(
             instance.get(`profile/status/${userId}`)
                 .then(response=> response.data)
         )
     },
-    updateStatus (status) {
+    updateStatus (status:string) {
         return(
-            instance.put(`profile/status`, {
+            instance.put<defaultResponce>(`profile/status`, {
                 status: status
             })
                 .then(response=> response.data)
         )
     },
-    uploadAvatar (file) {
+    uploadAvatar (file:any) {
         const formData = new FormData()
         formData.append('image' , file)
         return(
-            instance.put(`profile/photo`, formData,  {
+            instance.put<defaultResponce>(`profile/photo`, formData,  {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -69,33 +87,51 @@ export const profileAPI = {
                 .then(response=> response.data)
         )
     },
-    uploadProfileData (profileData) {
+    uploadProfileData (profileData: profileType) {
         return(
-            instance.put(`profile`,   profileData)
+            instance.put<defaultResponce>(`profile`,   profileData)
                 .then(response=> response.data)
         )
     }
 }
+
+
+
+type authMe = {
+    resultCode: number
+    messages: Array<string>
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+}
+
+
 export const authAPI = {
     authMe () {
         return(
-            instance.get('auth/me')
+            instance.get<authMe>('auth/me')
                 .then(response=> response)
         )
     },
-    login (email, password, rememberMe = false, captcha = null) {
+    login (email:string, password:string, rememberMe = false, captcha:null |string = null ) {
         return(
-            instance.post("auth/login", {email, password, rememberMe, captcha}).
+            instance.post<defaultResponce>("auth/login", {email, password, rememberMe, captcha}).
                 then(response => response.data)
         )
     },
     logout () {
         return(
-            instance.delete("auth/login").
+            instance.delete<defaultResponce>("auth/login").
                 then(response => response.data)
         )
     }
 }
+
+
+
+
 
 export const securityAPI = {
     getCaptchaURL () {
@@ -106,10 +142,12 @@ export const securityAPI = {
     }
 }
 
+
+
 export const friendsAPI = {
     getFriends () {
         return(
-            instance.get('users?friend=true&count=100').
+            instance.get<getUsersType>('users?friend=true&count=100').
             then(response => response.data)
         )
     }

@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 import {friendsAPI} from "../api/api";
 import {friendsType} from "../Type/Type";
+import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
 
 
 const SET_FRIENDS = 'SET_FRIENDS'
@@ -18,7 +20,7 @@ let initialState:initialStateType = {
 
 
 
-const friendsReducer = (state=initialState, action:any):initialStateType => {
+const friendsReducer = (state=initialState, action:ActionTypes):initialStateType => {
     let stateClone = _.cloneDeep(state)
     switch (action.type) {
         case SET_FRIENDS :
@@ -32,11 +34,15 @@ const friendsReducer = (state=initialState, action:any):initialStateType => {
     }
 
 }
+
+type ActionTypes = setFriendsType | viewPreloaderType
+
+
 type setFriendsType= {
     type: typeof SET_FRIENDS
-    friends: friendsType
+    friends: Array<friendsType>
 }
-const setFriends = (friends:friendsType):setFriendsType => ({type: SET_FRIENDS, friends})
+const setFriends = (friends:Array<friendsType>):setFriendsType => ({type: SET_FRIENDS, friends})
 
 type viewPreloaderType= {
     type: typeof PRELOADER
@@ -45,7 +51,7 @@ type viewPreloaderType= {
 const viewPreloader = (value:boolean):viewPreloaderType => ({type: PRELOADER, value})
 
 
-export const getFriends = () => async (dispatch:any) => {
+export const getFriends = () => async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
     dispatch(viewPreloader(true))
     let response = await friendsAPI.getFriends()
     if (response.error === null) {

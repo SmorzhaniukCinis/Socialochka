@@ -1,6 +1,8 @@
 import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
 import {photosType, postsType, profileType} from "../Type/Type";
+import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
 
 
 const ADD_POST = 'PROFILE/ADD-POST'
@@ -11,8 +13,6 @@ const SET_AVATAR_PHOTO = 'PROFILE/SET_AVATAR_PHOTO'
 const SET_SUBSCRIPTION = 'PROFILE/SET_SUBSCRIPTION'
 
 
-
-
 type initialStateType = {
     posts: Array<postsType>
     newPostText: string
@@ -21,7 +21,7 @@ type initialStateType = {
     settingData: boolean
     status: string
 }
-let initialState:initialStateType = {
+let initialState: initialStateType = {
     posts: [],
     newPostText: '',
     profile: {
@@ -33,15 +33,15 @@ let initialState:initialStateType = {
             github: null,
             vk: null,
             facebook: null,
-            instagram:null,
+            instagram: null,
             twitter: null,
             website: null,
             youtube: null,
             mainLink: null,
         },
         photos: {
-            small:  null,
-            large:  null
+            small: null,
+            large: null
         }
     },
     subscription: null,
@@ -49,7 +49,7 @@ let initialState:initialStateType = {
     status: ''
 }
 
-const profileReducer = (state = initialState, action:any) => {
+const profileReducer = (state = initialState, action: ActionTypes) => {
     let stateClone = _.cloneDeep(state)
 
     switch (action.type) {
@@ -58,10 +58,12 @@ const profileReducer = (state = initialState, action:any) => {
             return stateClone
 
         case SET_PROFILE:
+            // @ts-ignore
             stateClone.profile = action.profile
             return stateClone
 
         case SET_DATA:
+            // @ts-ignore
             stateClone.settingData = action.settingData
             return stateClone
 
@@ -80,80 +82,97 @@ const profileReducer = (state = initialState, action:any) => {
             return state
     }
 }
+
+type ActionTypes = addPostACType
+    | setProfileType
+    | setDataType
+    | setStatusType
+    | setNewAvatarImgSuccessType
+    | setSubscriptionType
+
+
 type addPostACType = {
     type: typeof ADD_POST
     text: string
 }
-export const addPostAC = (text:string):addPostACType => ({type: ADD_POST, text})
+export const addPostAC = (text: string): addPostACType => ({type: ADD_POST, text})
 
 type setProfileType = {
     type: typeof SET_PROFILE
-    profile:profileType
+    profile: profileType
 }
-export const setProfile = (profile:profileType):setProfileType => ({type: SET_PROFILE, profile})
+export const setProfile = (profile: profileType): setProfileType => ({type: SET_PROFILE, profile})
 
 type setDataType = {
     type: typeof SET_DATA
-    settingData:any
+    settingData: any
 }
-export const setData = (settingData:any):setDataType => ({type: SET_DATA, settingData})
+export const setData = (settingData: any): setDataType => ({type: SET_DATA, settingData})
 
 type setStatusType = {
     type: typeof SET_STATUS
-    status:string
+    status: string
 }
-export const setStatus = (status:string):setStatusType => ({type: SET_STATUS, status})
+export const setStatus = (status: string): setStatusType => ({type: SET_STATUS, status})
 
 type setNewAvatarImgSuccessType = {
     type: typeof SET_AVATAR_PHOTO
-    photo:photosType
+    photo: photosType
 }
-export const setNewAvatarImgSuccess = (photo:photosType):setNewAvatarImgSuccessType => ({type: SET_AVATAR_PHOTO, photo})
+export const setNewAvatarImgSuccess = (photo: photosType): setNewAvatarImgSuccessType => ({
+    type: SET_AVATAR_PHOTO,
+    photo
+})
 
 type setSubscriptionType = {
     type: typeof SET_SUBSCRIPTION
-    subscription:boolean
+    subscription: boolean
 }
-export const setSubscription = (subscription:boolean):setSubscriptionType => ({type: SET_SUBSCRIPTION, subscription})
+export const setSubscription = (subscription: boolean): setSubscriptionType => ({type: SET_SUBSCRIPTION, subscription})
 
 
-
-
-export const requestProfile = (userId:number) => async (dispatch:any) => {
-    let response = await profileAPI.getProfile(userId)
-    dispatch(setProfile(response))
-    dispatch(requestCurrentUser(response.fullName))
-}
-export const requestStatus = (userId:number) => async (dispatch:any) => {
-    let response = await profileAPI.getStatus(userId)
-    dispatch(setStatus(response))
-
-}
-export const updateStatus = (status:string) => async (dispatch:any) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.resultCode === 0) {
-        dispatch(setStatus(status))
+export const requestProfile = (userId: number) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await profileAPI.getProfile(userId)
+        dispatch(setProfile(response))
+        // @ts-ignore
+        dispatch(requestCurrentUser(response.fullName))
     }
-}
-export const setNewAvatarImg = (file:any) => async (dispatch:any) => {
-    let response = await profileAPI.uploadAvatar(file)
-    if (response.resultCode === 0) {
-        dispatch(setNewAvatarImgSuccess(response.data.photos))
+export const requestStatus = (userId: number) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await profileAPI.getStatus(userId)
+        dispatch(setStatus(response))
+
     }
-}
-export const uploadProfileData = (profileData:any, userId:number) => async (dispatch:any) => {
-    let response = await profileAPI.uploadProfileData(profileData)
-    if (response.resultCode === 0) {
-        dispatch(requestProfile(userId))
+export const updateStatus = (status: string) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
-}
-export const requestCurrentUser = (name:string) => async (dispatch:any) => {
-    debugger
-    let response = await usersAPI.getUsersName(name)
-    if (response.items.length) {
-        dispatch(setSubscription(response.items[0].followed))
+export const setNewAvatarImg = (file: any) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await profileAPI.uploadAvatar(file)
+        if (response.resultCode === 0) {
+            dispatch(setNewAvatarImgSuccess(response.data.photos))
+        }
     }
-}
+export const uploadProfileData = (profileData: any, userId: number) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await profileAPI.uploadProfileData(profileData)
+        if (response.resultCode === 0) {
+            // @ts-ignore
+            dispatch(requestProfile(userId))
+        }
+    }
+export const requestCurrentUser = (name: string) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+        let response = await usersAPI.getUsersName(name)
+        if (response.items.length) {
+            dispatch(setSubscription(response.items[0].followed))
+        }
+    }
 
 
 export default profileReducer
