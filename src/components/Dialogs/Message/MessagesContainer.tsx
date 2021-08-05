@@ -1,6 +1,6 @@
 import Messages from "./Messages";
 import {connect} from "react-redux";
-import {addMessageAC} from "../../../redux/Dialods-reducer";
+import {DialogsActions} from "../../../redux/Dialods-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 
 
@@ -10,6 +10,6 @@ let mapStateToProps = (state:AppStateType) => {
     }
 }
 
-let MessagesContainer = connect (mapStateToProps, {addMessageAC})(Messages)
+let MessagesContainer = connect (mapStateToProps, {addMessageAC:DialogsActions.addMessageAC})(Messages)
 
 export default MessagesContainer

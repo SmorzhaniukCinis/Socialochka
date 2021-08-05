@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import avatarPhoto from "../../defaultData/avatarDefoult.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
-import {usersDataType} from "../../Type/Type";
+import {usersDataType} from "../../Type/Types";
 
 
 type props = {

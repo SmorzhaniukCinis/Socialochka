@@ -2,7 +2,7 @@ import React from 'react'
 import s from './Messages.module.css'
 import MessageItem from "./MessageItem/MessageItem";
 import NewMessageFormContainer from "./NewMessageForm/NewMessageFormContainer";
-import {messageDataType} from "../../../Type/Type";
+import {messageDataType} from "../../../Type/Types";
 
 type props = {
     message: Array<messageDataType>

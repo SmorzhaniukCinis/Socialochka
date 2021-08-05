@@ -1,7 +1,7 @@
 import {usersAPI} from "../api/api";
-import {setSubscription} from "./Priofile-reducer";
-import {usersDataType} from "../Type/Type";
-import {AppStateType, InferActionsTypes} from "./redux-store";
+import {ProfileActions} from "./Priofile-reducer";
+import {usersDataType} from "../Type/Types";
+import {InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
 
 type followingInProgressType = {}
@@ -78,9 +78,9 @@ const usersReducer = (state = initialState, action: actionsTypes) => {
     }
 }
 
-type actionsTypes = InferActionsTypes<typeof actions>
+type actionsTypes = InferActionsTypes<typeof UserActions>
 
-export const actions = {
+export const UserActions = {
     follow: (id: number) => ({type: 'SUBSCRIBE_USER', id} as const),
     unFollow: (id: number) => ({type: 'UNSUBSCRIBE_USER', id} as const),
     setUsers: (users: Array<usersDataType>) => ({type: 'SET_USERS', users} as const),
@@ -93,35 +93,33 @@ export const actions = {
 
 
 export const getUsers = (currentPage: number, pageSize: number) =>
-    async (dispatch: Dispatch, getState: () => AppStateType) => {
-        dispatch(actions.dataFetching(true))
+    async (dispatch: Dispatch) => {
+        dispatch(UserActions.dataFetching(true))
         let response = await usersAPI.getUsers(currentPage, pageSize)
-        dispatch(actions.dataFetching(false))
-        dispatch(actions.setUsers(response.items))
-        dispatch(actions.setTotalUsersCount(response.totalCount))
+        dispatch(UserActions.dataFetching(false))
+        dispatch(UserActions.setUsers(response.items))
+        dispatch(UserActions.setTotalUsersCount(response.totalCount))
     }
 export const unFollowUser = (id: number) =>
-    async (dispatch: Dispatch, getState: () => AppStateType) => {
-        dispatch(actions.onFollowingProgress(id, true))
+    async (dispatch: Dispatch) => {
+        dispatch(UserActions.onFollowingProgress(id, true))
         let response = await usersAPI.unFollowUser(id)
         if (response.resultCode === 0) {
-            dispatch(actions.unFollow(id))
-            // @ts-ignore
-            dispatch(setSubscription(false))
+            dispatch(UserActions.unFollow(id))
+            dispatch(ProfileActions.setSubscription(false))
         }
-        dispatch(actions.onFollowingProgress(id, false))
+        dispatch(UserActions.onFollowingProgress(id, false))
     }
 export const followUser = (id: number) =>
-    async (dispatch: Dispatch, getState: () => AppStateType) => {
-        dispatch(actions.onFollowingProgress(id, true))
+    async (dispatch: Dispatch) => {
+        dispatch(UserActions.onFollowingProgress(id, true))
         let response = await usersAPI.FollowUser(id)
         if (response.resultCode === 0) {
-            dispatch(actions.follow(id))
-            // @ts-ignore
-            dispatch(setSubscription(true))
+            dispatch(UserActions.follow(id))
+            dispatch(ProfileActions.setSubscription(true))
 
         }
-        dispatch(actions.onFollowingProgress(id, false))
+        dispatch(UserActions.onFollowingProgress(id, false))
     }
 
 export default usersReducer

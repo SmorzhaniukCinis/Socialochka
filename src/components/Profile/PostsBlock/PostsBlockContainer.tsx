@@ -1,4 +1,4 @@
-import {addPostAC} from "../../../redux/Priofile-reducer";
+import {ProfileActions} from "../../../redux/Priofile-reducer";
 import PostsBlock from "./PostsBlock";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -18,5 +18,5 @@ let mapStateToProps = (state:AppStateType) => {
 
 export default compose (
     withRouter,
-    connect (mapStateToProps, {addPost: addPostAC })
+    connect (mapStateToProps, {addPost: ProfileActions.addPostAC })
 ) (PostsBlock);

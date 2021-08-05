@@ -2,7 +2,7 @@ import React from 'react'
 import style from './FriendsList.module.css'
 import {NavLink} from "react-router-dom";
 import photo from '../../../defaultData/avatarDefoult.png'
-import {friendsType} from "../../../Type/Type";
+import {friendsType} from "../../../Type/Types";
 
 type props = {
     friends: friendsType

@@ -1,9 +1,7 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {Dispatch} from "redux";
-
-let SET_USER_AUTH_DATA = 'AUTH/SET_USER_AUTH_DATA'
-let SET_CAPTCHA_URL = 'AUTH/SET_CAPTCHA_URL'
+import {InferActionsTypes} from "./redux-store";
 
 type initialStateType = {
     id: number | null
@@ -24,22 +22,17 @@ let initialState:initialStateType = {
 
 const AuthReducer = (state = initialState, action:ActionTypes):initialStateType => {
     switch (action.type) {
-        case SET_USER_AUTH_DATA:
+        case "SET_USER_AUTH_DATA":
             return {
                 ...state,
-                // @ts-ignore
                 id: action.AuthData.id,
-                // @ts-ignore
                 login: action.AuthData.login,
-                // @ts-ignore
                 email: action.AuthData.email,
-                // @ts-ignore
                 isAuth: action.AuthData.isAuth
             }
-            case SET_CAPTCHA_URL:
+            case "SET_CAPTCHA_URL":
             return {
                 ...state,
-                // @ts-ignore
                 captchaURL: action.url
             }
         default:
@@ -47,7 +40,12 @@ const AuthReducer = (state = initialState, action:ActionTypes):initialStateType 
     }
 }
 
-type ActionTypes =   setUserAuthDataType | setCaptchaURLType
+type ActionTypes = InferActionsTypes<typeof AuthActions>
+
+export const AuthActions = {
+    setUserAuthData: (AuthData:AuthDataType) => ({type: "SET_USER_AUTH_DATA", AuthData}as const ),
+    setCaptchaURL: (url:string) => ({type: "SET_CAPTCHA_URL", url}as const )
+}
 
 export type AuthDataType = {
     id: number | null,
@@ -55,25 +53,13 @@ export type AuthDataType = {
     email: string | null,
     isAuth: boolean
 }
-type setUserAuthDataType = {
-    type: typeof SET_USER_AUTH_DATA
-    AuthData: AuthDataType
-}
-export const setUserAuthData = (AuthData:AuthDataType):setUserAuthDataType => ({type: SET_USER_AUTH_DATA, AuthData})
-
-type setCaptchaURLType = {
-    type: typeof SET_CAPTCHA_URL
-    url: string
-}
-export const setCaptchaURL = (url:string):setCaptchaURLType => ({type: SET_CAPTCHA_URL, url})
-
 
 
 export const authUser = () => async (dispatch: Dispatch<ActionTypes>) => {
         let response = await authAPI.authMe()
                 if(response.data.resultCode===0){
                     let {email, id, login } = response.data.data
-                    dispatch(setUserAuthData({email, id, login, isAuth: true}))}
+                    dispatch(AuthActions.setUserAuthData({email, id, login, isAuth: true}))}
 }
 
 export const loginUser = (email:string, password:number, rememberMe=false, captcha:string) =>
@@ -93,19 +79,19 @@ export const loginUser = (email:string, password:number, rememberMe=false, captc
 
 }
 
-export const logoutUser = () => async (dispatch:any) => {
+export const logoutUser = () => async (dispatch: Dispatch<ActionTypes>) => {
     let response = await authAPI.logout()
                 if(response.resultCode===0){
                     let email = null
                     let id = null
                     let login = null
                     let AuthData:AuthDataType = {email, id, login , isAuth: false}
-                dispatch((setUserAuthData(AuthData)))}
+                dispatch((AuthActions.setUserAuthData(AuthData)))}
 
 }
-export const getCaptcha = () => async (dispatch:any) => {
+export const getCaptcha = () => async (dispatch: Dispatch<ActionTypes>) => {
     let response = await securityAPI.getCaptchaURL()
-                   dispatch((setCaptchaURL(response.url)))}
+                   dispatch((AuthActions.setCaptchaURL(response.url)))}
 
 
 

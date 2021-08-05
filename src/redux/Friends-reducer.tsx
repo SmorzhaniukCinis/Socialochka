@@ -1,13 +1,8 @@
 import * as _ from 'lodash';
 import {friendsAPI} from "../api/api";
-import {friendsType} from "../Type/Type";
+import {friendsType} from "../Type/Types";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
-
-
-const SET_FRIENDS = 'SET_FRIENDS'
-const PRELOADER = 'PRELOADER'
-
+import {InferActionsTypes} from "./redux-store";
 
 type initialStateType = {
     friends: Array<friendsType>
@@ -23,10 +18,10 @@ let initialState:initialStateType = {
 const friendsReducer = (state=initialState, action:ActionTypes):initialStateType => {
     let stateClone = _.cloneDeep(state)
     switch (action.type) {
-        case SET_FRIENDS :
+        case "SET_FRIENDS" :
             stateClone.friends = action.friends
             return stateClone
-        case PRELOADER :
+        case "PRELOADER" :
             stateClone.preloader = action.value
             return stateClone
         default:
@@ -35,29 +30,20 @@ const friendsReducer = (state=initialState, action:ActionTypes):initialStateType
 
 }
 
-type ActionTypes = setFriendsType | viewPreloaderType
+type ActionTypes = InferActionsTypes<typeof FriendsActions>
 
-
-type setFriendsType= {
-    type: typeof SET_FRIENDS
-    friends: Array<friendsType>
+export  const  FriendsActions = {
+    setFriends: (friends:Array<friendsType>) => ({type: "SET_FRIENDS", friends} as const ),
+    viewPreloader: (value:boolean) => ({type: "PRELOADER", value} as const )
 }
-const setFriends = (friends:Array<friendsType>):setFriendsType => ({type: SET_FRIENDS, friends})
 
-type viewPreloaderType= {
-    type: typeof PRELOADER
-    value: boolean
-}
-const viewPreloader = (value:boolean):viewPreloaderType => ({type: PRELOADER, value})
-
-
-export const getFriends = () => async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
-    dispatch(viewPreloader(true))
+export const getFriends = () => async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(FriendsActions.viewPreloader(true))
     let response = await friendsAPI.getFriends()
     if (response.error === null) {
         // @ts-ignore
-        dispatch(setFriends(response.items))
-        dispatch(viewPreloader(false))
+        dispatch(FriendsActions.setFriends(response.items))
+        dispatch(FriendsActions.viewPreloader(false))
     }
 }
 

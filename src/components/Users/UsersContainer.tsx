@@ -5,7 +5,7 @@ import {
     unFollowUser,
 }
     from "../../redux/Users-Reducer";
-import {actions} from "../../redux/Users-Reducer";
+import {UserActions} from "../../redux/Users-Reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {getProfile} from "../../redux/Selectors/ProfileSelectors";
@@ -16,7 +16,7 @@ import {
     getPortionCount,
     getPortionNumber, getTotalCount, getUsersData
 } from "../../redux/Selectors/UsersSelector";
-import {usersDataType} from "../../Type/Type";
+import {usersDataType} from "../../Type/Types";
 import {AppStateType} from "../../redux/redux-store";
 
 
@@ -83,13 +83,13 @@ let mapStateToProps = (state: AppStateType) => {
 
 export default connect<propsStateType, propsDispatchType, null, AppStateType>(mapStateToProps, {
     // @ts-ignore
-    changePage: actions.changePage,
-    setTotalUsersCount : actions.setTotalUsersCount,
-    setUsers: actions.setUsers,
-    dataFetching: actions.dataFetching,
-    onFollowingProgress: actions.onFollowingProgress,
+    changePage: UserActions.changePage,
+    setTotalUsersCount : UserActions.setTotalUsersCount,
+    setUsers: UserActions.setUsers,
+    dataFetching: UserActions.dataFetching,
+    onFollowingProgress: UserActions.onFollowingProgress,
     getUsers,
     unFollowUser,
     followUser,
-    setCurrentPortion: actions.setCurrentPortion
+    setCurrentPortion: UserActions.setCurrentPortion
 })(UsersContainer)

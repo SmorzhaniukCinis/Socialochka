@@ -4,7 +4,7 @@ import avatar from '../../../defaultData/avatarDefoult.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
 import {requestProfile} from "../../../redux/Priofile-reducer";
-import {profileType} from "../../../Type/Type";
+import {profileType} from "../../../Type/Types";
 
 type props = {
     profile:profileType

@@ -1,17 +1,8 @@
 import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
-import {photosType, postsType, profileType} from "../Type/Type";
+import {photosType, postsType, profileType} from "../Type/Types";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
-
-
-const ADD_POST = 'PROFILE/ADD-POST'
-const SET_PROFILE = 'PROFILE/SET_PROFILE'
-const SET_DATA = 'PROFILE/SET_PROFILE'
-const SET_STATUS = 'PROFILE/SET_STATUS'
-const SET_AVATAR_PHOTO = 'PROFILE/SET_AVATAR_PHOTO'
-const SET_SUBSCRIPTION = 'PROFILE/SET_SUBSCRIPTION'
-
+import {InferActionsTypes} from "./redux-store";
 
 type initialStateType = {
     posts: Array<postsType>
@@ -53,28 +44,26 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
     let stateClone = _.cloneDeep(state)
 
     switch (action.type) {
-        case  ADD_POST:
+        case  "ADD_POST":
             stateClone.posts.push({postText: action.text, id: 5, likeCount: 0})
             return stateClone
 
-        case SET_PROFILE:
-            // @ts-ignore
+        case "SET_PROFILE":
             stateClone.profile = action.profile
             return stateClone
 
-        case SET_DATA:
-            // @ts-ignore
+        case "SET_DATA":
             stateClone.settingData = action.settingData
             return stateClone
 
-        case SET_STATUS:
+        case "SET_STATUS":
             stateClone.status = action.status
             return stateClone
 
-        case SET_AVATAR_PHOTO:
+        case "SET_AVATAR_PHOTO":
             stateClone.profile.photos = action.photo
             return stateClone
-        case SET_SUBSCRIPTION:
+        case "SET_SUBSCRIPTION":
 
             stateClone.subscription = action.subscription
             return stateClone
@@ -83,83 +72,50 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
     }
 }
 
-type ActionTypes = addPostACType
-    | setProfileType
-    | setDataType
-    | setStatusType
-    | setNewAvatarImgSuccessType
-    | setSubscriptionType
+type ActionTypes = InferActionsTypes<typeof ProfileActions>
 
 
-type addPostACType = {
-    type: typeof ADD_POST
-    text: string
+
+export const ProfileActions = {
+    addPostAC: (text: string) => ({type: "ADD_POST", text} as const),
+    setProfile: (profile: profileType) => ({type: "SET_PROFILE", profile} as const),
+    setData: (settingData: any) => ({type: "SET_DATA", settingData} as const),
+    setStatus: (status: string) => ({type: "SET_STATUS", status} as const),
+    setNewAvatarImgSuccess: (photo: photosType)=> ({type: "SET_AVATAR_PHOTO", photo} as const),
+    setSubscription: (subscription: boolean) => ({type: "SET_SUBSCRIPTION", subscription} as const)
 }
-export const addPostAC = (text: string): addPostACType => ({type: ADD_POST, text})
 
-type setProfileType = {
-    type: typeof SET_PROFILE
-    profile: profileType
-}
-export const setProfile = (profile: profileType): setProfileType => ({type: SET_PROFILE, profile})
-
-type setDataType = {
-    type: typeof SET_DATA
-    settingData: any
-}
-export const setData = (settingData: any): setDataType => ({type: SET_DATA, settingData})
-
-type setStatusType = {
-    type: typeof SET_STATUS
-    status: string
-}
-export const setStatus = (status: string): setStatusType => ({type: SET_STATUS, status})
-
-type setNewAvatarImgSuccessType = {
-    type: typeof SET_AVATAR_PHOTO
-    photo: photosType
-}
-export const setNewAvatarImgSuccess = (photo: photosType): setNewAvatarImgSuccessType => ({
-    type: SET_AVATAR_PHOTO,
-    photo
-})
-
-type setSubscriptionType = {
-    type: typeof SET_SUBSCRIPTION
-    subscription: boolean
-}
-export const setSubscription = (subscription: boolean): setSubscriptionType => ({type: SET_SUBSCRIPTION, subscription})
 
 
 export const requestProfile = (userId: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.getProfile(userId)
-        dispatch(setProfile(response))
+        dispatch(ProfileActions.setProfile(response))
         // @ts-ignore
         dispatch(requestCurrentUser(response.fullName))
     }
 export const requestStatus = (userId: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.getStatus(userId)
-        dispatch(setStatus(response))
+        dispatch(ProfileActions.setStatus(response))
 
     }
 export const updateStatus = (status: string) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.updateStatus(status)
         if (response.resultCode === 0) {
-            dispatch(setStatus(status))
+            dispatch(ProfileActions.setStatus(status))
         }
     }
 export const setNewAvatarImg = (file: any) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.uploadAvatar(file)
         if (response.resultCode === 0) {
-            dispatch(setNewAvatarImgSuccess(response.data.photos))
+            dispatch(ProfileActions.setNewAvatarImgSuccess(response.data.photos))
         }
     }
 export const uploadProfileData = (profileData: any, userId: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.uploadProfileData(profileData)
         if (response.resultCode === 0) {
             // @ts-ignore
@@ -167,10 +123,10 @@ export const uploadProfileData = (profileData: any, userId: number) =>
         }
     }
 export const requestCurrentUser = (name: string) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
+    async (dispatch: Dispatch<ActionTypes>) => {
         let response = await usersAPI.getUsersName(name)
         if (response.items.length) {
-            dispatch(setSubscription(response.items[0].followed))
+            dispatch(ProfileActions.setSubscription(response.items[0].followed))
         }
     }
 

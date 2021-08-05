@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './Friends.module.css'
 import FriendsList from './FriendsList/FriendsList'
-import {friendsType} from "../../Type/Type";
+import {friendsType} from "../../Type/Types";
 
 type props = {
     friends: Array<friendsType>

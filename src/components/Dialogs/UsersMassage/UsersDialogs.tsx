@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './UsersDialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogsDataType} from "../../../Type/Type";
+import {DialogsDataType} from "../../../Type/Types";
 
 
 

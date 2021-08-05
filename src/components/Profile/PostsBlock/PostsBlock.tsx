@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Posts.module.css'
 import MyPost from "./MyPost/MyPost"
 import PostForm from "./PostForm/PostForm";
-import {postsType, profileType} from "../../../Type/Type";
+import {postsType, profileType} from "../../../Type/Types";
 
 type props = {
     match:any

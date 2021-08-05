@@ -3,7 +3,7 @@ import Friends from "./Friends";
 import {getFriends} from "../../redux/Friends-reducer";
 import React from 'react'
 import Preloader from "../Preloader/Preloader";
-import {friendsType} from "../../Type/Type";
+import {friendsType} from "../../Type/Types";
 import {AppStateType} from "../../redux/redux-store";
 
 type props ={
