@@ -1,18 +1,8 @@
 import {usersAPI} from "../api/api";
 import {setSubscription} from "./Priofile-reducer";
 import {usersDataType} from "../Type/Type";
-import {AppStateType} from "./redux-store";
+import {AppStateType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
-
-const SET_USERS = 'USER/SET-USERS'
-const SUBSCRIBE_USER = 'USER/SUBSCRIBE-USER'
-const UNSUBSCRIBE_USER = 'USER/UNSUBSCRIBE-USER'
-const CHANGE_PAGE = 'USER/CHANGE_PAGE'
-const SET_TOTAL_USERS_COUNT = 'USER/SET_TOTAL_USERS_COUNT'
-const DATA_FETCHING = 'USER/DATA_FETCHING'
-const FOLLOWING_IN_PROGRESS = 'USER/FOLLOWING_IN_PROGRESS'
-const SET_CURRENT_PORTION = 'USER/SET_CURRENT_PORTION'
-
 
 type followingInProgressType = {}
 type initialStateType = {
@@ -36,12 +26,12 @@ let initialState: initialStateType = {
     PortionNumber: 1
 }
 
-const usersReducer = (state = initialState, action: ActionTypes) => {
+const usersReducer = (state = initialState, action: actionsTypes) => {
     switch (action.type) {
-        case SET_USERS:
+        case "SET_USERS":
             return {...state, usersData: action.users}
 
-        case SUBSCRIBE_USER:
+        case "SUBSCRIBE_USER":
             return {
                 ...state,
                 usersData: state.usersData.map(user => {
@@ -52,7 +42,7 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
                 })
             }
 
-        case UNSUBSCRIBE_USER:
+        case 'UNSUBSCRIBE_USER':
             return {
                 ...state,
                 usersData: state.usersData.map(user => {
@@ -62,23 +52,23 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
                     return user
                 })
             }
-        case CHANGE_PAGE:
+        case 'CHANGE_PAGE':
             return {...state, currentPage: action.page}
 
-        case DATA_FETCHING:
+        case 'DATA_FETCHING':
             return {...state, isFetching: action.status}
 
-        case SET_TOTAL_USERS_COUNT:
+        case 'SET_TOTAL_USERS_COUNT':
             return {...state, totalCount: action.totalCount}
 
-        case FOLLOWING_IN_PROGRESS:
+        case 'FOLLOWING_IN_PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.status
                     ? [...state.followingInProgress, action.id]
                     : state.followingInProgress.filter(id => id !== action.id)
             }
-        case SET_CURRENT_PORTION:
+        case 'SET_CURRENT_PORTION':
             return {
                 ...state,
                 PortionNumber: action.PortionNumber
@@ -88,99 +78,50 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
     }
 }
 
-type ActionTypes =
-    setUsersType
-    | changePageType
-    | setTotalUsersCountType
-    | dataFetchingType
-    | onFollowingProgressType
-    | setCurrentPortionType
-    | followType
-    | unFollowType
+type actionsTypes = InferActionsTypes<typeof actions>
 
-type followType = {
-    type: typeof SUBSCRIBE_USER
-    id: number
+export const actions = {
+    follow: (id: number) => ({type: 'SUBSCRIBE_USER', id} as const),
+    unFollow: (id: number) => ({type: 'UNSUBSCRIBE_USER', id} as const),
+    setUsers: (users: Array<usersDataType>) => ({type: 'SET_USERS', users} as const),
+    changePage: (page: number) => ({type: 'CHANGE_PAGE', page} as const),
+    setTotalUsersCount: (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount} as const),
+    dataFetching: (status: boolean) => ({type: 'DATA_FETCHING', status} as const),
+    onFollowingProgress: (id: number, status: boolean) => ({type: 'FOLLOWING_IN_PROGRESS', id, status} as const),
+    setCurrentPortion: (PortionNumber: number) => ({type: 'SET_CURRENT_PORTION', PortionNumber} as const)
 }
-export const follow = (id: number): followType => ({type: SUBSCRIBE_USER, id})
-type unFollowType = {
-    type: typeof UNSUBSCRIBE_USER
-    id: number
-}
-export const unFollow = (id: number): unFollowType => ({type: UNSUBSCRIBE_USER, id})
-type setUsersType = {
-    type: typeof SET_USERS
-    users: Array<usersDataType>
-}
-export const setUsers = (users: Array<usersDataType>): setUsersType => ({type: SET_USERS, users})
-type changePageType = {
-    type: typeof CHANGE_PAGE
-    page: number
-}
-export const changePage = (page: number): changePageType => ({type: CHANGE_PAGE, page})
-type setTotalUsersCountType = {
-    type: typeof SET_TOTAL_USERS_COUNT
-    totalCount: number
-}
-export const setTotalUsersCount = (totalCount: number): setTotalUsersCountType => ({
-    type: SET_TOTAL_USERS_COUNT,
-    totalCount
-})
-type dataFetchingType = {
-    type: typeof DATA_FETCHING
-    status: boolean
-}
-export const dataFetching = (status: boolean): dataFetchingType => ({type: DATA_FETCHING, status})
-type onFollowingProgressType = {
-    type: typeof FOLLOWING_IN_PROGRESS
-    status: boolean
-    id: number
-}
-export const onFollowingProgress = (id: number, status: boolean): onFollowingProgressType => ({
-    type: FOLLOWING_IN_PROGRESS,
-    id,
-    status
-})
-type setCurrentPortionType = {
-    type: typeof SET_CURRENT_PORTION
-    PortionNumber: number
-}
-export const setCurrentPortion = (PortionNumber: number): setCurrentPortionType => ({
-    type: SET_CURRENT_PORTION,
-    PortionNumber
-})
 
 
 export const getUsers = (currentPage: number, pageSize: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
-        dispatch(dataFetching(true))
+    async (dispatch: Dispatch, getState: () => AppStateType) => {
+        dispatch(actions.dataFetching(true))
         let response = await usersAPI.getUsers(currentPage, pageSize)
-        dispatch(dataFetching(false))
-        dispatch(setUsers(response.items))
-        dispatch(setTotalUsersCount(response.totalCount))
+        dispatch(actions.dataFetching(false))
+        dispatch(actions.setUsers(response.items))
+        dispatch(actions.setTotalUsersCount(response.totalCount))
     }
 export const unFollowUser = (id: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
-    dispatch(onFollowingProgress(id, true))
-    let response = await usersAPI.unFollowUser(id)
-    if (response.resultCode === 0) {
-        dispatch(unFollow(id))
-        // @ts-ignore
-        dispatch(setSubscription(false))
+    async (dispatch: Dispatch, getState: () => AppStateType) => {
+        dispatch(actions.onFollowingProgress(id, true))
+        let response = await usersAPI.unFollowUser(id)
+        if (response.resultCode === 0) {
+            dispatch(actions.unFollow(id))
+            // @ts-ignore
+            dispatch(setSubscription(false))
+        }
+        dispatch(actions.onFollowingProgress(id, false))
     }
-    dispatch(onFollowingProgress(id, false))
-}
 export const followUser = (id: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType) => {
-    dispatch(onFollowingProgress(id, true))
-    let response = await usersAPI.FollowUser(id)
-    if (response.resultCode === 0) {
-        dispatch(follow(id))
-        // @ts-ignore
-        dispatch(setSubscription(true))
+    async (dispatch: Dispatch, getState: () => AppStateType) => {
+        dispatch(actions.onFollowingProgress(id, true))
+        let response = await usersAPI.FollowUser(id)
+        if (response.resultCode === 0) {
+            dispatch(actions.follow(id))
+            // @ts-ignore
+            dispatch(setSubscription(true))
 
+        }
+        dispatch(actions.onFollowingProgress(id, false))
     }
-    dispatch(onFollowingProgress(id, false))
-}
 
 export default usersReducer

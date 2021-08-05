@@ -1,14 +1,11 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {
-    changePage,
-    dataFetching,
-    followUser, getUsers, onFollowingProgress, setCurrentPortion,
-    setTotalUsersCount,
-    setUsers,
+    followUser, getUsers,
     unFollowUser,
 }
     from "../../redux/Users-Reducer";
+import {actions} from "../../redux/Users-Reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {getProfile} from "../../redux/Selectors/ProfileSelectors";
@@ -21,7 +18,6 @@ import {
 } from "../../redux/Selectors/UsersSelector";
 import {usersDataType} from "../../Type/Type";
 import {AppStateType} from "../../redux/redux-store";
-
 
 
 type propsStateType = {
@@ -42,8 +38,7 @@ type propsDispatchType = {
     onPageChanged: (page: number) => void
     setCurrentPortion: (PortionNumber: number) => void
 }
-type propsType =    propsStateType & propsDispatchType
-
+type propsType = propsStateType & propsDispatchType
 
 
 class UsersContainer extends React.Component<propsType> {
@@ -86,16 +81,15 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default connect<propsStateType, propsDispatchType, null,  AppStateType>(mapStateToProps, {
+export default connect<propsStateType, propsDispatchType, null, AppStateType>(mapStateToProps, {
     // @ts-ignore
-    changePage,
-    setTotalUsersCount,
-    setUsers,
-    dataFetching,
-    onFollowingProgress,
+    changePage: actions.changePage,
+    setTotalUsersCount : actions.setTotalUsersCount,
+    setUsers: actions.setUsers,
+    dataFetching: actions.dataFetching,
+    onFollowingProgress: actions.onFollowingProgress,
     getUsers,
     unFollowUser,
     followUser,
-    setCurrentPortion
-    // @ts-ignore
+    setCurrentPortion: actions.setCurrentPortion
 })(UsersContainer)

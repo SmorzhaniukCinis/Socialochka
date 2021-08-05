@@ -11,7 +11,7 @@ const instance = axios.create ({
 })
 
 type getUsersType = {
-    Items: usersDataType
+    items: Array<usersDataType>
     totalCount: number
     error: string
 }
@@ -115,7 +115,7 @@ export const authAPI = {
                 .then(response=> response)
         )
     },
-    login (email:string, password:string, rememberMe = false, captcha:null |string = null ) {
+    login(email: string, password: number, rememberMe = false, captcha: string | null = null) {
         return(
             instance.post<defaultResponce>("auth/login", {email, password, rememberMe, captcha}).
                 then(response => response.data)

@@ -55,6 +55,7 @@ export const getFriends = () => async (dispatch: Dispatch<ActionTypes>, getState
     dispatch(viewPreloader(true))
     let response = await friendsAPI.getFriends()
     if (response.error === null) {
+        // @ts-ignore
         dispatch(setFriends(response.items))
         dispatch(viewPreloader(false))
     }
