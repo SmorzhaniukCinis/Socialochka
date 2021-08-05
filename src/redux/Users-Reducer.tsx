@@ -1,8 +1,8 @@
-import {usersAPI} from "../api/api";
 import {ProfileActions} from "./Priofile-reducer";
 import {usersDataType} from "../Type/Types";
 import {InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
+import {usersAPI} from "../api/usersAPI";
 
 type followingInProgressType = {}
 type initialStateType = {

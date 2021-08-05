@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
-import {friendsAPI} from "../api/api";
 import {friendsType} from "../Type/Types";
 import {Dispatch} from "redux";
 import {InferActionsTypes} from "./redux-store";
+import {friendsAPI} from "../api/friendsAPI";
 
 type initialStateType = {
     friends: Array<friendsType>

@@ -1,7 +1,8 @@
-import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {Dispatch} from "redux";
 import {InferActionsTypes} from "./redux-store";
+import {authAPI} from "../api/authAPI";
+import {securityAPI} from "../api/securityAPI";
 
 type initialStateType = {
     id: number | null

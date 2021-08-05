@@ -1,8 +1,9 @@
-import {profileAPI, usersAPI} from "../api/api";
 import * as _ from 'lodash';
 import {photosType, postsType, profileType} from "../Type/Types";
 import {Dispatch} from "redux";
 import {InferActionsTypes} from "./redux-store";
+import {usersAPI} from "../api/usersAPI";
+import {profileAPI} from "../api/profileAPI";
 
 type initialStateType = {
     posts: Array<postsType>
