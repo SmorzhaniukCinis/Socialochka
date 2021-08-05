@@ -1,4 +1,4 @@
-import {profileType} from "../Type/Types";
+import {photosType, profileType} from "../Type/Types";
 import {defaultResponse, instance } from "./api";
 
 
@@ -30,7 +30,7 @@ export const profileAPI = {
         const formData = new FormData()
         formData.append('image', file)
         return (
-            instance.put<defaultResponse<{}>>(`profile/photo`, formData, {
+            instance.put<defaultResponse<{photos:photosType}>>(`profile/photo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
