@@ -7,9 +7,8 @@ import FriendsContainer from "./components/Friengs/FriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-// import LoginContainer from "./components/Login/LoginContainer";
 import {connect} from "react-redux";
-import {initializeApp} from "./redux/App-reducer";
+import {AppActions, initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
 import {WithSuspense} from "./HOC/WithSuspense";
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"))
@@ -24,12 +23,12 @@ class App extends React.Component {
             return <Preloader/>
         }
         return (
-                <div className='appWrapper'>
+                <div className={this.props.isPopup ? 'appWrapper' : 'appWrapperSmall'}>
                     <div className='header'>
                         <HeaderContainer/>
                     </div>
-                    <div className='navBar'>
-                        <Navbar/>
+                    <div className={this.props.isPopup ? 'navBar' : 'smallNavBar'}>
+                        <Navbar isPopup={this.props.isPopup} setPopupMenu={this.props.setPopupMenu}/>
                     </div>
                     <div className='content'>
                         <Redirect from="/" to="/profile" />
@@ -47,6 +46,7 @@ class App extends React.Component {
     }
 }
 const MapStateToProps = (state)=> ({
-    initialized: state.InitialApp.initialized
+    initialized: state.InitialApp.initialized,
+    isPopup: state.InitialApp.isPopup
 })
-export default connect(MapStateToProps, {initializeApp}) (App);
+export default connect(MapStateToProps, {initializeApp, setPopupMenu:AppActions.setPopupMenu}) (App);

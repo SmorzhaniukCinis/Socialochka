@@ -18,19 +18,22 @@ ul {
     width: 100%;
     color: black;
     text-decoration: none;
-    position: absolute;
-    margin-top: -3px;
 }
 .item:hover {
     transition: 0.7s;
     color: darkslategray;
 }
+.itemText {
+    position: absolute;
+    margin-top: -3px;
+}
 .LiItem .active {
-color: rgba(0,0,0,0.54)
+    color: rgba(0,0,0,0.54)
 }
 .mainNavIcon{
     width: 30px;
     margin: 20px 0 0 27px;
+    transition: 0.3s;
 }
 .navIcon {
     width: 25px;
@@ -41,4 +44,14 @@ color: rgba(0,0,0,0.54)
     font-size: 30px;
     margin-top: 14px;
     position: absolute;
+    margin-left: 10px;
+    transition: 0.3s;
+}
+.menuButtonBlock{
+    transition: 0.3s;
+    cursor: pointer
+}
+.menuButtonBlock:hover{
+    opacity: 70%;
+    transition: 0.3s;
 }

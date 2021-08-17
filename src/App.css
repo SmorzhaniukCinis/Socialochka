@@ -8,6 +8,16 @@
   grid-template-columns: 2fr 11fr;
   min-height: 100vh;
 }
+.appWrapperSmall {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "navBar content"
+    "footer footer";
+  grid-template-rows: 70px 1fr 50px;
+  grid-template-columns: 1fr 17fr;
+  min-height: 100vh;
+}
 .header {
   grid-area: header;
 }
