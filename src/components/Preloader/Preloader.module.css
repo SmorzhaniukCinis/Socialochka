@@ -1,9 +1,8 @@
 
 .preloader {
-    margin-left: 43%;
-    margin-top: 20vh;
+    margin-top: 100px;
+    margin-left: 30%;
 }
 .preloader img {
-    height: 100px;
-    width: 100px;
+    width: 350px;
 }

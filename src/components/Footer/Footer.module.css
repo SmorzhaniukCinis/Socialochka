@@ -1,0 +1,28 @@
+.contactsTitle {
+    padding: 0 0 15px 20px ;
+    color: white;
+}
+.footerContainer {
+    padding-top: 10px;
+}
+.contactsBlock {
+    display: flex;
+    width: 25%;
+    margin-left: 6%;
+}
+.contactsBlock ul {
+    margin: 0;
+    padding-top: 2px;
+    padding-left: 15px;
+}
+.contactsBlock li,a {
+    list-style: none;
+    color: #b1bebf;
+    transition: 0.1s;
+    text-decoration: none;
+}
+.contactsBlock a:hover {
+    color: #c9dadb;
+    border-bottom: 2px solid #c9dadb ;
+    transition: 0.1s;
+}

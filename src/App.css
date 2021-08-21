@@ -4,7 +4,7 @@
     "header header"
     "navBar content"
     "footer footer";
-  grid-template-rows: 70px 1fr 50px;
+  grid-template-rows: 70px 1fr 90px;
   grid-template-columns: 2fr 11fr;
   min-height: 100vh;
 }
