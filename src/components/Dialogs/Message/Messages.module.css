@@ -1,3 +1,9 @@
 .container {
     margin-left: 80px;
+    margin-bottom: 80px;
+    background: gainsboro;
+    width: 80%;
+    border-radius: 15px;
+    padding-bottom: 15px;
+    padding-top: 10px;
 }

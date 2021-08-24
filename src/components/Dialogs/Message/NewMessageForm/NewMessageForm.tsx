@@ -1,29 +1,60 @@
 import React from "react";
 import s from './NewMessageForm.module.css'
-import {Field, reduxForm} from "redux-form";
-import {Textarea} from "../../../FormsControl/FormsControl";
-import {maxLengthCreator} from "../../../../utils/validators/validators";
-
-let maxLength = maxLengthCreator(50)
+import { useForm } from "react-hook-form";
+import errorIcon from "../../../../defaultData/Icon/errorIcon.png"
 
 type props = {
-    handleSubmit: () => void
-    messageValue: string
+    addMessage:(message:string) => void
 }
 
+//
+// let onSubmit = (formData:formDataType) => {
+//     if (formData.newMessage != null) {
+//         props.addMessageAC(formData.newMessage)
+//     }
+// }
+
 const NewMessageForm: React.FC<props> = (props) => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = (data:{message:string}) => {
+        props.addMessage(data.message)
+    }
     return (
 
-        <form onSubmit={props.handleSubmit} className={s.container}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <Field component={Textarea} validate={[maxLength]} name={'newMessage'} className={s.sendMessageForm}  value={props.messageValue}/>
+
+                <textarea className={s.sendMessageForm} placeholder={'Enter your message...'}  {...register("message", { required: true })} />
             </div>
-            <button className={s.sendMessageButton} >Send</button>
+            <input disabled={!!errors.message} className={s.sendMessageButton} type="submit" />
+            {errors.message &&
+            <div className={s.errorMessage}>
+                <img className={s.errorIcon} src={errorIcon} alt=""/>
+                <span>Field for message cant`t be empty</span>
+            </div>}
         </form>
     )
 }
 
-// @ts-ignore
-let ReduxNewMessageForm = reduxForm ({form:'newMessage'}) (NewMessageForm)
+export default NewMessageForm
 
-export default ReduxNewMessageForm
+
+
+
+//     console.log(watch("example")); // watch input value by passing the name of it
+//
+//     return (
+//         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+//         <form onSubmit={handleSubmit(onSubmit)}>
+//             {/* register your input into the hook by invoking the "register" function */}
+//
+//
+//             {/* include validation with required or other standard HTML validation rules */}
+//             <input {...register("exampleRequired", { required: true })} />
+//             {/* errors will return when field validation fails  */}
+//             {errors.exampleRequired && <span>This field is required</span>}
+//
+//             <input type="submit" />
+//         </form>
+//     );
+// }

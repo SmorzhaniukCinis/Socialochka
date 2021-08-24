@@ -1,4 +1,4 @@
-.container textarea {
+.newMessageField {
     border: 2px solid ;
 }
 .sendMessageButton {
@@ -16,4 +16,21 @@
     margin-left: 50px;
     height: 100px;
     width: 500px;
+    resize: none
+}
+.errorMessage {
+    font-size: 13px;
+    color: red;
+    display: inline;
+    position: absolute;
+    margin-left: 10%;
+}
+.errorMessage span {
+    margin-left: 20px;
+}
+.errorIcon {
+    width: 15px;
+    opacity: 90%;
+    position: absolute;
+    margin-top: 2px;
 }

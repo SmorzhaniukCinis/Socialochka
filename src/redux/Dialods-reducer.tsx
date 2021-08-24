@@ -2,12 +2,12 @@ import {DialogsDataType, messageDataType} from "../Type/Types";
 import {InferActionsTypes} from "./redux-store";
 
 type initialStateType = {
-    messageData: Array <messageDataType>
-    DialogsData: Array <DialogsDataType>
+    messageData: Array<messageDataType>
+    DialogsData: Array<DialogsDataType>
     currentMessage: string
 }
 
-let initialState:initialStateType = {
+let initialState: initialStateType = {
     messageData: [
         {id: 1, messageItem: "1 messageItem"},
         {id: 2, messageItem: "2 messageItem"},
@@ -40,18 +40,13 @@ let initialState:initialStateType = {
     currentMessage: ''
 }
 
-const dialogsReducer = (state = initialState, action:ActionTypes):initialStateType => {
+const dialogsReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case "ADD_MESSAGE":
-            if (action.text === '') {
-                alert('Enter your message')
-                return state
-            } else {
-                return  {
-                    ...state,
-                    messageData : [...state.messageData, {id: 6, messageItem: action.text}],
-                    currentMessage: ''
-                }
+            return {
+                ...state,
+                messageData: [...state.messageData, {id: 6, messageItem: action.text}],
+                currentMessage: ''
             }
         default:
             return state
@@ -63,7 +58,7 @@ type ActionTypes = InferActionsTypes<typeof DialogsActions>
 
 
 export const DialogsActions = {
-     addMessageAC: (text:string)=> ({type: "ADD_MESSAGE", text}as const)
+    addMessage: (text: string) => ({type: "ADD_MESSAGE", text} as const)
 
 }
 

@@ -10,6 +10,6 @@ let mapStateToProps = (state:AppStateType) => {
     }
 }
 
-let MessagesContainer = connect (mapStateToProps, {addMessageAC:DialogsActions.addMessageAC})(Messages)
+let MessagesContainer = connect (mapStateToProps, {})(Messages)
 
 export default MessagesContainer

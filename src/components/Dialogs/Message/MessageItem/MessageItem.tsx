@@ -7,7 +7,7 @@ type props = {
 
 const MessageItem: React.FC<props> = (props) => {
     return (
-        <div><li>{props.messageItem}</li></div>
+        <div className={s.messageContainer}><span>{props.messageItem}</span></div>
     )
 }
 
