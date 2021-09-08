@@ -8,6 +8,7 @@ type props = {
 
 const PostForm:React.FC<props> = (props) => {
     const { reset, register, handleSubmit, watch, formState: { errors } } = useForm();
+
     const onSubmit = (data: { PostField: any; }) => {
         props.addPost(data.PostField)
         reset()

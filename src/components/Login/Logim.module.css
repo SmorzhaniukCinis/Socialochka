@@ -5,9 +5,11 @@
     width: 45%;
     background: floralwhite;
     margin-left: 100px;
+    margin-bottom: 100px;
     padding: 80px 0 70px 0;
     border: 1px solid black;
     border-radius: 6px;
+    box-shadow: 5px 5px 10px black;
 }
 .itemForm {
     margin: 0 auto;
@@ -21,7 +23,7 @@
 .checkbox {
     margin: 20px 10px 10px 10px;
 }
-button {
+.submitButton {
     background: burlywood;
     padding: 10px 30px;
     margin-top: 10px;

@@ -7,12 +7,6 @@ type props = {
     addMessage:(message:string) => void
 }
 
-//
-// let onSubmit = (formData:formDataType) => {
-//     if (formData.newMessage != null) {
-//         props.addMessageAC(formData.newMessage)
-//     }
-// }
 
 const NewMessageForm: React.FC<props> = (props) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
