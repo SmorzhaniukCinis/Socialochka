@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {
-    followUser, getUsers,
+    followUser, getUsers, searchUsers,
     unFollowUser,
 }
     from "../../redux/Users-Reducer";
@@ -37,6 +37,7 @@ type propsDispatchType = {
     followUser: (id: number | null) => void
     onPageChanged: (page: number) => void
     setCurrentPortion: (PortionNumber: number) => void
+    searchUsers: (userName:string) => void
 }
 type propsType = propsStateType & propsDispatchType
 
@@ -88,6 +89,7 @@ export default connect<propsStateType, propsDispatchType, null, AppStateType>(ma
     setUsers: UserActions.setUsers,
     dataFetching: UserActions.dataFetching,
     onFollowingProgress: UserActions.onFollowingProgress,
+    searchUsers,
     getUsers,
     unFollowUser,
     followUser,

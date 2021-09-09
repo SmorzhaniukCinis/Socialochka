@@ -100,6 +100,15 @@ export const getUsers = (currentPage: number, pageSize: number) =>
         dispatch(UserActions.setUsers(response.items))
         dispatch(UserActions.setTotalUsersCount(response.totalCount))
     }
+export const searchUsers = (userName: string) =>
+    async (dispatch: Dispatch) => {
+    debugger
+        dispatch(UserActions.dataFetching(true))
+        let response = await usersAPI.getUsersName(userName)
+        dispatch(UserActions.dataFetching(false))
+        dispatch(UserActions.setUsers(response.items))
+        dispatch(UserActions.setTotalUsersCount(response.totalCount))
+    }
 export const unFollowUser = (id: number) =>
     async (dispatch: Dispatch) => {
         dispatch(UserActions.onFollowingProgress(id, true))

@@ -4,6 +4,7 @@ import avatarPhoto from "../../defaultData/avatarDefoult.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import {usersDataType} from "../../Type/Types";
+import SearchField from "./SeatchField/SearchField";
 
 
 type props = {
@@ -19,11 +20,15 @@ type props = {
     followUser: (id:number| null) => void
     onPageChanged: (page:number) => void
     setCurrentPortion: (PortionNumber:number) => void
+    searchUsers: (userName:string) => void
 }
 
 let Users: React.FC<props> = (props) => {
     return (
         <div className={s.main}>
+
+            <SearchField searchUsers={props.searchUsers}/>
+
             {props.users.map(u => <div key={u.id} className={s.container}>
 
                 <div className={s.leftBlock}>

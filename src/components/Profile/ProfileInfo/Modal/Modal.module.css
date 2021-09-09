@@ -1,0 +1,11 @@
+.bigAva {
+   height: 600px;
+}
+.container {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.avatar {
+    cursor: pointer;
+}

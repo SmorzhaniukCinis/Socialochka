@@ -3,8 +3,8 @@ import React from "react";
 import avatar from '../../../defaultData/avatarDefoult.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
-import {requestProfile} from "../../../redux/Priofile-reducer";
 import {profileType} from "../../../Type/Types";
+import SimpleModal from "./Modal/Modal";
 
 type props = {
     profile:profileType
@@ -33,7 +33,8 @@ const ProfileInfo: React.FC<props> = (props) => {
     return (
         <div className={s.nameBlock}>
             <div className={s.avaBlock}>
-                <img src={(props.profile.photos && props.profile.photos.small) || avatar} alt="avatarPhoto"/>
+
+                <SimpleModal profile={props.profile} />
                 {!props.owner
                     ? <div className={s.selectPhotoWrapper}>
                         {/*@ts-ignore*/}

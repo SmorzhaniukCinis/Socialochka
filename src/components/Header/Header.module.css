@@ -41,3 +41,9 @@
     background-color: cadetblue;
     transition: 0.5s;
 }
+.profileAvatar {
+    width: 44px;
+    position: absolute;
+    top: 14px;
+    left: 76%;
+}

@@ -1,0 +1,23 @@
+.searchField {
+    margin: 10px 10px 5px 45.8%;
+    padding: 5px;
+    width: 300px;
+    font-size: 18px;
+    border: 1px solid black;
+    background: #ece5e5;
+}
+.searchSubmit {
+    margin: 10px 10px 5px 0;
+    padding: 5px;
+    width: 100px;
+    font-size: 18px;
+    border: 1px solid black;
+    background: #ece5e5;
+    transition: 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+.searchSubmit:hover {
+    transition: 0.3s;
+    background: #b1bcbd;
+}
