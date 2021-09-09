@@ -1,12 +1,13 @@
 import {connect} from "react-redux";
 import Friends from "./Friends";
-import {getFriends} from "../../redux/Friends-reducer";
+import {getFriends, searchFiends} from "../../redux/Friends-reducer";
 import React from 'react'
 import Preloader from "../Preloader/Preloader";
 import {friendsType} from "../../Type/Types";
 import {AppStateType} from "../../redux/redux-store";
 
-type props ={
+type props = {
+    searchFiends: (userName: string) => void
     getFriends: () => void
     preloader: boolean
     friends: Array<friendsType>
@@ -21,7 +22,7 @@ class FriendsContainer extends React.Component<props> {
         return (<div>
                 {this.props.preloader
                     ? <Preloader/>
-                    :<Friends {...this.props}/>}
+                    : <Friends {...this.props}/>}
             </div>
         )
 
@@ -29,11 +30,11 @@ class FriendsContainer extends React.Component<props> {
 }
 
 
-let mapStateToProps = (state:AppStateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         friends: state.friendsPage.friends,
         preloader: state.friendsPage.preloader
     }
 }
 
-export default connect(mapStateToProps, {getFriends})(FriendsContainer)
+export default connect(mapStateToProps, {searchFiends, getFriends})(FriendsContainer)

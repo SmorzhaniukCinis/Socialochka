@@ -102,7 +102,6 @@ export const getUsers = (currentPage: number, pageSize: number) =>
     }
 export const searchUsers = (userName: string) =>
     async (dispatch: Dispatch) => {
-    debugger
         dispatch(UserActions.dataFetching(true))
         let response = await usersAPI.getUsersName(userName)
         dispatch(UserActions.dataFetching(false))

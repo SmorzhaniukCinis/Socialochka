@@ -11,9 +11,9 @@ export const usersAPI = {
             ).then(response => response.data)
         )
     },
-    getUsersName(name: string) {
+    getUsersName(name: string, friend?: boolean | null) {
         return (
-            instance.get<getUsersType>(`users?term=${name}`
+            instance.get<getUsersType>(`users?term=${name}&friend=${friend}&count=100`
             ).then(response => response.data)
         )
     },

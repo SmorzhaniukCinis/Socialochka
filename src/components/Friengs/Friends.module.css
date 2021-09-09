@@ -2,6 +2,7 @@
     display: grid;
     grid-template-rows: 8fr;
     grid-template-areas: "item item item item item item item item";
+    margin-left: 10px;
 }
 .item {
     grid-area: item;
@@ -9,4 +10,5 @@
 .blockName {
     font-size: 30px;
     padding-left:35%;
+    margin-bottom: 10px;
 }

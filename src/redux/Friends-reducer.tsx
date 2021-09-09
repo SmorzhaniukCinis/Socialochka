@@ -3,6 +3,7 @@ import {friendsType} from "../Type/Types";
 import {Dispatch} from "redux";
 import {InferActionsTypes} from "./redux-store";
 import {friendsAPI} from "../api/friendsAPI";
+import {usersAPI} from "../api/usersAPI";
 
 type initialStateType = {
     friends: Array<friendsType>
@@ -46,6 +47,15 @@ export const getFriends = () => async (dispatch: Dispatch<ActionTypes>) => {
         dispatch(FriendsActions.viewPreloader(false))
     }
 }
+export const searchFiends = (userName: string) =>
+    async (dispatch: Dispatch) => {
+        dispatch(FriendsActions.viewPreloader(true))
+        let response = await usersAPI.getUsersName(userName, true)
+        dispatch(FriendsActions.viewPreloader(false))
+        debugger
+        // @ts-ignore
+        dispatch(FriendsActions.setFriends(response.items))
+    }
 
 
 export default friendsReducer
