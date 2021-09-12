@@ -1,6 +1,7 @@
 import React from "react";
 import s from "../ProfileStatus.module.css";
 import {profileType} from "../../../../../Type/Types";
+import { NavLink } from "react-router-dom";
 
 
 type props = {
@@ -25,8 +26,31 @@ const ProfileData:React.FC<props> = (props) => {
                 className={s.lookingForAJobValue}>{props.profile.lookingForAJob ? "yes" : "no"}</mark></span> <br/>
             <span>I want to work as a <span
                 className={s.jobDescription}>{props.profile.lookingForAJobDescription || '  -'}</span></span> <br/>
+            <div className={s.linkBlock}>
+                <NavLink to={props.profile.contacts.youtube || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/youtube.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.github || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/github.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.facebook || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/facebook-new--v2.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.instagram || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/instagram-new.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.vk || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/vk-com--v1.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.twitter || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/twitter.png"/>
+                </NavLink>
+                <NavLink to={props.profile.contacts.website || '#'}>
+                    <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/google-code.png"/>
+                </NavLink>
+            </div>
             {!props.owner
-                ? <button className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</button>
+                ? <span className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</span>
                 : props.subscription
                     ? <div>
                         <button disabled={props.followingInProgress.some((id: number) => id === props.UserId)}

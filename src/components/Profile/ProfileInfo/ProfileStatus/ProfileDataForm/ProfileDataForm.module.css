@@ -32,7 +32,6 @@
     border: black solid 1px;
     border-radius: 3px;
     transition: 0.3s;
-
 }
 .submit:hover {
     transition: 0.3s;

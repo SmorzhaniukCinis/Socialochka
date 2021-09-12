@@ -7,19 +7,17 @@
     padding-left: 10px;
 }
 .profileInfoButton {
-    background-color: #c9dadb;
     padding: 4px 15px;
-    border: black 2px solid;
-    border-radius: 4px;
     transition: 0.6s;
-    opacity: 60%;
+    opacity: 45%;
     position: absolute;
-    bottom: 0;
+    right: 35px;
+    bottom: 135px;
     margin-bottom: 10px;
     cursor: pointer;
+    border: none;
 }
 .profileInfoButton:hover{
-    border-radius: 10px;
     transition: 0.6s;
     opacity: 100%;
 }
@@ -49,4 +47,11 @@ mark {
 .followButton:hover {
     background: #c9dadb;
     transition: 0.3s;
+}
+.linkBlock {
+    margin-top: 12px;
+}
+.link {
+    margin-right: 8px;
+    cursor: pointer;
 }
