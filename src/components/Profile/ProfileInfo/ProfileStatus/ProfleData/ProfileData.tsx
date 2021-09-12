@@ -27,27 +27,27 @@ const ProfileData:React.FC<props> = (props) => {
             <span>I want to work as a <span
                 className={s.jobDescription}>{props.profile.lookingForAJobDescription || '  -'}</span></span> <br/>
             <div className={s.linkBlock}>
-                <NavLink to={props.profile.contacts.youtube || '#'}>
+                <a href={props.profile.contacts.youtube || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/youtube.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.github || '#'}>
+                </a>
+                <a href={props.profile.contacts.github || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/github.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.facebook || '#'}>
+                </a>
+                <a href={props.profile.contacts.facebook || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/facebook-new--v2.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.instagram || '#'}>
+                </a>
+                <a href={props.profile.contacts.instagram || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/instagram-new.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.vk || '#'}>
+                </a>
+                <a href={props.profile.contacts.vk || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/vk-com--v1.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.twitter || '#'}>
+                </a>
+                <a href={props.profile.contacts.twitter || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/twitter.png"/>
-                </NavLink>
-                <NavLink to={props.profile.contacts.website || '#'}>
+                </a>
+                <a href={props.profile.contacts.website || '#'}>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/google-code.png"/>
-                </NavLink>
+                </a>
             </div>
             {!props.owner
                 ? <span className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</span>
