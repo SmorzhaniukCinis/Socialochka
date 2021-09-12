@@ -17,10 +17,11 @@ let initialState: initialStateType = {
     posts: [],
     newPostText: '',
     profile: {
+        aboutMe: "",
         userId: null,
         lookingForAJob: null,
-        lookingForAJobDescription: null,
-        fullName: null,
+        lookingForAJobDescription: "",
+        fullName: "",
         contacts: {
             github: null,
             vk: null,

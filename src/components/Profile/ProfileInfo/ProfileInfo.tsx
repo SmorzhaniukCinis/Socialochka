@@ -1,6 +1,5 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
-import avatar from '../../../defaultData/avatarDefoult.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
 import {profileType} from "../../../Type/Types";
@@ -15,7 +14,7 @@ type props = {
     updateStatus: () => void
     requestProfile: () => void
     subscription:boolean
-    followingInProgress: () => void
+    followingInProgress: Array<number>
     uploadProfileData: () => void
     followUser: () => void
     unFollowUser: () => void

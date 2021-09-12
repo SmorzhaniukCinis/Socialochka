@@ -44,8 +44,9 @@ export type contactsType = {
 export type profileType = {
     userId: number | null
     lookingForAJob: boolean | null
-    lookingForAJobDescription: string | null
-    fullName: string | null
+    lookingForAJobDescription: string | undefined
+    fullName: string | undefined
     contacts: contactsType
     photos: photosType
+    aboutMe: string | undefined
 }

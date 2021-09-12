@@ -1,15 +1,33 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
 import s from "./ProfileDataForm.module.css"
+import {profileType} from "../../../../../Type/Types";
 
-let ProfileDataForm = (props) => {
-    const onSubmit = data => {
+type props = {
+    profile:profileType
+    status:string
+    UserId:number
+    updateStatus: (status:string) => void
+    uploadProfileData: (data:FormData, UserId:number) => void
+    deactivateEditMode: () => void
+}
+
+type FormData = {
+    status: string
+    fullName: string
+    AboutMe: string
+    lookingForAJobDescription: string
+    lookingForAJob: boolean
+}
+
+let ProfileDataForm:React.FC<props> = (props) => {
+    const onSubmit = (data:FormData) => {
         props.updateStatus(data.status)
         props.uploadProfileData(data, props.UserId)
         props.deactivateEditMode()
     }
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
 
     return (
         <form className={s.profileDataForm} onSubmit={handleSubmit(onSubmit)}>
