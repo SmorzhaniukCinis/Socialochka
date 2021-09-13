@@ -3,7 +3,7 @@
     position: absolute;
     display: inline-flex;
     height: 185px;
-    width: 50%;
+    width: 1000px;
 }
 .avaBlock {
     grid-area: avaBlock;

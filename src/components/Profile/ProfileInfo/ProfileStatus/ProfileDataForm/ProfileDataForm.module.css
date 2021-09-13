@@ -37,4 +37,15 @@
     transition: 0.3s;
     background: #ade9f1;
 }
+.linkWrapper {
+    position: absolute;
+    right: 130px;
+    top: 25px;
+    display: flex;
+
+}
+.link {
+    margin: 5px;
+    cursor: pointer;
+}
 

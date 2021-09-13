@@ -1,7 +1,6 @@
 import React from "react";
 import s from "../ProfileStatus.module.css";
 import {profileType} from "../../../../../Type/Types";
-import { NavLink } from "react-router-dom";
 
 
 type props = {

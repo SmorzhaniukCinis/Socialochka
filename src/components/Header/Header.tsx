@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
+import avatarDefault from '../../defaultData/avatarDefoult.png'
 
 
 type props = {
@@ -21,7 +22,7 @@ const Header: React.FC<props> = (props) => {
                     : <div>
 
                         <NavLink to={'/profile'} className={s.UserProfile}>
-                            <img className={s.profileAvatar} src={props.avatar} alt="avatar"/> {props.login}
+                            <img className={s.profileAvatar} src={props.avatar || avatarDefault} alt="avatar"/> {props.login}
                         </NavLink>
                         <button className={s.logoutButton} onClick={props.logoutUser}>Log out</button>
                     </div>
