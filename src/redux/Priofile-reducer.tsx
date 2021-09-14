@@ -118,6 +118,7 @@ export const setNewAvatarImg = (file: any) =>
     }
 export const uploadProfileData = (profileData: any, userId: number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
+    debugger
         let response = await profileAPI.uploadProfileData(profileData)
         if (response.resultCode === 0) {
             // @ts-ignore

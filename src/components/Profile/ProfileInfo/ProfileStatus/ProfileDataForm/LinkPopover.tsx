@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import s from "./ProfileDataForm.module.css";
 
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         typography: {
@@ -30,8 +31,11 @@ export default function LinkPopover(props:any) {
         setAnchorEl(null);
     };
 
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
+
+
 
     return (
         <div>
@@ -52,7 +56,12 @@ export default function LinkPopover(props:any) {
                     horizontal: 'center',
                 }}
             >
-                <Typography className={classes.typography}>The content of the Popover.</Typography>
+                <Typography className={classes.typography}>
+                    <input type="text" defaultValue={props.contactLink} onInput={(e) => {
+                        props.setURL(e.currentTarget.value)
+                        console.log(e.currentTarget.value)
+                    }}/>
+                </Typography>
             </Popover>
         </div>
     );
