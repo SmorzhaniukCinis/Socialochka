@@ -15,7 +15,10 @@ type props = {
     activateEditMode: () => void
 }
 
+
 const ProfileData:React.FC<props> = (props) => {
+
+
     return (
         <div className={s.profileInfo}>
             <span className={s.userNameField}>{props.profile.fullName}</span> <br/>
@@ -26,7 +29,7 @@ const ProfileData:React.FC<props> = (props) => {
             <span>I want to work as a <span
                 className={s.jobDescription}>{props.profile.lookingForAJobDescription || '  -'}</span></span> <br/>
             <div className={s.linkBlock}>
-                <a href={props.profile.contacts.youtube || '#'}>
+                <a href={props.profile.contacts.youtube || '#'} >
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/youtube.png"/>
                 </a>
                 <a href={props.profile.contacts.github || '#'}>
