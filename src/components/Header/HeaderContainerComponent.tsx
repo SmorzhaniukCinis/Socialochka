@@ -26,7 +26,7 @@ let mapStateToProps = (state:AppStateType) => ({
     id: state.auth.id,
     login: state.auth.login,
     email: state.auth.email,
-    avatar: state.profile.profile.photos.small
+    avatar: state.auth.userPhoto
 })
 
 // @ts-ignore

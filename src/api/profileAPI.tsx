@@ -6,7 +6,7 @@ import {defaultResponse, instance } from "./api";
 
 
 export const profileAPI = {
-    getProfile(userId: number) {
+    getProfile(userId: number | null) {
         return (
             instance.get<profileType>(`profile/${userId}`)
                 .then(response => response.data)
