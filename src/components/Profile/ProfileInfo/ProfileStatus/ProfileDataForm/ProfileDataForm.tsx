@@ -25,13 +25,13 @@ type FormData = {
 
 let ProfileDataForm:React.FC<props> = (props) => {
 
-    let [youtube, setYoutubeURL] = useState("")
-    let [github, setGithubURL] = useState("")
-    let [facebook, setFacebookURL] = useState("")
-    let [instagram, setInstagramURL] = useState("")
-    let [vk, setVkURL] = useState("")
-    let [twitter, setTwitterURL] = useState("")
-    let [website, setWebsiteURL] = useState("")
+    let [youtube, setYoutubeURL] = useState(props.profile.contacts.youtube)
+    let [github, setGithubURL] = useState(props.profile.contacts.github)
+    let [facebook, setFacebookURL] = useState(props.profile.contacts.facebook)
+    let [instagram, setInstagramURL] = useState(props.profile.contacts.instagram)
+    let [vk, setVkURL] = useState(props.profile.contacts.vk)
+    let [twitter, setTwitterURL] = useState(props.profile.contacts.twitter)
+    let [website, setWebsiteURL] = useState(props.profile.contacts.website)
 
 
     const onSubmit = (data:FormData) => {

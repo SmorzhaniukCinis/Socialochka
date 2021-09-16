@@ -18,6 +18,7 @@ type props = {
 
 const ProfileData:React.FC<props> = (props) => {
 
+    let disabled = s.disabled
 
     return (
         <div className={s.profileInfo}>
@@ -29,25 +30,25 @@ const ProfileData:React.FC<props> = (props) => {
             <span>I want to work as a <span
                 className={s.jobDescription}>{props.profile.lookingForAJobDescription || '  -'}</span></span> <br/>
             <div className={s.linkBlock}>
-                <a href={props.profile.contacts.youtube || '#'} >
+                <a href={props.profile.contacts.youtube || '#'}  className={props.profile.contacts.youtube || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/youtube.png"/>
                 </a>
-                <a href={props.profile.contacts.github || '#'}>
+                <a href={props.profile.contacts.github || '#'} className={props.profile.contacts.github || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/github.png"/>
                 </a>
-                <a href={props.profile.contacts.facebook || '#'}>
+                <a href={props.profile.contacts.facebook || '#'} className={props.profile.contacts.facebook || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/facebook-new--v2.png"/>
                 </a>
-                <a href={props.profile.contacts.instagram || '#'}>
+                <a href={props.profile.contacts.instagram || '#'} className={props.profile.contacts.instagram || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/instagram-new.png"/>
                 </a>
-                <a href={props.profile.contacts.vk || '#'}>
+                <a href={props.profile.contacts.vk || '#'} className={props.profile.contacts.vk || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/vk-com--v1.png"/>
                 </a>
-                <a href={props.profile.contacts.twitter || '#'}>
+                <a href={props.profile.contacts.twitter || '#'} className={props.profile.contacts.twitter || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/twitter.png"/>
                 </a>
-                <a href={props.profile.contacts.website || '#'}>
+                <a href={props.profile.contacts.website || ''} className={props.profile.contacts.website || disabled }>
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/google-code.png"/>
                 </a>
             </div>
