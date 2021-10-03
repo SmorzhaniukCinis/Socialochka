@@ -5,6 +5,7 @@ import errorIcon from "../../../../defaultData/Icon/errorIcon.png"
 
 type props = {
     addMessage: (message: string) => void
+    sendMessage: ( userId: number, messageBody:string) => void
 }
 
 
@@ -12,6 +13,7 @@ const NewMessageForm: React.FC<props> = (props) => {
     const {reset, register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { message: string }) => {
         props.addMessage(data.message)
+        props.sendMessage(2, data.message)
         reset()
     }
     return (

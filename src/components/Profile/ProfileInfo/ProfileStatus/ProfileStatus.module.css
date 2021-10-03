@@ -50,6 +50,8 @@ mark {
 }
 .linkBlock {
     margin-top: 12px;
+    float: right;
+    margin-right: 20px;
 }
 .link {
     margin-right: 8px;

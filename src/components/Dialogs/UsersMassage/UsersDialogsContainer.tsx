@@ -1,6 +1,7 @@
 import UserDialogs from "./UsersDialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
+import {setStartChatting} from "../../../redux/Dialods-reducer";
 
 
 let mapStateToProps = (state:AppStateType) => {
@@ -9,6 +10,6 @@ let mapStateToProps = (state:AppStateType) => {
     }
 }
 
-let UserDialogsContainer = connect (mapStateToProps, {})(UserDialogs)
+let UserDialogsContainer = connect (mapStateToProps, {setStartChatting})(UserDialogs)
 
 export default UserDialogsContainer

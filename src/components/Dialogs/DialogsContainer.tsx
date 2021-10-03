@@ -5,10 +5,6 @@ import {AppStateType} from "../../redux/redux-store";
 
 
 class DialogsContainer extends React.Component {
-    componentDidMount() {
-
-    }
-
     render() {
         return <Dialogs/>
 

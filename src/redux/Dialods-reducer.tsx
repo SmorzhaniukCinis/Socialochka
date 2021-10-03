@@ -1,5 +1,9 @@
 import {DialogsDataType, messageDataType} from "../Type/Types";
 import {InferActionsTypes} from "./redux-store";
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/profileAPI";
+import {ProfileActions} from "./Priofile-reducer";
+import {dialogsAPI} from "../api/dialogsAPI";
 
 type initialStateType = {
     messageData: Array<messageDataType>
@@ -48,6 +52,11 @@ const dialogsReducer = (state = initialState, action: ActionTypes): initialState
                 messageData: [...state.messageData, {id: 6, messageItem: action.text}],
                 currentMessage: ''
             }
+        case "START_CHATTING":
+            return {
+                ...state
+
+            }
         default:
             return state
     }
@@ -58,8 +67,27 @@ type ActionTypes = InferActionsTypes<typeof DialogsActions>
 
 
 export const DialogsActions = {
-    addMessage: (text: string) => ({type: "ADD_MESSAGE", text} as const)
-
+    addMessage: (text: string) => ({type: "ADD_MESSAGE", text} as const),
+    startChatting: (userId:number) => ({type: "START_CHATTING", userId} as const)
 }
 
+
+export const setStartChatting = (userId: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+        let response = await dialogsAPI.startChatting(userId)
+        console.log(response)
+
+        dispatch(DialogsActions.startChatting(userId))
+    }
+export const sendMessage = (userId: number, messageBody:string) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+        debugger
+        let response = await dialogsAPI.sendMessage(userId , messageBody)
+
+        console.log(response)
+        dispatch(DialogsActions.startChatting(userId))
+    }
+
 export default dialogsReducer
+
+
