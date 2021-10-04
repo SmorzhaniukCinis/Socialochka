@@ -13,7 +13,7 @@ const NewMessageForm: React.FC<props> = (props) => {
     const {reset, register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { message: string }) => {
         props.addMessage(data.message)
-        props.sendMessage(2, data.message)
+        props.sendMessage( 2 , data.message)
         reset()
     }
     return (

@@ -8,10 +8,11 @@ import {DialogsDataType} from "../../../Type/Types";
 type props = {
     dialogs: Array<DialogsDataType>
     setStartChatting: (userId:number) => void
+    getMessage: (userId:number) => void
 }
 
 const UserDialogs: React.FC<props> = (props) => {
-    let NewDialogsData = props.dialogs.map ( item => <DialogItem setStartChatting={props.setStartChatting} key={item.id} name={item.name} id={item.id}/>)
+    let NewDialogsData = props.dialogs.map ( item => <DialogItem {...props} key={item.id} name={item.name} id={item.id}/>)
 
     return (
         <div className={s.container}>

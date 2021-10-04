@@ -72,19 +72,23 @@ export const DialogsActions = {
 }
 
 
+
+
 export const setStartChatting = (userId: number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
         let response = await dialogsAPI.startChatting(userId)
         console.log(response)
-
         dispatch(DialogsActions.startChatting(userId))
     }
 export const sendMessage = (userId: number, messageBody:string) =>
     async (dispatch: Dispatch<ActionTypes>) => {
-        debugger
         let response = await dialogsAPI.sendMessage(userId , messageBody)
+        dispatch(DialogsActions.startChatting(userId))
+    }
+export const getMessage = (userId: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+        let response = await dialogsAPI.getMessage(userId)
 
-        console.log(response)
         dispatch(DialogsActions.startChatting(userId))
     }
 
