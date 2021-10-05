@@ -28,6 +28,7 @@ type propsStateType = {
     totalCount: number
     PortionNumber: number
     portionCount: number
+    searchingUserName: string
 }
 type propsDispatchType = {
     getUsers: (currentPage: number, pageSize: number) => void
@@ -38,6 +39,7 @@ type propsDispatchType = {
     onPageChanged: (page: number) => void
     setCurrentPortion: (PortionNumber: number) => void
     searchUsers: (userName:string) => void
+    setSearchingUserName: (userName:string) => void
 }
 type propsType = propsStateType & propsDispatchType
 
@@ -78,6 +80,7 @@ let mapStateToProps = (state: AppStateType) => {
         portionCount: getPortionCount(state),
         PortionNumber: getPortionNumber(state),
         profile: getProfile(state),
+        searchingUserName: state.usersPage.searchingUserName
     }
 }
 
@@ -93,5 +96,7 @@ export default connect<propsStateType, propsDispatchType, null, AppStateType>(ma
     getUsers,
     unFollowUser,
     followUser,
+    setSearchingUserName: UserActions.setSearchingUserName,
     setCurrentPortion: UserActions.setCurrentPortion
+
 })(UsersContainer)

@@ -1,17 +1,10 @@
-import {DialogsDataType, messageDataType} from "../Type/Types";
 import {InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/profileAPI";
-import {ProfileActions} from "./Priofile-reducer";
 import {dialogsAPI} from "../api/dialogsAPI";
 
-type initialStateType = {
-    messageData: Array<messageDataType>
-    DialogsData: Array<DialogsDataType>
-    currentMessage: string
-}
+type initialStateType = typeof initialState
 
-let initialState: initialStateType = {
+let initialState = {
     messageData: [
         {id: 1, messageItem: "1 messageItem"},
         {id: 2, messageItem: "2 messageItem"},

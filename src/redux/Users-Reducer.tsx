@@ -14,6 +14,7 @@ type initialStateType = {
     isFetching: boolean
     followingInProgress: Array<followingInProgressType>
     PortionNumber: number
+    searchingUserName: string
 }
 let initialState: initialStateType = {
     usersData: [],
@@ -23,7 +24,8 @@ let initialState: initialStateType = {
     currentPage: 1,
     isFetching: true,
     followingInProgress: [],
-    PortionNumber: 1
+    PortionNumber: 1,
+    searchingUserName: ''
 }
 
 const usersReducer = (state = initialState, action: actionsTypes) => {
@@ -73,6 +75,12 @@ const usersReducer = (state = initialState, action: actionsTypes) => {
                 ...state,
                 PortionNumber: action.PortionNumber
             }
+         case 'SET_SEARCHING_USER_NAME':
+            return {
+                ...state,
+                searchingUserName: action.userName
+            }
+
         default:
             return state
     }
@@ -88,12 +96,14 @@ export const UserActions = {
     setTotalUsersCount: (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalCount} as const),
     dataFetching: (status: boolean) => ({type: 'DATA_FETCHING', status} as const),
     onFollowingProgress: (id: number, status: boolean) => ({type: 'FOLLOWING_IN_PROGRESS', id, status} as const),
-    setCurrentPortion: (PortionNumber: number) => ({type: 'SET_CURRENT_PORTION', PortionNumber} as const)
+    setCurrentPortion: (PortionNumber: number) => ({type: 'SET_CURRENT_PORTION', PortionNumber} as const),
+    setSearchingUserName: (userName: string) => ({type: 'SET_SEARCHING_USER_NAME', userName} as const)
 }
 
 
 export const getUsers = (currentPage: number, pageSize: number) =>
     async (dispatch: Dispatch) => {
+    debugger
         dispatch(UserActions.dataFetching(true))
         let response = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(UserActions.dataFetching(false))
@@ -105,6 +115,7 @@ export const searchUsers = (userName: string) =>
         dispatch(UserActions.dataFetching(true))
         let response = await usersAPI.getUsersName(userName)
         dispatch(UserActions.dataFetching(false))
+        dispatch(UserActions.setSearchingUserName(userName))
         dispatch(UserActions.setUsers(response.items))
         dispatch(UserActions.setTotalUsersCount(response.totalCount))
     }

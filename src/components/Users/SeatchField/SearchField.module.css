@@ -21,3 +21,17 @@
     transition: 0.3s;
     background: #b1bcbd;
 }
+.closeIcon {
+    width: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.searchResult {
+    position: absolute;
+    display: flex;
+    width: 400px;
+    margin: 15px 70px;
+}
+.searchResult__text {
+    text-decoration: underline;
+}

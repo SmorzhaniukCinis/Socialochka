@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import {usersDataType} from "../../Type/Types";
 import SearchField from "./SeatchField/SearchField";
+import {UserActions} from "../../redux/Users-Reducer";
 
 
 type props = {
@@ -14,6 +15,7 @@ type props = {
     PortionNumber: number
     portionCount: number
     currentPage: number
+    searchingUserName:string
 
     followingInProgress: Array<number>
     unFollowUser: (id:number| null) => void
@@ -21,13 +23,15 @@ type props = {
     onPageChanged: (page:number) => void
     setCurrentPortion: (PortionNumber:number) => void
     searchUsers: (userName:string) => void
+    setSearchingUserName: (userName:string) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 
 let Users: React.FC<props> = (props) => {
     return (
         <div className={s.main}>
 
-            <SearchField searchUsers={props.searchUsers}/>
+            <SearchField getUsers={props.getUsers} setSearchingUserName={props.setSearchingUserName} searchingUserName={props.searchingUserName} searchUsers={props.searchUsers}/>
 
             {props.users.map(u => <div key={u.id} className={s.container}>
 
@@ -56,11 +60,12 @@ let Users: React.FC<props> = (props) => {
                 </div>
             </div>)}
 
-
-            <Pagination portionCount={props.portionCount} totalCount={props.totalCount}
-                        onPageChanged={props.onPageChanged} currentPage={props.currentPage}
-                        pageSize={props.pageSize} setCurrentPortion={props.setCurrentPortion}
-                        PortionNumber={props.PortionNumber}/>
+            { props.totalCount > 5 &&
+                <Pagination portionCount={props.portionCount} totalCount={props.totalCount}
+                            onPageChanged={props.onPageChanged} currentPage={props.currentPage}
+                            pageSize={props.pageSize} setCurrentPortion={props.setCurrentPortion}
+                            PortionNumber={props.PortionNumber}/>
+            }
         </div>
     )
 }
