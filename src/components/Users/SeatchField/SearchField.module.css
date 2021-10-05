@@ -1,5 +1,5 @@
 .searchField {
-    margin: 10px 10px 5px 45.8%;
+    margin: 10px 10px 5px 60%;
     padding: 5px;
     width: 300px;
     font-size: 18px;
@@ -34,4 +34,8 @@
 }
 .searchResult__text {
     text-decoration: underline;
+}
+.errorMessage {
+    color: red;
+    opacity: 80%;
 }

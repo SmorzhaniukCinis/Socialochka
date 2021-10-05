@@ -9,8 +9,7 @@ type props = {
     searchFiends: (userName: string) => void
     searchingUserName: string
     setSearchingUserName: (userName: string) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-
+    getFriends: () => void
 }
 
 const Friends: React.FC<props> = (props) => {
@@ -19,9 +18,9 @@ const Friends: React.FC<props> = (props) => {
 
     return (
         <div>
-            <h5 className={style.blockName}>Your friends <SearchField getUsers={props.getUsers} setSearchingUserName={props.setSearchingUserName} searchingUserName={props.searchingUserName}
-                                                                      searchUsers={props.searchFiends}/></h5>
-
+            <h5 className={style.blockName}>Your friends </h5>
+            <SearchField getUsers={props.getFriends} setSearchingUserName={props.setSearchingUserName} searchingUserName={props.searchingUserName}
+                         searchUsers={props.searchFiends}/>
             <div className={style.BlockItem}>{YourFriends}</div>
         </div>
     )

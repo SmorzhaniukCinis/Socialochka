@@ -49,6 +49,9 @@ class UsersContainer extends React.Component<propsType> {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
 
     }
+    componentWillUnmount() {
+        this.props.setSearchingUserName('')
+    }
 
     onPageChanged = (page: number) => {
         this.props.changePage(page)

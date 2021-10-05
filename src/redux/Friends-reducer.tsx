@@ -8,10 +8,12 @@ import {usersAPI} from "../api/usersAPI";
 type initialStateType = {
     friends: Array<friendsType>
     preloader: boolean
+    searchName: string
 }
 let initialState:initialStateType = {
     friends: [],
-    preloader: true
+    preloader: true,
+    searchName: ''
 }
 
 
@@ -25,6 +27,9 @@ const friendsReducer = (state=initialState, action:ActionTypes):initialStateType
         case "PRELOADER" :
             stateClone.preloader = action.value
             return stateClone
+        case "SET_SEARCHING_FRIEND_NAME" :
+            stateClone.searchName = action.userName
+            return stateClone
         default:
             return state
     }
@@ -35,7 +40,8 @@ type ActionTypes = InferActionsTypes<typeof FriendsActions>
 
 export  const  FriendsActions = {
     setFriends: (friends:Array<friendsType>) => ({type: "SET_FRIENDS", friends} as const ),
-    viewPreloader: (value:boolean) => ({type: "PRELOADER", value} as const )
+    viewPreloader: (value:boolean) => ({type: "PRELOADER", value} as const ),
+    setSearchingFriendName: (userName: string) => ({type: 'SET_SEARCHING_FRIEND_NAME', userName} as const)
 }
 
 export const getFriends = () => async (dispatch: Dispatch<ActionTypes>) => {
@@ -52,7 +58,7 @@ export const searchFiends = (userName: string) =>
         dispatch(FriendsActions.viewPreloader(true))
         let response = await usersAPI.getUsersName(userName, true)
         dispatch(FriendsActions.viewPreloader(false))
-        debugger
+        dispatch(FriendsActions.setSearchingFriendName(userName))
         // @ts-ignore
         dispatch(FriendsActions.setFriends(response.items))
     }
