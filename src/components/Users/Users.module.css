@@ -70,13 +70,15 @@
     text-decoration: none;
 }
 .leftButton {
-    width: 110px;
+    width: 80px;
     height: 20px;
     display: inline-block;
+    cursor: pointer;
 }
 .rightButton {
     width: 100px;
     height: 20px;
     padding-left: 10px;
     display: inline-block;
+    cursor: pointer;
 }
