@@ -12,21 +12,23 @@ type props = {
 
 const Header: React.FC<props> = (props) => {
     return (
-        <div className={s.headerBlock}>
-            <div>
-                <img src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png" alt="Logo" className={s.logo}/>
-            </div>
-            <div>
-                {!props.login
-                    ? <NavLink to={'/login'} className={s.loginButton}>Login</NavLink>
-                    : <div>
+        <div className={s.headerBlock_wrapper}>
+            <div className={s.headerBlock}>
+                <div>
+                    <img src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png" alt="Logo" className={s.logo}/>
+                </div>
+                <div>
+                    {!props.login
+                        ? <NavLink to={'/login'} className={s.loginButton}>Login</NavLink>
+                        : <div>
 
-                        <NavLink to={'/profile'} className={s.UserProfile}>
-                            <img className={s.profileAvatar} src={props.avatar || avatarDefault} alt="avatar"/> {props.login}
-                        </NavLink>
-                        <button className={s.logoutButton} onClick={props.logoutUser}>Log out</button>
-                    </div>
-                }
+                            <NavLink to={'/profile'} className={s.UserProfile}>
+                                <img className={s.profileAvatar} src={props.avatar || avatarDefault} alt="avatar"/> {props.login}
+                            </NavLink>
+                            <button className={s.logoutButton} onClick={props.logoutUser}>Log out</button>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     );

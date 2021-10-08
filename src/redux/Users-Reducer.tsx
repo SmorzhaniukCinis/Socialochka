@@ -132,7 +132,6 @@ export const unFollowUser = (id: number) =>
 export const followUser = (id: number) =>
     async (dispatch: Dispatch) => {
         dispatch(UserActions.onFollowingProgress(id, true))
-        debugger
         let response = await usersAPI.FollowUser(id)
         if (response.resultCode === 0) {
             dispatch(UserActions.follow(id))
