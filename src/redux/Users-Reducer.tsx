@@ -5,7 +5,7 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../api/usersAPI";
 
 type followingInProgressType = {}
-type initialStateType = {
+export type initialStateType = {
     usersData: Array<usersDataType>
     totalCount: number
     pageSize: number
@@ -22,7 +22,7 @@ let initialState: initialStateType = {
     pageSize: 5,
     portionCount: 10,
     currentPage: 1,
-    isFetching: true,
+    isFetching: false,
     followingInProgress: [],
     PortionNumber: 1,
     searchingUserName: ''
@@ -132,6 +132,7 @@ export const unFollowUser = (id: number) =>
 export const followUser = (id: number) =>
     async (dispatch: Dispatch) => {
         dispatch(UserActions.onFollowingProgress(id, true))
+        debugger
         let response = await usersAPI.FollowUser(id)
         if (response.resultCode === 0) {
             dispatch(UserActions.follow(id))
