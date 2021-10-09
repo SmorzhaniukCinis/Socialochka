@@ -3,18 +3,17 @@ import s from "./Users.module.css";
 import avatarPhoto from "../../defaultData/avatarDefoult.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
-import {usersDataType} from "../../Type/Types";
 import SearchField from "./SeatchField/SearchField";
+import {useDispatch, useSelector} from "react-redux";
+import {getSearchingUserName, getTotalCount, getUsersData} from "../../redux/Selectors/UsersSelector";
+import {unFollowUser} from "../../redux/Users-Reducer";
 
 
 type props = {
-    users: Array<usersDataType>
-    totalCount: number
     pageSize: number
     PortionNumber: number
     portionCount: number
     currentPage: number
-    searchingUserName: string
 
     changePage: (page: number) => void
     followingInProgress: Array<number>
@@ -28,14 +27,23 @@ type props = {
 }
 
 let Users: React.FC<props> = (props) => {
+
+    const dispatch = useDispatch()
+    const users = useSelector(getUsersData)
+    const totalCount = useSelector(getTotalCount)
+    const searchingUserName = useSelector(getSearchingUserName)
+
+
+
+
     return (
         <div >
             <div className={s.main}>
                 <SearchField changePage={props.changePage} getUsers={props.getUsers} setSearchingUserName={props.setSearchingUserName}
-                             searchingUserName={props.searchingUserName} searchUsers={props.searchUsers}/>
+                             searchingUserName={searchingUserName} searchUsers={props.searchUsers}/>
             </div>
 
-            {props.users.map(u => <div key={u.id} className={s.container}>
+            {users.map(u => <div key={u.id} className={s.container}>
 
                 <div className={s.leftBlock}>
                     <NavLink className={s.nawLink} to={'/profile/' + u.id}>
@@ -48,7 +56,7 @@ let Users: React.FC<props> = (props) => {
                         ?
                         <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.followButton}
                                 onClick={() => {
-                                    props.unFollowUser(u.id)
+                                    dispatch(unFollowUser(u.id))
                                 }}>Unfollow</button>
                         :
                         <button disabled={props.followingInProgress.some(id => id === u.id)} className={s.followButton}
@@ -63,11 +71,11 @@ let Users: React.FC<props> = (props) => {
                 </div>
             </div>)}
 
-            {props.totalCount > 5 &&
-            <Pagination portionCount={props.portionCount} totalCount={props.totalCount}
+            {totalCount > 5 &&
+            <Pagination portionCount={props.portionCount} totalCount={totalCount}
                         onPageChanged={props.onPageChanged} currentPage={props.currentPage}
                         pageSize={props.pageSize} setCurrentPortion={props.setCurrentPortion}
-                        PortionNumber={props.PortionNumber} searchingUserName={props.searchingUserName}/>
+                        PortionNumber={props.PortionNumber} searchingUserName={searchingUserName}/>
             }
         </div>
     )

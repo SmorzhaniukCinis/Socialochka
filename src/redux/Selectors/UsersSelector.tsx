@@ -24,3 +24,6 @@ export const getTotalCount = (state:AppStateType) => {
 export const getUsersData = (state:AppStateType) => {
     return state.usersPage.usersData
 }
+export const getSearchingUserName = (state:AppStateType) => {
+    return state.usersPage.searchingUserName
+}

@@ -1,5 +1,8 @@
 import s from "../Users.module.css";
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentPage, getPageSize} from "../../../redux/Selectors/UsersSelector";
+import {getUsers, searchUsers, UserActions} from "../../../redux/Users-Reducer";
 
 type props = {
     totalCount:number
@@ -14,6 +17,17 @@ type props = {
 }
 
 const Pagination: React.FC<props> = (props) => {
+
+    const dispatch = useDispatch()
+    const currentPage =  useSelector(getCurrentPage)
+    const pageSize =  useSelector(getPageSize)
+
+    const onPageChanged = (page: number, searchingUserName:string) => {
+        dispatch(UserActions.changePage(page))
+        searchingUserName
+            ? dispatch(searchUsers(searchingUserName, page))
+            :dispatch(getUsers(page, pageSize))
+    }
 
     let pages: Array<number> = []
     let TotalPortionCount = Math.ceil(props.totalCount / props.pageSize)
@@ -34,7 +48,7 @@ const Pagination: React.FC<props> = (props) => {
                     return <span
                         // @ts-ignore
                         className={props.currentPage === p && s.selectedPage}
-                        onClick={() => {props.onPageChanged(p, props.searchingUserName)}} >{p}</span>
+                        onClick={() => {onPageChanged(p, props.searchingUserName)}} >{p}</span>
                 })}
             <div className={s.rightButton} >
                 {props.portionCount > props.PortionNumber &&

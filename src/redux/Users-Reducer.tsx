@@ -19,7 +19,7 @@ export type initialStateType = {
 let initialState: initialStateType = {
     usersData: [],
     totalCount: 0,
-    pageSize: 5,
+    pageSize: 10,
     portionCount: 10,
     currentPage: 1,
     isFetching: false,

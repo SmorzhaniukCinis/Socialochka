@@ -4,7 +4,7 @@ export type photosType = {
     large: string | null
 }
 export type usersDataType = {
-    id: number | null
+    id: number
     name: string
     photos: photosType
     status: string | null,
