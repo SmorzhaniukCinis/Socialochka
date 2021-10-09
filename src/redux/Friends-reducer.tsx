@@ -56,7 +56,7 @@ export const getFriends = () => async (dispatch: Dispatch<ActionTypes>) => {
 export const searchFiends = (userName: string) =>
     async (dispatch: Dispatch) => {
         dispatch(FriendsActions.viewPreloader(true))
-        let response = await usersAPI.getUsersName(userName, true)
+        let response = await usersAPI.getUsersName(userName,1, 100, true)
         dispatch(FriendsActions.viewPreloader(false))
         dispatch(FriendsActions.setSearchingFriendName(userName))
         // @ts-ignore

@@ -109,11 +109,10 @@ export const getUsers = (currentPage: number, pageSize: number) =>
         dispatch(UserActions.setUsers(response.items))
         dispatch(UserActions.setTotalUsersCount(response.totalCount))
     }
-export const searchUsers = (userName: string) =>
-    async (dispatch: Dispatch) => {
-    debugger
+export const searchUsers = (userName: string, page?: number) =>
+    async (dispatch: Dispatch, getState:()=>initialStateType) => {
         dispatch(UserActions.dataFetching(true))
-        let response = await usersAPI.getUsersName(userName)
+        let response = await usersAPI.getUsersName(userName, page , getState().totalCount )
         dispatch(UserActions.dataFetching(false))
         dispatch(UserActions.setSearchingUserName(userName))
         dispatch(UserActions.setUsers(response.items))

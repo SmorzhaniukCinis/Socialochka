@@ -36,9 +36,8 @@ type propsDispatchType = {
     followingInProgress: Array<number>
     unFollowUser: (id: number | null) => void
     followUser: (id: number | null) => void
-    onPageChanged: (page: number) => void
     setCurrentPortion: (PortionNumber: number) => void
-    searchUsers: (userName:string) => void
+    searchUsers: (userName:string, page: number) => void
     setSearchingUserName: (userName:string) => void
 }
 type propsType = propsStateType & propsDispatchType
@@ -51,11 +50,14 @@ class UsersContainer extends React.Component<propsType> {
     }
     componentWillUnmount() {
         this.props.setSearchingUserName('')
+        this.props.changePage(1)
     }
 
-    onPageChanged = (page: number) => {
+    onPageChanged = (page: number, searchingUserName:string) => {
         this.props.changePage(page)
-        this.props.getUsers(page, this.props.pageSize)
+        searchingUserName
+        ? this.props.searchUsers(searchingUserName, page)
+        :this.props.getUsers(page, this.props.pageSize)
     }
 
 

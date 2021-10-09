@@ -16,12 +16,13 @@ type props = {
     currentPage: number
     searchingUserName: string
 
+    changePage: (page: number) => void
     followingInProgress: Array<number>
     unFollowUser: (id: number | null) => void
     followUser: (id: number | null) => void
-    onPageChanged: (page: number) => void
+    onPageChanged: (page: number, searchingUserName:string) => void
     setCurrentPortion: (PortionNumber: number) => void
-    searchUsers: (userName: string) => void
+    searchUsers: (userName: string, page:number) => void
     setSearchingUserName: (userName: string) => void
     getUsers: (currentPage: number, pageSize: number) => void
 }
@@ -30,7 +31,7 @@ let Users: React.FC<props> = (props) => {
     return (
         <div >
             <div className={s.main}>
-                <SearchField getUsers={props.getUsers} setSearchingUserName={props.setSearchingUserName}
+                <SearchField changePage={props.changePage} getUsers={props.getUsers} setSearchingUserName={props.setSearchingUserName}
                              searchingUserName={props.searchingUserName} searchUsers={props.searchUsers}/>
             </div>
 
@@ -66,7 +67,7 @@ let Users: React.FC<props> = (props) => {
             <Pagination portionCount={props.portionCount} totalCount={props.totalCount}
                         onPageChanged={props.onPageChanged} currentPage={props.currentPage}
                         pageSize={props.pageSize} setCurrentPortion={props.setCurrentPortion}
-                        PortionNumber={props.PortionNumber}/>
+                        PortionNumber={props.PortionNumber} searchingUserName={props.searchingUserName}/>
             }
         </div>
     )

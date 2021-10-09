@@ -11,7 +11,6 @@ const result: defaultResponse<{}> = {
     data: {},
     messages: []
 }
-
 usersAPIMock.FollowUser.mockReturnValue(Promise.resolve(result))
 usersAPIMock.unFollowUser.mockReturnValue(Promise.resolve(result))
 

@@ -1,9 +1,5 @@
 import {defaultResponse, getUsersType, instance } from "./api"
 
-
-
-
-
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return (
@@ -11,9 +7,9 @@ export const usersAPI = {
             ).then(response => response.data)
         )
     },
-    getUsersName(name: string, friend?: boolean | null) {
+    getUsersName( name: string, currentPage?: number, pageSize?: number, friend?: boolean | null) {
         return (
-            instance.get<getUsersType>(`users?term=${name}&friend=${friend}&count=100`
+            instance.get<getUsersType>(`users?term=${name}&page=${currentPage}&count=${pageSize}&friend=${friend}`
             ).then(response => response.data)
         )
     },

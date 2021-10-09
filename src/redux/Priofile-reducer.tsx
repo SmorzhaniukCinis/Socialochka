@@ -126,7 +126,7 @@ export const uploadProfileData = (profileData: any, userId: number) =>
     }
 export const requestCurrentUser = (name: string) =>
     async (dispatch: Dispatch<ActionTypes>) => {
-        let response = await usersAPI.getUsersName(name)
+        let response = await usersAPI.getUsersName(name, 1, 1)
         if (response.items.length) {
             dispatch(ProfileActions.setSubscription(response.items[0].followed))
         }

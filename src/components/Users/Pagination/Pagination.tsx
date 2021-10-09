@@ -7,9 +7,10 @@ type props = {
     PortionNumber: number
     portionCount: number
     currentPage: number
+    searchingUserName:string
 
     setCurrentPortion: (PortionNumber:number) => void
-    onPageChanged: (page:number) => void
+    onPageChanged: (page:number, searchingUserName:string) => void
 }
 
 const Pagination: React.FC<props> = (props) => {
@@ -33,7 +34,7 @@ const Pagination: React.FC<props> = (props) => {
                     return <span
                         // @ts-ignore
                         className={props.currentPage === p && s.selectedPage}
-                        onClick={() => {props.onPageChanged(p)}} >{p}</span>
+                        onClick={() => {props.onPageChanged(p, props.searchingUserName)}} >{p}</span>
                 })}
             <div className={s.rightButton} >
                 {props.portionCount > props.PortionNumber &&

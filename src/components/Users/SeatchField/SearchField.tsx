@@ -5,10 +5,11 @@ import closeIcon from '../../../defaultData/Icon/multiply.png'
 
 
 type props = {
-    searchUsers: (userName: string) => void
+    searchUsers: (userName: string, page:number) => void
     searchingUserName: string
     setSearchingUserName: (userName: string) => void
     getUsers: (currentPage: number, pageSize: number) => void
+    changePage?: (page: number) => void
 }
 
 
@@ -17,12 +18,15 @@ const SearchField: FC<props> = (props) => {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { search: string }) => {
-        props.searchUsers(data.search);
+        props.searchUsers(data.search, 1);
     }
 
     const clearSearchName = () => {
         props.setSearchingUserName('')
         props.getUsers(1, 5)
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        props.changePage != null?props.changePage(1):null
     }
 
     return (
