@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import {Route, Redirect} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import FriendsContainer from "./components/Friengs/FriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainerComponent";
@@ -11,7 +11,8 @@ import {connect} from "react-redux";
 import {AppActions, initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
 import {WithSuspense} from "./HOC/WithSuspense";
-const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"))
+import {Users} from "./components/Users/Users";
+
 const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component {
@@ -35,7 +36,7 @@ class App extends React.Component {
                         <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                         <Route path="/messages" render={() => <DialogsContainer/>}/>
                         <Route path="/friends" render={() => <FriendsContainer/>}/>
-                        <Route path="/users" render={WithSuspense(UsersContainer)}/>
+                        <Route path="/users" render={()=> <Users/>}/>
                         <Route path="/login" render={WithSuspense(LoginContainer)}/>
                     </div>
                     <div className='footer'>

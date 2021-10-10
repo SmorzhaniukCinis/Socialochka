@@ -2,31 +2,40 @@ import React, {FC} from 'react';
 import {useForm} from "react-hook-form";
 import s from './SearchField.module.css'
 import closeIcon from '../../../defaultData/Icon/multiply.png'
+import {useDispatch} from "react-redux";
+import {getUsers, searchUsers, UserActions} from "../../../redux/Users-Reducer";
 
 
 type props = {
-    searchUsers: (userName: string, page:number) => void
     searchingUserName: string
-    setSearchingUserName: (userName: string) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    changePage?: (page: number) => void
 }
 
 
 const SearchField: FC<props> = (props) => {
 
+    const dispatch = useDispatch()
+    const getUsersWrap = (currentPage: number, pageSize: number) => {
+        dispatch(getUsers(currentPage, pageSize))
+    }
+    const searchUsersWrap = (userName: string, page: number) => {
+        dispatch(searchUsers(userName, page))
+    }
+    const setSearchingUserName = (userName: string) => {
+        dispatch(UserActions.setSearchingUserName(userName))
+    }
+    const changePage = (page: number) => {
+        dispatch(UserActions.changePage(page))
+    }
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { search: string }) => {
-        props.searchUsers(data.search, 1);
+        searchUsersWrap(data.search, 1);
     }
 
     const clearSearchName = () => {
-        props.setSearchingUserName('')
-        props.getUsers(1, 5)
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        props.changePage != null?props.changePage(1):null
+        setSearchingUserName('')
+        getUsersWrap(1, 5)
+        changePage(1)
     }
 
     return (

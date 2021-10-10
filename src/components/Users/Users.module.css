@@ -62,6 +62,7 @@
 .pagination span:hover {
     background: peachpuff;
     transition: 0.3s;
+    cursor: pointer;
 }
 .userName {
     color: black;

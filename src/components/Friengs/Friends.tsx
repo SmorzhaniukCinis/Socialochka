@@ -19,8 +19,7 @@ const Friends: React.FC<props> = (props) => {
     return (
         <div>
             <h5 className={style.blockName}>Your friends </h5>
-            <SearchField getUsers={props.getFriends} setSearchingUserName={props.setSearchingUserName} searchingUserName={props.searchingUserName}
-                         searchUsers={props.searchFiends}/>
+            <SearchField  searchingUserName={props.searchingUserName}/>
             <div className={style.BlockItem}>{YourFriends}</div>
         </div>
     )
