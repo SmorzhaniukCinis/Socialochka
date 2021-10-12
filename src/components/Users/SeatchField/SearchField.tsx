@@ -4,6 +4,7 @@ import s from './SearchField.module.css'
 import closeIcon from '../../../defaultData/Icon/multiply.png'
 import {useDispatch} from "react-redux";
 import {getUsers, searchUsers, UserActions} from "../../../redux/Users-Reducer";
+import {FriendsActions, getFriends, searchFiends} from "../../../redux/Friends-reducer";
 
 
 type props = {
@@ -17,9 +18,6 @@ const SearchField: FC<props> = (props) => {
     const getUsersWrap = (currentPage: number, pageSize: number) => {
         dispatch(getUsers(currentPage, pageSize))
     }
-    const searchUsersWrap = (userName: string, page: number) => {
-        dispatch(searchUsers(userName, page))
-    }
     const setSearchingUserName = (userName: string) => {
         dispatch(UserActions.setSearchingUserName(userName))
     }
@@ -27,13 +25,18 @@ const SearchField: FC<props> = (props) => {
         dispatch(UserActions.changePage(page))
     }
 
+    //-----------------------------------------------------------------------------------------------
+
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { search: string }) => {
-        searchUsersWrap(data.search, 1);
+        dispatch(searchUsers(data.search, 1));
+        dispatch(searchFiends(data.search))
     }
 
     const clearSearchName = () => {
         setSearchingUserName('')
+        dispatch(FriendsActions.setSearchingFriendName(''))
+        dispatch(getFriends())
         getUsersWrap(1, 5)
         changePage(1)
     }
