@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import s from "./Users.module.css";
 import avatarPhoto from "../../defaultData/avatarDefoult.png";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import SearchField from "./SeatchField/SearchField";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,8 +12,9 @@ import {
     getTotalCount,
     getUsersData
 } from "../../redux/Selectors/UsersSelector";
-import {followUser, getUsers, unFollowUser, UserActions} from "../../redux/Users-Reducer";
+import {followUser, getUsers, searchUsers, unFollowUser, UserActions} from "../../redux/Users-Reducer";
 import Preloader from "../Preloader/Preloader";
+import * as queryString from "querystring";
 
 
 export const Users: React.FC = () => {
@@ -24,18 +25,37 @@ export const Users: React.FC = () => {
     const followingInProgress = useSelector(getFollowingInProgress)
     const searchingUserName = useSelector(getSearchingUserName)
     const isFetching = useSelector(getIsFetching)
-    const currentPage =  useSelector(getCurrentPage)
-    const pageSize =  useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
 
+
+    const history = useHistory()
 
 
     useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize))
+        const parsed = queryString.parse(history.location.search.substr(1)) as { page: string; term: string }
+
+        let actualPage = currentPage
+        let actualTerm = searchingUserName
+        if (parsed.page) actualPage = Number(parsed.page)
+        if (parsed.term) actualTerm = parsed.term as string
+    debugger
+        actualTerm
+            ? dispatch(searchUsers(actualTerm, actualPage))
+            : dispatch(getUsers(actualPage, pageSize))
         return function cleanup() {
             dispatch(UserActions.setSearchingUserName(''))
             dispatch(UserActions.changePage(1))
         };
     }, []);
+
+    useEffect(() =>{
+        history.push({
+            pathname: '/users',
+            search: `?term=${searchingUserName}&page=${currentPage}`
+        })
+    }, [searchingUserName, currentPage])
+
 
     return (
 
@@ -78,7 +98,8 @@ export const Users: React.FC = () => {
                     </div>)}
 
                     {totalCount > 5 &&
-                    <Pagination currentPage={currentPage} pageSize={pageSize}  totalCount={totalCount} searchingUserName={searchingUserName}/>
+                    <Pagination currentPage={currentPage} pageSize={pageSize} totalCount={totalCount}
+                                searchingUserName={searchingUserName}/>
                     }
                 </div>
             }

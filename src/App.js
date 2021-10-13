@@ -32,7 +32,6 @@ class App extends React.Component {
                         <Navbar isPopup={this.props.isPopup} setPopupMenu={this.props.setPopupMenu}/>
                     </div>
                     <div className='content'>
-                        <Redirect from="/" to="/profile" />
                         <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                         <Route path="/messages" render={() => <DialogsContainer/>}/>
                         <Route path="/friends" render={() => <FriendsContainer/>}/>

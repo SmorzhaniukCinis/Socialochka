@@ -17,6 +17,7 @@ type formData = {
 }
 const Login: React.FC<props> = (props) => {
 
+
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
