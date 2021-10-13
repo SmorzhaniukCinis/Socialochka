@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import avatarPhoto from "../../defaultData/avatarDefoult.png";
 import {NavLink, useHistory} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
-import SearchField from "./SeatchField/SearchField";
+import SearchField from "../common/SeatchField/SearchField";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCurrentPage,
