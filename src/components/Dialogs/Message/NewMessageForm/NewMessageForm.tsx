@@ -2,18 +2,17 @@ import React from "react";
 import s from './NewMessageForm.module.css'
 import {useForm} from "react-hook-form";
 import errorIcon from "../../../../defaultData/Icon/errorIcon.png"
-
-type props = {
-    addMessage: (message: string) => void
-    sendMessage: ( userId: number, messageBody:string) => void
-}
+import {useDispatch} from "react-redux";
+import {DialogsActions, sendMessage} from "../../../../redux/Dialods-reducer";
 
 
-const NewMessageForm: React.FC<props> = (props) => {
+
+export const NewMessageForm: React.FC = () => {
+    const dispatch = useDispatch()
     const {reset, register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data: { message: string }) => {
-        props.addMessage(data.message)
-        props.sendMessage( 2 , data.message)
+        dispatch(DialogsActions.addMessage(data.message))
+        dispatch(sendMessage( 2 , data.message))
         reset()
     }
     return (
@@ -33,5 +32,3 @@ const NewMessageForm: React.FC<props> = (props) => {
         </form>
     )
 }
-
-export default NewMessageForm

@@ -39,7 +39,6 @@ export const Users: React.FC = () => {
         let actualTerm = searchingUserName
         if (parsed.page) actualPage = Number(parsed.page)
         if (parsed.term) actualTerm = parsed.term as string
-    debugger
         actualTerm
             ? dispatch(searchUsers(actualTerm, actualPage))
             : dispatch(getUsers(actualPage, pageSize))

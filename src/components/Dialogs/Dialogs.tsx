@@ -1,25 +1,20 @@
 import React from 'react';
 import s from './Dialog.module.css'
-import UsersDialogsContainer from "./UsersMassage/UsersDialogsContainer";
-import MessagesContainer from "./Message/MessagesContainer";
+import YourChats from "./YourChats/YourChats";
+import {Messages} from "./Message/Messages";
 
-type props = {
 
-}
-
-const Dialogs: React.FC<props> = (props) => {
+export const Dialogs: React.FC = () => {
 
     return(
         <div className={s.container}>
             <h4 className={s.pageName}>Massages</h4>
             <div className={s.users}>
-                <UsersDialogsContainer />
+                <YourChats />
             </div>
             <div className={s.message}>
-                <MessagesContainer />
+                <Messages />
             </div>
         </div>
     )
 }
-
-export default Dialogs

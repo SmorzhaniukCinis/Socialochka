@@ -1,24 +1,21 @@
 import React from 'react'
 import s from './Messages.module.css'
-import MessageItem from "./MessageItem/MessageItem";
-import NewMessageFormContainer from "./NewMessageForm/NewMessageFormContainer";
-import {messageDataType} from "../../../Type/Types";
-import NewMessageForm from "./NewMessageForm/NewMessageForm";
-
-type props = {
-    message: Array<messageDataType>
-}
-
-const Messages: React.FC<props> = (props) => {
+import {getMessageData} from "../../../redux/Selectors/DialogsSelector";
+import {useSelector} from "react-redux";
+import {MessageItem} from "./MessageItem/MessageItem";
+import {NewMessageForm} from "./NewMessageForm/NewMessageForm";
 
 
-    let messages = props.message.map (item => <MessageItem messageItem={item.messageItem} key={item.id} />)
+export const Messages: React.FC = () => {
+
+    const message= useSelector(getMessageData)
+
+    let messages = message.map (item => <MessageItem messageItem={item.messageItem} key={item.id} />)
 
     return (
         <div className={s.container}>
                 {messages}
-            <NewMessageFormContainer />
+            <NewMessageForm />
         </div>
     )
 }
-export default Messages
