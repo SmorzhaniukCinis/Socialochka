@@ -4,7 +4,6 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import {Route, Switch} from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainerComponent";
 import {connect} from "react-redux";
 import {AppActions, initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
@@ -13,6 +12,7 @@ import {Users} from "./components/Users/Users";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Redirect} from "react-router";
 import {Friends} from "./components/Friengs/Friends";
+import {Header} from "./components/Header/Header";
 
 const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
@@ -27,7 +27,7 @@ class App extends React.Component {
         return (
                 <div className={this.props.isPopup ? 'appWrapper' : 'appWrapperSmall'}>
                     <div className='header'>
-                        <HeaderContainer/>
+                        <Header/>
                     </div>
                     <div className={this.props.isPopup ? 'navBar' : 'smallNavBar'}>
                         <Navbar isPopup={this.props.isPopup} setPopupMenu={this.props.setPopupMenu}/>
