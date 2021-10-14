@@ -74,7 +74,7 @@ export const authUser = () => async (dispatch: Dispatch<ActionTypes>, getState: 
     }
 }
 
-export const loginUser = (email: string, password: number, rememberMe = false, captcha: string) =>
+export const loginUser = (email: string, password: string, rememberMe = false, captcha: string) =>
     async (dispatch: Dispatch<ActionTypes>, getState: initialStateType) => {
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.resultCode === 0) {

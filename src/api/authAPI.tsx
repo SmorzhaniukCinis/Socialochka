@@ -15,7 +15,7 @@ export const authAPI = {
                 .then(response => response)
         )
     },
-    login(email: string, password: number, rememberMe = false, captcha: string | null = null) {
+    login(email: string, password: string, rememberMe = false, captcha: string | null = null) {
         return (
             instance.post<defaultResponse<{userId: string}>>("auth/login", {
                 email,

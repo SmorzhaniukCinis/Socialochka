@@ -12,7 +12,10 @@ export const Header: React.FC = () => {
     const dispatch = useDispatch()
     const login = useSelector(getLogin)
     const avatar = useSelector(getUserPhoto)
-
+    const logoutCurrentUser = () => {
+        debugger
+        dispatch(logoutUser())
+    }
 
     return (
         <div className={s.headerBlock_wrapper}>
@@ -28,7 +31,7 @@ export const Header: React.FC = () => {
                             <NavLink to={'/profile'} className={s.UserProfile}>
                                 <img className={s.profileAvatar} src={avatar || avatarDefault} alt="avatar"/> {login}
                             </NavLink>
-                            <button className={s.logoutButton} onClick={()=>dispatch(logoutUser)}>Log out</button>
+                            <button className={s.logoutButton} onClick={logoutCurrentUser}>Log out</button>
                         </div>
                     }
                 </div>

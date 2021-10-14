@@ -7,14 +7,13 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import {connect} from "react-redux";
 import {AppActions, initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
-import {WithSuspense} from "./HOC/WithSuspense";
 import {Users} from "./components/Users/Users";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Redirect} from "react-router";
 import {Friends} from "./components/Friengs/Friends";
 import {Header} from "./components/Header/Header";
+import {Login} from "./components/Login/Login";
 
-const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component {
     componentDidMount() {
@@ -37,7 +36,7 @@ class App extends React.Component {
                         <Route path="/messages" render={() => <Dialogs/>}/>
                         <Route path="/friends" render={() => <Friends/>}/>
                         <Route path="/users" render={()=> <Users/>}/>
-                        <Route path="/login" render={WithSuspense(LoginContainer)}/>
+                        <Route path="/login" render={()=> <Login/>}/>
                         <Route path="/" render={()=> <Redirect to={'/profile'}/>}/>
                     </Switch>
                     <div className='footer'>

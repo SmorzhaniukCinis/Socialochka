@@ -1,23 +1,22 @@
 import React from 'react'
 import s from '../Logim.module.css'
 import {useForm} from "react-hook-form";
-
-type props = {
-    handleSubmit: () => void
-    error: string
-    captchaURL?: string
-    loginUser: (login: string, password: string, rememberMe: boolean, captcha: string) => void
-}
+import {getCaptchaURL} from "../../../redux/Selectors/AuthSelectors";
+import {useDispatch, useSelector} from "react-redux";
+import {loginUser} from "../../../redux/Auth-reducer";
 
 
-const LoginForm: React.FC<props> = (props) => {
+export const LoginForm: React.FC = () => {
 
-    type data = { login: string, password: string, rememberMe: boolean, captcha: string }
+    const captchaURL = useSelector(getCaptchaURL)
+    const dispatch = useDispatch()
+
 
     const {register, handleSubmit, formState: {errors}} = useForm();
 
+    type data = { login: string, password: string, rememberMe: boolean, captcha: string }
     const onSubmit = (data: data) => {
-        props.loginUser(data.login, data.password, data.rememberMe, data.captcha)
+        dispatch(loginUser(data.login, data.password, data.rememberMe, data.captcha))
     }
 
     return(
@@ -46,14 +45,11 @@ const LoginForm: React.FC<props> = (props) => {
                 <input className={s.checkbox} type={'checkbox'} defaultValue="test" {...register("rememberMe")} />
                 <span>Remember me</span>
             </div>
-            <div className={s.FormSummaryError}>
-                {props.error}
-            </div>
             <div className={s.captchaContainer}>
-                {props.captchaURL && <img className={s.captcha} src={props.captchaURL} alt=""/>}
+                {captchaURL && <img className={s.captcha} src={captchaURL} alt=""/>}
             </div>
             <div className={s.itemForm}>
-                {props.captchaURL &&
+                {captchaURL &&
                 <input className={s.textInput}
                         {...register("captcha", {required: true})} />
                 }
@@ -65,6 +61,3 @@ const LoginForm: React.FC<props> = (props) => {
         </form>
     )
 }
-
-
-export default LoginForm
