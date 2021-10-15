@@ -3,7 +3,6 @@ import React from 'react';
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import {Route, Switch} from "react-router-dom";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import {connect} from "react-redux";
 import {AppActions, initializeApp} from "./redux/App-reducer";
 import Preloader from "./components/Preloader/Preloader";
@@ -13,6 +12,7 @@ import {Redirect} from "react-router";
 import {Friends} from "./components/Friengs/Friends";
 import {Header} from "./components/Header/Header";
 import {Login} from "./components/Login/Login";
+import {Profile} from "./components/Profile/Profile";
 
 
 class App extends React.Component {
@@ -32,7 +32,7 @@ class App extends React.Component {
                         <Navbar isPopup={this.props.isPopup} setPopupMenu={this.props.setPopupMenu}/>
                     </div>
                     <Switch className='content'>
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                        <Route path="/profile/:userId?" render={() => <Profile/>}/>
                         <Route path="/messages" render={() => <Dialogs/>}/>
                         <Route path="/friends" render={() => <Friends/>}/>
                         <Route path="/users" render={()=> <Users/>}/>

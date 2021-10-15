@@ -1,58 +1,39 @@
 import React, {useEffect, useState} from "react";
 import s from "./ProfileStatus.module.css";
-import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import {ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 import {profileType} from "../../../../Type/Types";
-import ProfileData from "./ProfleData/ProfileData";
+import {ProfileData} from "./ProfleData/ProfileData";
+import {useSelector} from "react-redux";
+import {getStatus} from "../../../../redux/Selectors/ProfileSelectors";
 
 type props = {
     profile: profileType
     owner: boolean
-    status: string
-    UserId: number
-    updateStatus: () => void
-    requestProfile: () => void
-    subscription: boolean
-    followingInProgress: Array<number>
-    uploadProfileData: () => void
-    followUser: () => void
-    unFollowUser: () => void
 }
 
 const ProfileStatus: React.FC<props> = (props) => {
-    let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
 
+    const statusProp = useSelector(getStatus)
+    const  [editMode, setEditMode] = useState(false)
+    const  [status, setStatus] = useState(statusProp)
 
     useEffect(
         () => {
-            setStatus(props.status)
+            setStatus(status)
         },
-        [props.status]
+        [status]
     )
-
-    let deactivateEditMode = () => {
-        setEditMode(false)
-    }
-    let activateEditMode = () => {
-        setEditMode(true)
-    }
 
     return (
         <div className={s.userInfoBlock}>
             {editMode
-                ? <ProfileDataForm uploadProfileData={props.uploadProfileData}
-                                   UserId={props.UserId}
-                                   profile={props.profile} updateStatus={props.updateStatus} status={status}
-                                   deactivateEditMode={deactivateEditMode}/>
+                ? <ProfileDataForm
+                                   profile={props.profile} status={status}
+                                   deactivateEditMode={setEditMode}/>
                 : <ProfileData owner={props.owner}
                                profile={props.profile}
-                               subscription={props.subscription}
-                               followingInProgress={props.followingInProgress}
-                               UserId={props.UserId}
-                               unFollowUser={props.unFollowUser}
-                               followUser={props.followUser}
-                               status={props.status}
-                               activateEditMode={activateEditMode}/>}
+                               status={status}
+                               activateEditMode={setEditMode}/>}
         </div>
     )
 }

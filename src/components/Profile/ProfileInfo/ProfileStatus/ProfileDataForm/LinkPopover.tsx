@@ -19,7 +19,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function LinkPopover(props:any) {
+type props = {
+contactLink: string | null
+URL: string | null
+setURL: (link:string)=> void
+name: string
+linkTitle: string
+link: string
+}
+
+export const LinkPopover: React.FC<props> = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -31,10 +40,8 @@ export default function LinkPopover(props:any) {
         setAnchorEl(null);
     };
 
-
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
-
 
 
     return (
@@ -57,6 +64,7 @@ export default function LinkPopover(props:any) {
                 }}
             >
                 <Typography className={classes.typography}>
+                    {/*@ts-ignore*/}
                     <input type="text" defaultValue={props.contactLink} onInput={(e) => {
                         props.setURL(e.currentTarget.value)
                         console.log(e.currentTarget.value)

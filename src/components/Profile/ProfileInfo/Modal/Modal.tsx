@@ -3,6 +3,7 @@ import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import avatar from "../../../../defaultData/avatarDefoult.png";
 import s from './Modal.module.css'
+import {profileType} from "../../../../Type/Types";
 
 
 function getModalStyle() {
@@ -32,12 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type props = {
-    profile: any
+    profile: profileType
 }
 
-const SimpleModal: FC<props> = (props) => {
+export const SimpleModal: FC<props> = (props) => {
     const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
@@ -49,15 +49,6 @@ const SimpleModal: FC<props> = (props) => {
         setOpen(false);
     };
 
-    // const body = (
-    //     <div style={modalStyle} className={classes.paper}>
-    //         <h2 id="simple-modal-title">Text in a modal</h2>
-    //         <p id="simple-modal-description">
-    //             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    //         </p>
-    //         <SimpleModal />
-    //     </div>
-    // );
 
     return (
         <div>
@@ -79,4 +70,3 @@ const SimpleModal: FC<props> = (props) => {
         </div>
     );
 }
-export default SimpleModal

@@ -116,7 +116,7 @@ export const setNewAvatarImg = (file: any) =>
             dispatch(ProfileActions.setNewAvatarImgSuccess(response.data.photos))
         }
     }
-export const uploadProfileData = (profileData: any, userId: number) =>
+export const uploadProfileData = (profileData: any, userId: number | null) =>
     async (dispatch: Dispatch<ActionTypes>) => {
         let response = await profileAPI.uploadProfileData(profileData)
         if (response.resultCode === 0) {

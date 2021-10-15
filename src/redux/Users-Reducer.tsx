@@ -119,7 +119,7 @@ export const searchUsers = (userName: string, page: number) =>
         dispatch(UserActions.setUsers(response.items))
         dispatch(UserActions.setTotalUsersCount(response.totalCount))
     }
-export const unFollowUser = (id: number) =>
+export const unFollowUser = (id: number ) =>
     async (dispatch: Dispatch) => {
         dispatch(UserActions.onFollowingProgress(id, true))
         let response = await usersAPI.unFollowUser(id)
@@ -129,7 +129,7 @@ export const unFollowUser = (id: number) =>
         }
         dispatch(UserActions.onFollowingProgress(id, false))
     }
-export const followUser = (id: number) =>
+export const followUser = (id: number ) =>
     async (dispatch: Dispatch) => {
         dispatch(UserActions.onFollowingProgress(id, true))
         let response = await usersAPI.FollowUser(id)

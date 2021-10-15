@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Profile from "./Profile";
 import {withRouter} from "react-router";
 import {
     followUser,
@@ -57,7 +56,7 @@ class ProfileContainer extends React.Component<props> {
     render() {
         return (
              // @ts-ignore
-            this.props.isAuth ? <Profile owner={this.props.match.params.userId} {...this.props}/> :
+            this.props.isAuth ? <div></div> :
                 <Redirect to={'/login'}/>
         )
 
@@ -65,24 +64,10 @@ class ProfileContainer extends React.Component<props> {
 }
 
 let mapStateToProps = (state: AppStateType) => ({
-    profile: getProfile(state),
+        profile: getProfile(state),
     status: getStatus(state),
     UserId: getUserId(state),
     isAuth: getIsAuth(state),
     followingInProgress: getFollowingInProgress(state),
     subscription: state.profile.subscription
 })
-
-export default compose(
-    connect(mapStateToProps, {
-        requestCurrentUser,
-        unFollowUser,
-        followUser,
-        uploadProfileData,
-        setNewAvatarImg,
-        requestProfile,
-        requestStatus,
-        updateStatus
-    }),
-    withRouter,
-)(ProfileContainer)

@@ -1,22 +1,27 @@
 import React from "react";
 import s from "../ProfileStatus.module.css";
 import {profileType} from "../../../../../Type/Types";
+import {getSubscription} from "../../../../../redux/Selectors/ProfileSelectors";
+import {useDispatch, useSelector} from "react-redux";
+import {getFollowingInProgress} from "../../../../../redux/Selectors/UsersSelector";
+import {getUserId} from "../../../../../redux/Selectors/AuthSelectors";
+import {followUser, unFollowUser} from "../../../../../redux/Users-Reducer";
 
 
 type props = {
     profile:profileType
     owner:boolean
     status:string
-    UserId:number
-    subscription:boolean
-    followingInProgress: Array<number>
-    followUser: (userId:number | null) => void
-    unFollowUser: (userId:number | null) => void
-    activateEditMode: () => void
+    activateEditMode: (editMode: boolean) => void
 }
 
 
-const ProfileData:React.FC<props> = (props) => {
+export const ProfileData:React.FC<props> = (props) => {
+
+const subscription = useSelector(getSubscription)
+const followingInProgress = useSelector(getFollowingInProgress)
+const userId = useSelector(getUserId)
+    const dispatch = useDispatch()
 
     let disabled = s.disabled
 
@@ -53,22 +58,24 @@ const ProfileData:React.FC<props> = (props) => {
                 </a>
             </div>
             {!props.owner
-                ? <span className={s.profileInfoButton} onClick={props.activateEditMode}>Edit</span>
-                : props.subscription
+                ? <span className={s.profileInfoButton} onClick={()=>props.activateEditMode(true)}>Edit</span>
+                : subscription
                     ? <div>
-                        <button disabled={props.followingInProgress.some((id: number) => id === props.UserId)}
+                        <button disabled={followingInProgress.some((id) => id === userId)}
                                 className={s.followButton}
                                 onClick={() => {
-                                    props.unFollowUser(props.profile.userId)
+                                    if (props.profile.userId)
+                                    dispatch(unFollowUser(props.profile.userId))
                                 }}>Unfollow
                         </button>
 
                     </div>
                     : <div>
-                        <button disabled={props.followingInProgress.some(id => id === props.UserId)}
+                        <button disabled={followingInProgress.some(id => id === userId)}
                                 className={s.followButton}
                                 onClick={() => {
-                                    props.followUser(props.profile.userId)
+                                    if (props.profile.userId)
+                                    dispatch(followUser(props.profile.userId))
                                 }}>Follow
                         </button>
                     </div>}
@@ -76,4 +83,3 @@ const ProfileData:React.FC<props> = (props) => {
     )
 }
 
-export default ProfileData

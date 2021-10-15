@@ -2,59 +2,39 @@ import s from "./ProfileInfo.module.css";
 import React from "react";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import Preloader from "../../Preloader/Preloader";
-import {profileType} from "../../../Type/Types";
-import SimpleModal from "./Modal/Modal";
+import {SimpleModal} from "./Modal/Modal";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfile} from "../../../redux/Selectors/ProfileSelectors";
+import {setNewAvatarImg} from "../../../redux/Priofile-reducer";
+import {getIsAuth} from "../../../redux/Selectors/AuthSelectors";
 
-type props = {
-    profile:profileType
-    setNewAvatarImg:any
-    owner:boolean
-    status:string
-    UserId:number
-    updateStatus: () => void
-    requestProfile: () => void
-    subscription:boolean
-    followingInProgress: Array<number>
-    uploadProfileData: () => void
-    followUser: () => void
-    unFollowUser: () => void
-}
 
-const ProfileInfo: React.FC<props> = (props) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
-    let onPhotoSelected = (e: { target: { files: string | any[]; }; }) => {
-        if (e.target.files.length) {
-            props.setNewAvatarImg(e.target.files[0])
-        }
+export const ProfileInfo: React.FC = () => {
+
+    const profile = useSelector(getProfile)
+    const owner = useSelector(getIsAuth)
+    const dispatch = useDispatch()
+
+
+
+    if (!profile) {return <Preloader/>}
+    const onPhotoSelected = (e: { target: { files: string | any[]; }; }) => {
+        if (e.target.files.length) {dispatch(setNewAvatarImg(e.target.files[0]))}
     }
     return (
         <div className={s.nameBlock}>
             <div className={s.avaBlock}>
 
-                <SimpleModal profile={props.profile} />
-                {!props.owner
+                <SimpleModal profile={profile} />
+                {!owner
                     ? <div className={s.selectPhotoWrapper}>
-                        {/*@ts-ignore*/}
-                        <input className={s.selectAvaFile} id='selectAvaFile' onChange={onPhotoSelected} type="file"/>
+                        <input className={s.selectAvaFile} id='selectAvaFile' onChange={()=>onPhotoSelected} type="file"/>
                         <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>
                     </div>
                     : null}
             </div>
-            <ProfileStatus status={props.status}
-                           UserId={props.UserId}
-                           owner={props.owner}
-                           updateStatus={props.updateStatus}
-                           requestProfile={props.requestProfile}
-                           subscription={props.subscription}
-                           followingInProgress={props.followingInProgress}
-                           uploadProfileData={props.uploadProfileData}
-                           followUser={props.followUser}
-                           unFollowUser={props.unFollowUser}
-                           profile={props.profile}/>
+            <ProfileStatus owner={owner} profile={profile}/>
         </div>
     )
 }
 
-export default ProfileInfo
