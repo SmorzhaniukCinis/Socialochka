@@ -6,14 +6,15 @@ import friends from '../../defaultData/Icon/FriendsIcon.png'
 import message from '../../defaultData/Icon/MessagesIcon.png'
 import profile from '../../defaultData/Icon/ProfileIcon.png'
 import users from '../../defaultData/Icon/usersIcons.png'
+import {useDispatch} from "react-redux";
+import {AppActions} from "../../redux/App-reducer";
 
-type props = {
-    setPopupMenu: (isPopup:boolean) => void
-}
-const FullNavbar:React.FC<props> = (props) => {
+
+const FullNavbar:React.FC = () => {
+    const dispatch = useDispatch()
     return (
         <div>
-            <div onClick={()=>props.setPopupMenu(false)} className={s.menuButtonBlock}>
+            <div onClick={()=>dispatch(AppActions.setPopupMenu(false))} className={s.menuButtonBlock}>
                 <img className={s.mainNavIcon} src={menu} alt=""/>
                 <span  className={s.menuButton}>Menu</span>
             </div>

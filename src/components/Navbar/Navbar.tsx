@@ -1,19 +1,19 @@
 import React from 'react';
 import FullNavbar from "./FullNavbar";
 import HiddenNavbar from "./HiddenNavbar";
+import {useSelector} from "react-redux";
+import {getIsPopup} from "../../redux/Selectors/AppSelectors";
 
-type props = {
-    setPopupMenu: (isPopup:boolean) => void
-    isPopup: boolean
-}
-const Navbar:React.FC<props> = (props) => {
 
+const Navbar:React.FC = () => {
+
+    const isPopup = useSelector(getIsPopup)
 
     return (
         <div>
-            {props.isPopup
-                ? <FullNavbar setPopupMenu={props.setPopupMenu}/>
-                : <HiddenNavbar setPopupMenu={props.setPopupMenu}/>}
+            {isPopup
+                ? <FullNavbar />
+                : <HiddenNavbar/>}
         </div>
     );
 }
