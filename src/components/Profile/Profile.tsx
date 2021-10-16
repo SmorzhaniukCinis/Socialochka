@@ -1,19 +1,18 @@
 import React, {useEffect} from 'react';
 import s from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import PostsBlockContainer from "./PostsBlock/PostsBlockContainer";
 import profileTheme from "../../defaultData/profileBackgroundTheme.jpg"
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../redux/Selectors/ProfileSelectors";
 import {useHistory} from "react-router-dom";
-import {ProfileActions, requestProfile, requestStatus} from "../../redux/Priofile-reducer";
+import {requestProfile, requestStatus} from "../../redux/Priofile-reducer";
 import queryString from "querystring";
 import {toNumber} from "lodash";
-import {UserActions} from "../../redux/Users-Reducer";
 import {getOwnerId} from "../../redux/Selectors/AuthSelectors";
+import {PostsBlock} from "./PostsBlock/PostsBlock";
 
 
-export const Profile = (props: any) => {
+export const Profile = () => {
     const profile = useSelector(getProfile)
     const ownerId = useSelector(getOwnerId)
     const dispatch = useDispatch()
@@ -44,18 +43,14 @@ export const Profile = (props: any) => {
                 userId = null
             };
         },[profile.userId, history.location.search])
-
-
-    //
-    //
+    
     return (
         <div className={s.contentWrapper}>
             <div className={s.themeBlock}>
                 <img src={profileTheme} alt=""/>
             </div>
             <ProfileInfo/>
-            {/*@ts-ignore*/}
-            <PostsBlockContainer/>
+            <PostsBlock/>
         </div>
     );
 }

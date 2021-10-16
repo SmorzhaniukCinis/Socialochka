@@ -1,16 +1,15 @@
 import s from "../Posts.module.css";
 import React from "react";
 import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {ProfileActions} from "../../../../redux/Priofile-reducer";
 
-type props = {
-    addPost: (text: string) => void
-}
-
-const PostForm: React.FC<props> = (props) => {
+const PostForm: React.FC = () => {
     const {reset, register, handleSubmit, formState: {errors}} = useForm();
 
+    const dispatch = useDispatch()
     const onSubmit = (data: { PostField: any; }) => {
-        props.addPost(data.PostField)
+        dispatch(ProfileActions.addPost(data.PostField))
         reset()
     }
 

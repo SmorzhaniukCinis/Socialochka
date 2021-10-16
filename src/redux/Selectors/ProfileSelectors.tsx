@@ -9,6 +9,6 @@ export const getStatus = (state:AppStateType) => {
 export const getSubscription = (state:AppStateType) => {
     return state.profile.subscription
 }
-export const getUserId = (state:AppStateType) => {
-    return state.profile.subscription
+export const getUserPosts = (state:AppStateType) => {
+    return state.profile.posts
 }

@@ -5,11 +5,11 @@ import {postsType} from "../../../../Type/Types";
 
 type props = {
     posts:Array<postsType>
-    fullName: string
-}
+    fullName: string | undefined
 
+}
 let MyPost:React.FC<props> = (props) => {
-    let postData = [...props.posts].reverse().map (text => <Post {...props} likeCount={text.likeCount} key={text.id} postText={text.postText}/>)
+    let postData = [...props.posts].reverse().map (postItem => <Post fullName={props.fullName} key={postItem.id} likeCount={postItem.likeCount} postText={postItem.postText}/>)
 
     return (
         <div className={s.PostBlock}>

@@ -79,7 +79,7 @@ type ActionTypes = InferActionsTypes<typeof ProfileActions>
 
 
 export const ProfileActions = {
-    addPostAC: (text: string) => ({type: "ADD_POST", text} as const),
+    addPost: (text: string) => ({type: "ADD_POST", text} as const),
     setProfile: (profile: profileType) => ({type: "SET_PROFILE", profile} as const),
     setData: (settingData: any) => ({type: "SET_DATA", settingData} as const),
     setStatus: (status: string) => ({type: "SET_STATUS", status} as const),

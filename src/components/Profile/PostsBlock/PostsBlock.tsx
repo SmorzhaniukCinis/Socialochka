@@ -2,35 +2,31 @@ import React from 'react';
 import s from './Posts.module.css'
 import MyPost from "./MyPost/MyPost"
 import PostForm from "./PostForm/PostForm";
-import {postsType, profileType} from "../../../Type/Types";
+import {useSelector} from "react-redux";
+import {getProfile, getUserPosts} from "../../../redux/Selectors/ProfileSelectors";
+import {getOwnerId} from "../../../redux/Selectors/AuthSelectors";
 
-type props = {
-    match:any
-    addPost: (post:string) => void
-    profile:profileType
-    posts: Array<postsType>
-}
-
-let PostsBlock:React.FC<props> = React.memo(
-    (props) => {
+export const PostsBlock: React.FC = React.memo(() => {
+        const profile = useSelector(getProfile)
+        const ownerId = useSelector(getOwnerId)
+        const posts = useSelector(getUserPosts)
         return (
             <div className={s.postBlock}>
-                {!props.match.params.userId
+                {profile.userId === ownerId
                     ? <div>
-                    <h5>New post</h5>
-                    <PostForm addPost={props.addPost}/>
-                </div> : null}
+                        <h5>New post</h5>
+                        <PostForm/>
+                    </div> : null}
 
                 <div className={s.PostBlock}>
-                    {!props.match.params.userId
+                    {profile.userId === ownerId
                         ? <h5>My posts</h5>
-                        : <h5>Posts of {props.profile.fullName}</h5>}
-                    {props.posts.length
-                        // @ts-ignore
-                        ?<MyPost posts={props.posts} fullName={props.profile.fullName}/>
-                        : <h4 className={s.noPostTitle}>{!props.match.params.userId
-                            ?'You have no post'
-                            :'This user have no post'}</h4>
+                        : <h5>Posts of {profile.fullName}</h5>}
+                    {posts.length
+                        ? <MyPost posts={posts} fullName={profile.fullName}/>
+                        : <h4 className={s.noPostTitle}>{profile.userId === ownerId
+                            ? 'You have no post'
+                            : 'This user have no post'}</h4>
                     }
 
                 </div>
@@ -38,6 +34,3 @@ let PostsBlock:React.FC<props> = React.memo(
         )
     }
 )
-
-
-export default PostsBlock;

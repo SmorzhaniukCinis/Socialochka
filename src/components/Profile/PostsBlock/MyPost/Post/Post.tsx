@@ -3,7 +3,7 @@ import s from './Post.module.css'
 import { AiOutlineHeart } from "react-icons/ai";
 
 type props = {
-    fullName: string
+    fullName: string | undefined
     postText: string
     likeCount: number
 }
