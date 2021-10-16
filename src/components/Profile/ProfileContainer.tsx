@@ -17,7 +17,7 @@ import {
 import {compose} from "redux";
 import {Redirect} from 'react-router'
 import {getProfile, getStatus} from "../../redux/Selectors/ProfileSelectors";
-import {getIsAuth, getUserId} from "../../redux/Selectors/AuthSelectors";
+import {getIsAuth, getOwnerId} from "../../redux/Selectors/AuthSelectors";
 import {getFollowingInProgress} from "../../redux/Selectors/UsersSelector";
 import {AppStateType} from "../../redux/redux-store";
 
@@ -32,6 +32,10 @@ type props = {
 
 class ProfileContainer extends React.Component<props> {
     refreshProfile() {
+
+    }
+
+    componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.UserId
@@ -43,13 +47,19 @@ class ProfileContainer extends React.Component<props> {
         this.props.requestStatus(userId)
     }
 
-    componentDidMount() {
-        this.refreshProfile()
-    }
-
     componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
         if (this.props.match.params.userId !== prevProps.match.params.userId)
-            this.refreshProfile()
+        {
+            let userId = this.props.match.params.userId
+            if (!userId) {
+                userId = this.props.UserId
+            }
+            if (!userId) {
+                this.props.history.push('/login')
+            }
+            this.props.requestProfile(userId)
+            this.props.requestStatus(userId)
+        }
     }
 
 
@@ -66,7 +76,7 @@ class ProfileContainer extends React.Component<props> {
 let mapStateToProps = (state: AppStateType) => ({
         profile: getProfile(state),
     status: getStatus(state),
-    UserId: getUserId(state),
+    UserId: getOwnerId(state),
     isAuth: getIsAuth(state),
     followingInProgress: getFollowingInProgress(state),
     subscription: state.profile.subscription

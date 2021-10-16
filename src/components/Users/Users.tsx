@@ -55,6 +55,14 @@ export const Users: React.FC = () => {
         })
     }, [searchingUserName, currentPage])
 
+const goToUserProfile = (id:number) => {
+  history.push(
+      {
+          pathname: '/profile',
+          search: `?id=${id}`
+      }
+  )
+}
 
     return (
 
@@ -69,11 +77,11 @@ export const Users: React.FC = () => {
                     {users.map(u => <div key={u.id} className={s.container}>
 
                         <div className={s.leftBlock}>
-                            <NavLink className={s.nawLink} to={'/profile/' + u.id}>
+                            <div onClick={()=>goToUserProfile(u.id)} className={s.nawLink} >
                                 <img src={(u.photos.small === null)
                                     ? avatarPhoto : u.photos.small} alt="ava"/>
                                 <span className={s.userName}>{u.name}</span>
-                            </NavLink>
+                            </div>
 
                             {u.followed
                                 ?

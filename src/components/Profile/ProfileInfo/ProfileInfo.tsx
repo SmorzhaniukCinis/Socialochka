@@ -16,17 +16,17 @@ export const ProfileInfo: React.FC = () => {
     const dispatch = useDispatch()
 
 
-
-    if (!profile) {return <Preloader/>}
     const onPhotoSelected = (e: { target: { files: string | any[]; }; }) => {
         if (e.target.files.length) {dispatch(setNewAvatarImg(e.target.files[0]))}
     }
+
+    if (!profile) {return <Preloader/>}
     return (
         <div className={s.nameBlock}>
             <div className={s.avaBlock}>
 
                 <SimpleModal profile={profile} />
-                {!owner
+                {owner
                     ? <div className={s.selectPhotoWrapper}>
                         <input className={s.selectAvaFile} id='selectAvaFile' onChange={()=>onPhotoSelected} type="file"/>
                         <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>

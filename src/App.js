@@ -32,7 +32,7 @@ class App extends React.Component {
                         <Navbar isPopup={this.props.isPopup} setPopupMenu={this.props.setPopupMenu}/>
                     </div>
                     <Switch className='content'>
-                        <Route path="/profile/:userId?" render={() => <Profile/>}/>
+                        <Route path="/profile" render={() => <Profile/>}/>
                         <Route path="/messages" render={() => <Dialogs/>}/>
                         <Route path="/friends" render={() => <Friends/>}/>
                         <Route path="/users" render={()=> <Users/>}/>

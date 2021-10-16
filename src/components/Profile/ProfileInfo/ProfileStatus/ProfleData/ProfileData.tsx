@@ -4,8 +4,9 @@ import {profileType} from "../../../../../Type/Types";
 import {getSubscription} from "../../../../../redux/Selectors/ProfileSelectors";
 import {useDispatch, useSelector} from "react-redux";
 import {getFollowingInProgress} from "../../../../../redux/Selectors/UsersSelector";
-import {getUserId} from "../../../../../redux/Selectors/AuthSelectors";
+import {getOwnerId} from "../../../../../redux/Selectors/AuthSelectors";
 import {followUser, unFollowUser} from "../../../../../redux/Users-Reducer";
+import {useHistory} from "react-router-dom";
 
 
 type props = {
@@ -20,11 +21,11 @@ export const ProfileData:React.FC<props> = (props) => {
 
 const subscription = useSelector(getSubscription)
 const followingInProgress = useSelector(getFollowingInProgress)
-const userId = useSelector(getUserId)
+const ownerId = useSelector(getOwnerId)
     const dispatch = useDispatch()
 
     let disabled = s.disabled
-
+debugger
     return (
         <div className={s.profileInfo}>
             <span className={s.userNameField}>{props.profile.fullName}</span> <br/>
@@ -57,11 +58,11 @@ const userId = useSelector(getUserId)
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/google-code.png"/>
                 </a>
             </div>
-            {!props.owner
+            {props.profile.userId === ownerId
                 ? <span className={s.profileInfoButton} onClick={()=>props.activateEditMode(true)}>Edit</span>
                 : subscription
                     ? <div>
-                        <button disabled={followingInProgress.some((id) => id === userId)}
+                        <button disabled={followingInProgress.some((id) => id === props.profile.userId)}
                                 className={s.followButton}
                                 onClick={() => {
                                     if (props.profile.userId)
@@ -71,7 +72,7 @@ const userId = useSelector(getUserId)
 
                     </div>
                     : <div>
-                        <button disabled={followingInProgress.some(id => id === userId)}
+                        <button disabled={followingInProgress.some(id => id === props.profile.userId)}
                                 className={s.followButton}
                                 onClick={() => {
                                     if (props.profile.userId)
