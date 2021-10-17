@@ -4,9 +4,8 @@ import {profileType} from "../../../../../Type/Types";
 import {getSubscription} from "../../../../../redux/Selectors/ProfileSelectors";
 import {useDispatch, useSelector} from "react-redux";
 import {getFollowingInProgress} from "../../../../../redux/Selectors/UsersSelector";
-import {getOwnerId} from "../../../../../redux/Selectors/AuthSelectors";
+import {getIsAuth, getOwnerId} from "../../../../../redux/Selectors/AuthSelectors";
 import {followUser, unFollowUser} from "../../../../../redux/Users-Reducer";
-import {useHistory} from "react-router-dom";
 
 
 type props = {
@@ -19,7 +18,8 @@ type props = {
 
 export const ProfileData:React.FC<props> = (props) => {
 
-const subscription = useSelector(getSubscription)
+const isSubscription = useSelector(getSubscription)
+const isAuth = useSelector(getIsAuth)
 const followingInProgress = useSelector(getFollowingInProgress)
 const ownerId = useSelector(getOwnerId)
     const dispatch = useDispatch()
@@ -58,9 +58,12 @@ debugger
                     <img className={s.link} alt={'icon'} src="https://img.icons8.com/metro/30/000000/google-code.png"/>
                 </a>
             </div>
-            {props.profile.userId === ownerId
+
+            {isAuth ?
+
+            props.profile.userId === ownerId
                 ? <span className={s.profileInfoButton} onClick={()=>props.activateEditMode(true)}>Edit</span>
-                : subscription
+                : isSubscription
                     ? <div>
                         <button disabled={followingInProgress.some((id) => id === props.profile.userId)}
                                 className={s.followButton}
@@ -79,7 +82,8 @@ debugger
                                     dispatch(followUser(props.profile.userId))
                                 }}>Follow
                         </button>
-                    </div>}
+                    </div>
+                : null}
         </div>
     )
 }
