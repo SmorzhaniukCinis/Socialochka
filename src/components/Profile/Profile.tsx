@@ -10,6 +10,8 @@ import queryString from "querystring";
 import {toNumber} from "lodash";
 import {getOwnerId} from "../../redux/Selectors/AuthSelectors";
 import {PostsBlock} from "./PostsBlock/PostsBlock";
+import Preloader from "../Preloader/Preloader";
+import {Redirect} from "react-router/ts4.0";
 
 
 export const Profile = () => {
@@ -18,23 +20,35 @@ export const Profile = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+
+        const urlParams = queryString.parse(history.location.search.substr(1))
+        let userId: number | null = toNumber(urlParams.id)
+
+
     useEffect(
         () => {
-            const urlParams = queryString.parse(history.location.search.substr(1))
-            let userId: number | null = toNumber(urlParams.id)
-
             if (!history.location.search) {
-                dispatch(requestProfile(ownerId as number))
-                dispatch(requestStatus(ownerId as number))
-                history.push({
-                    search: 'id='+ownerId
-                })
+                if(ownerId){
+                    dispatch(requestProfile(ownerId as number))
+                    dispatch(requestStatus(ownerId as number))
+                    history.push({
+                        search: 'id='+ownerId
+                    })
+                }
+                else {
+                    history.push({
+                        pathname: '/login'
+                    })
+                }
+
             } else {
                 if (!userId) {
                     userId = profile.userId
                 }
-                if (!userId) {
-                    history.push('/login')
+                if (userId === null) {
+                    history.push({
+                        pathname: '/login'
+                    })
                 }
                 dispatch(requestProfile(userId as number))
                 dispatch(requestStatus(userId as number))
@@ -43,7 +57,11 @@ export const Profile = () => {
                 userId = null
             };
         },[profile.userId, history.location.search])
-    
+
+
+
+
+    if (profile.userId !== userId) return <Preloader/>
     return (
         <div className={s.contentWrapper}>
             <div className={s.themeBlock}>

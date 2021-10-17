@@ -3,12 +3,12 @@ import {Dispatch} from "redux";
 import {InferActionsTypes} from "./redux-store";
 
 export type initialStateType = {
-    initialized: boolean
+    isInitialized: boolean
     isPopup: boolean
 }
 
 let initialState:initialStateType = {
-    initialized: false,
+    isInitialized: false,
     isPopup: true
 }
 
@@ -18,7 +18,7 @@ const AppReducer = (state = initialState, action:ActionType):initialStateType =>
         case "SET_INITIALIZED":
             return {
                 ...state,
-                initialized: true
+                isInitialized: true
             }
         case "SET_POPUP_MENU":
             return {
