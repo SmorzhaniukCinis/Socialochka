@@ -22,6 +22,7 @@
 }
 .checkbox {
     margin: 20px 10px 10px 10px;
+    cursor: pointer;
 }
 .submitButton {
     background: burlywood;
@@ -29,6 +30,12 @@
     margin-top: 10px;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.submitButton:hover {
+    background: chocolate;
+    transition: 0.3s;
 }
 .FormSummaryError {
     border-bottom: 1px solid red;
