@@ -1,0 +1,11 @@
+.container {
+    margin-top: 20px;
+}
+.sendButton {
+    position: relative;
+    top: 11px;
+    left: 20px;
+}
+.messageField {
+    width: 80%;
+}

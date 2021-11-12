@@ -1,0 +1,44 @@
+.MessageItem {
+    border-radius: 5px;
+    background: rgba(52, 49, 49, 0.27);
+    margin-top: 8px;
+    padding: 4px;
+    width: 97.5%;
+    display: flex;
+    box-shadow: 3px 3px 3px;
+    min-height: 50px;
+}
+.name {
+    font-size: 18px;
+    color: black;
+    transition: 0.2s;
+}
+.name:hover {
+    text-decoration: underline;
+    transition: 0.2s;
+    color: #592727;
+}
+.avatar {
+    box-shadow: 1px 1px 5px #000000;
+    margin-right: 10px;
+}
+.messageBloc {
+    height: 400px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+.messageBloc::-webkit-scrollbar{
+    background: none;
+    width: 6px;
+    border-radius: 3px;
+}
+.messageBloc::-webkit-scrollbar-thumb{
+    background: #7a5c5c;
+    border-radius: 3px;
+
+}
+.messageBloc::-webkit-scrollbar-thumb:hover{
+    background: #b22d2d;
+    border-radius: 3px;
+
+}

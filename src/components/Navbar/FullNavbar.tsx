@@ -10,6 +10,8 @@ import {useDispatch} from "react-redux";
 import {AppActions} from "../../redux/App-reducer";
 
 
+const chatLink = 'https://media.istockphoto.com/vectors/black-and-white-chat-icon-speech-bobbles-flat-art-symbol-vector-vector-id1221061155?b=1&k=20&m=1221061155&s=170667a&w=0&h=Nyo7I8gHVjIr1QH6X_8XZKwkJtdqfZid66AOY0m7oQs='
+
 const FullNavbar:React.FC = () => {
     const dispatch = useDispatch()
     return (
@@ -48,6 +50,14 @@ const FullNavbar:React.FC = () => {
                              src={friends}
                              alt=""/>
                         <span className={s.itemText}>Friends</span>
+                    </NavLink>
+                </li>
+                <li className={s.LiItem}>
+                    <NavLink activeClassName={s.active} className={s.item} to="/chat">
+                        <img className={s.navIcon}
+                             src={chatLink}
+                             alt=""/>
+                        <span className={s.itemText}>Chat</span>
                     </NavLink>
                 </li>
             </ul>

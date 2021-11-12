@@ -14,6 +14,7 @@ import {Header} from "./components/Header/Header";
 import {Login} from "./components/Login/Login";
 import {Profile} from "./components/Profile/Profile";
 import {getIsInitialized, getIsPopup} from "./redux/Selectors/AppSelectors";
+import {ChatPage} from "./components/ChatPage/ChatPage";
 
 
 export const App: React.FC = () => {
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
                     <Route path="/friends" render={() => <Friends/>}/>
                     <Route path="/users" render={()=> <Users/>}/>
                     <Route path="/login" render={()=> <Login/>}/>
+                    <Route path="/chat" render={()=> <ChatPage/>}/>
                     <Route path="/" render={()=> <Redirect to={'/profile'}/>}/>
                 </Switch>
             </div>
