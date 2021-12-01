@@ -14,19 +14,22 @@ import {Header} from "./components/Header/Header";
 import {Login} from "./components/Login/Login";
 import {Profile} from "./components/Profile/Profile";
 import {getIsInitialized, getIsPopup} from "./redux/Selectors/AppSelectors";
-import {ChatPage} from "./components/ChatPage/ChatPage";
+import {Suspense} from 'react';
+const ChatPage = React.lazy(() => import('./components/ChatPage/ChatPage'))
 
 
 export const App: React.FC = () => {
     const dispatch = useDispatch()
     const isInitialized = useSelector(getIsInitialized)
     const isPopup = useSelector(getIsPopup)
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(initializeApp())
-    },[])
+    }, [])
 
 
-    if(!isInitialized) {return <Preloader/>}
+    if (!isInitialized) {
+        return <Preloader/>
+    }
     return (
         <div className={isPopup ? 'appWrapper' : 'appWrapperSmall'}>
             <div className='header'>
@@ -36,14 +39,17 @@ export const App: React.FC = () => {
                 <Navbar/>
             </div>
             <div className='content'>
-                <Switch >
+                <Switch>
                     <Route path="/profile" render={() => <Profile/>}/>
                     <Route path="/messages" render={() => <Dialogs/>}/>
                     <Route path="/friends" render={() => <Friends/>}/>
-                    <Route path="/users" render={()=> <Users/>}/>
-                    <Route path="/login" render={()=> <Login/>}/>
-                    <Route path="/chat" render={()=> <ChatPage/>}/>
-                    <Route path="/" render={()=> <Redirect to={'/profile'}/>}/>
+                    <Route path="/users" render={() => <Users/>}/>
+                    <Route path="/login" render={() => <Login/>}/>
+                    <Route path="/chat" render={() =>
+                        <Suspense fallback={<div><Preloader/></div>}>
+                            <ChatPage/>
+                        </Suspense>}/>
+                    <Route path="/" render={() => <Redirect to={'/profile'}/>}/>
                 </Switch>
             </div>
             <div className='footer'>

@@ -6,13 +6,14 @@ import {SimpleModal} from "./Modal/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../../redux/Selectors/ProfileSelectors";
 import {setNewAvatarImg} from "../../../redux/Priofile-reducer";
-import {getIsAuth} from "../../../redux/Selectors/AuthSelectors";
+import {getIsAuth, getOwnerId} from "../../../redux/Selectors/AuthSelectors";
 
 
 export const ProfileInfo: React.FC = () => {
 
     const profile = useSelector(getProfile)
-    const owner = useSelector(getIsAuth)
+    const ownerId = useSelector(getOwnerId)
+    const isAuth = useSelector(getIsAuth)
     const dispatch = useDispatch()
 
 
@@ -26,14 +27,14 @@ export const ProfileInfo: React.FC = () => {
             <div className={s.avaBlock}>
 
                 <SimpleModal profile={profile} />
-                {owner
+                {profile.userId === ownerId
                     ? <div className={s.selectPhotoWrapper}>
                         <input className={s.selectAvaFile} id='selectAvaFile' onChange={()=>onPhotoSelected} type="file"/>
                         <label className={s.sendPhotoButton} htmlFor='selectAvaFile'>change avatar</label>
                     </div>
                     : null}
             </div>
-            <ProfileStatus owner={owner} profile={profile}/>
+            <ProfileStatus owner={isAuth} profile={profile}/>
         </div>
     )
 }
