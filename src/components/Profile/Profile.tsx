@@ -8,15 +8,16 @@ import {useHistory} from "react-router-dom";
 import {requestProfile, requestStatus} from "../../redux/Priofile-reducer";
 import queryString from "querystring";
 import {toNumber} from "lodash";
-import {getOwnerId} from "../../redux/Selectors/AuthSelectors";
+import {getIsAuth, getOwnerId} from "../../redux/Selectors/AuthSelectors";
 import {PostsBlock} from "./PostsBlock/PostsBlock";
 import Preloader from "../Preloader/Preloader";
-import {Redirect} from "react-router/ts4.0";
+import {Redirect} from "react-router";
 
 
 export const Profile = () => {
     const profile = useSelector(getProfile)
     const ownerId = useSelector(getOwnerId)
+    const isAuth = useSelector(getIsAuth)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -63,6 +64,7 @@ export const Profile = () => {
 
     if (profile.userId !== userId) return <Preloader/>
     return (
+        isAuth?
         <div className={s.contentWrapper}>
             <div className={s.themeBlock}>
                 <img src={profileTheme} alt=""/>
@@ -70,5 +72,6 @@ export const Profile = () => {
             <ProfileInfo/>
             <PostsBlock/>
         </div>
+            : <Redirect to={'/login'}/>
     );
 }

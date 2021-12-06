@@ -17,7 +17,6 @@ export const Header: React.FC = () => {
 
     const logoutCurrentUser = () => {
         dispatch(logoutUser())
-        url.push('/login')
     }
 
     return (

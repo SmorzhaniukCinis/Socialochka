@@ -3,11 +3,14 @@ import sendIcon from '../../../defaultData/Icon/send-icon.svg';
 import {Button, TextField} from "@material-ui/core";
 import s from './AddChatMessage.module.css'
 import {useForm} from "react-hook-form";
+import {socket} from "../ChatMessages/ChatMessages";
 
 export const AddChatMessage = () => {
     const {register, handleSubmit} = useForm();
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: {ChatMessage:string}) => {
         console.log(data);
+        debugger
+        socket.send(data.ChatMessage)
     }
 
     return (

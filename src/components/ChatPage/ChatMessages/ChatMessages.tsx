@@ -7,10 +7,10 @@ import {ChatActions} from "../../../redux/Chat-reducer";
 import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
 
 
-const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+export const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 socket.onmessage = function(event) {
-    alert(`[message] Данные получены с сервера: ${event.data}`);
+    console.log(`[message] Данные получены с сервера: ${event.data}`);
 };
 export type chatMessagesType = {
     message: string
@@ -35,7 +35,7 @@ export const ChatMessages = () => {
 
     return (
         <div className={s.messageBloc}>
-            {chatMessages.map(item => <ChatItem key={item.userId} messageData={item}/>)}
+            {chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)}
         </div>
     );
 };

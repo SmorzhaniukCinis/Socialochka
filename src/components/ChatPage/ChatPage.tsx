@@ -5,7 +5,7 @@ import { ChatMessages } from './ChatMessages/ChatMessages';
 
  const ChatPage: React.FC = () => {
     return (
-        <div style={ {marginBottom: '30px'}} className={s.container}>
+        <div className={s.container}>
             <ChatMessages/>
             <AddChatMessage/>
         </div>
