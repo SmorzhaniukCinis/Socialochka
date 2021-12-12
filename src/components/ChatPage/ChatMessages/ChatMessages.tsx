@@ -22,15 +22,16 @@ export type chatMessagesType = {
 export const ChatMessages = () => {
     const chatMessages =  useSelector(getChatMessages)
     const dispatch = useDispatch()
-    const [loading, setLoading] =   useState(false)
+    const [loading, setLoading] =   useState(true)
 
 
     useEffect(()=> {
         socket.addEventListener('message', (e)=> {
             dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
+            setLoading(false)
             // @ts-ignore
-            document.getElementById('messageBlocID').scrollTop = 999
-            setLoading(true)
+            document.getElementById('messageBlocID').scrollTop = 9999
+
         })
     }, [])
 
@@ -39,7 +40,7 @@ console.log(chatMessages)
 
     return (
         <div id='messageBlocID' className={s.messageBloc}>
-            {loading
+            {!loading
                 ?chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)
                 :<img className={s.chatLoader} src={loader}/>}
         </div>
