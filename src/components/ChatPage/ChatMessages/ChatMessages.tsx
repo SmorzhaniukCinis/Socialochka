@@ -9,9 +9,7 @@ import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
 
 export const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
-socket.onmessage = function(event) {
-    console.log(`[message] Данные получены с сервера: ${event.data}`);
-};
+
 export type chatMessagesType = {
     message: string
     photo:string
@@ -23,10 +21,13 @@ export const ChatMessages = () => {
     const chatMessages =  useSelector(getChatMessages)
     const dispatch = useDispatch()
 
+
+
     useEffect(()=> {
         socket.addEventListener('message', (e)=> {
-            console.log(e.data)
             dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
+            // @ts-ignore
+            document.getElementById('messageBlocID').scrollTop = 999
         })
     }, [])
 
@@ -34,7 +35,7 @@ export const ChatMessages = () => {
 
 
     return (
-        <div className={s.messageBloc}>
+        <div id='messageBlocID' className={s.messageBloc}>
             {chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)}
         </div>
     );
@@ -57,6 +58,7 @@ const ChatItem:React.FC<propsType> = ({messageData}) => {
             }
         )
     }
+
 
 
     return (

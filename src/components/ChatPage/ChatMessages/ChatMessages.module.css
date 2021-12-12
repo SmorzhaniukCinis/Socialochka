@@ -12,6 +12,7 @@
     font-size: 18px;
     color: black;
     transition: 0.2s;
+    cursor: pointer;
 }
 .name:hover {
     text-decoration: underline;
@@ -21,11 +22,13 @@
 .avatar {
     box-shadow: 1px 1px 5px #000000;
     margin-right: 10px;
+    cursor: pointer;
 }
 .messageBloc {
     height: 400px;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-bottom: 10px;
+    scroll-behavior: smooth;
 }
 .messageBloc::-webkit-scrollbar{
     background: none;
