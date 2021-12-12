@@ -6,11 +6,10 @@ import {useForm} from "react-hook-form";
 import {socket} from "../ChatMessages/ChatMessages";
 
 export const AddChatMessage = () => {
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, reset} = useForm();
     const onSubmit = (data: {ChatMessage:string}) => {
-        console.log(data);
-        debugger
         socket.send(data.ChatMessage)
+        reset({ ChatMessage: '' });
     }
 
     return (

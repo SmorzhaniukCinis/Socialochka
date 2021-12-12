@@ -1,10 +1,12 @@
 import {Avatar} from '@material-ui/core';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import s from './ChatMessages.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {ChatActions} from "../../../redux/Chat-reducer";
 import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
+import loader from "../../../defaultData/loaderForChat.svg";
+import Preloader from "../../Preloader/Preloader";
 
 
 export const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
@@ -20,7 +22,7 @@ export type chatMessagesType = {
 export const ChatMessages = () => {
     const chatMessages =  useSelector(getChatMessages)
     const dispatch = useDispatch()
-
+    const [loading, setLoading] =   useState(false)
 
 
     useEffect(()=> {
@@ -28,15 +30,18 @@ export const ChatMessages = () => {
             dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
             // @ts-ignore
             document.getElementById('messageBlocID').scrollTop = 999
+            setLoading(true)
         })
     }, [])
 
 
-
+console.log(chatMessages)
 
     return (
         <div id='messageBlocID' className={s.messageBloc}>
-            {chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)}
+            {loading
+                ?chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)
+                :<img className={s.chatLoader} src={loader}/>}
         </div>
     );
 };

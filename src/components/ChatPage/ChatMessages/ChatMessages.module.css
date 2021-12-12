@@ -45,3 +45,8 @@
     border-radius: 3px;
 
 }
+.chatLoader {
+    background: #D9D6E4;
+    margin-left: 32%;
+    margin-top: 14%;
+}
