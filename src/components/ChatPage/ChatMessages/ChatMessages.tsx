@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {ChatActions} from "../../../redux/Chat-reducer";
 import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
 import loader from "../../../defaultData/loaderForChat.svg";
-import Preloader from "../../Preloader/Preloader";
 
 
 export const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
@@ -26,23 +25,34 @@ export const ChatMessages = () => {
 
 
     useEffect(()=> {
+        debugger
         socket.addEventListener('message', (e)=> {
+
             dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
             setLoading(false)
             // @ts-ignore
             document.getElementById('messageBlocID').scrollTop = 9999
 
         })
+
+        // @ts-ignore
+        document.getElementById('messageBlocID').scrollTop = 9999
+
     }, [])
 
+    useEffect(()=>{
+        setLoading(false)
+        // @ts-ignore
+        document.getElementById('messageBlocID').scrollTop = 9999
+    },[loading])
 
-console.log(chatMessages)
+console.log(loading)
 
     return (
         <div id='messageBlocID' className={s.messageBloc}>
             {!loading
                 ?chatMessages.map((item , index) => <ChatItem key={index} messageData={item}/>)
-                :<img className={s.chatLoader} src={loader}/>}
+                :<img className={s.chatLoader} src={loader} alt={'loader'}/>}
         </div>
     );
 };
