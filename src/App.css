@@ -29,6 +29,7 @@
   grid-area: content;
 }
 .footer {
+  height: 90px;
   grid-area: footer;
   background-color: darkslategray;
 }
