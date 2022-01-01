@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import sendIcon from '../../../defaultData/Icon/send-icon.svg';
 import {Button, TextField} from "@material-ui/core";
 import s from './AddChatMessage.module.css'
@@ -12,12 +12,22 @@ export const AddChatMessage = () => {
         reset();
     }
 
+    const [connectStatus, setConnectStatus] =   useState<'pending' | 'connected'>('pending')
+
+
+
+    useEffect(()=>{
+        socket.addEventListener('open' , ()=> {
+            setConnectStatus('connected')
+        })
+    }, [])
+
     return (
         <div className={s.container}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField   autoComplete={'off'} {...register("ChatMessage",{ required: true })} className={s.messageField} id="standard-basic"
                             label="Add your message" variant="standard"/>
-                <Button type="submit" className={s.sendButton} variant="contained"
+                <Button disabled={connectStatus !== 'connected'} type="submit" className={s.sendButton} variant="contained"
                         endIcon={<img src={sendIcon} alt=""/>}>
                     Send
                 </Button>
