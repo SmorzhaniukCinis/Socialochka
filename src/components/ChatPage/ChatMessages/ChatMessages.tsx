@@ -1,5 +1,5 @@
 import {Avatar} from '@material-ui/core';
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import s from './ChatMessages.module.css'
 import {useDispatch, useSelector} from "react-redux";
@@ -8,7 +8,6 @@ import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
 import loader from "../../../defaultData/loaderForChat.svg";
 
 
-export const socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 
 export type chatMessagesType = {
@@ -18,15 +17,14 @@ export type chatMessagesType = {
     userName:string
 }
 
-export const ChatMessages = () => {
+export const ChatMessages:FC<{socket:WebSocket | null}> = ({socket}) => {
     const chatMessages =  useSelector(getChatMessages)
     const dispatch = useDispatch()
     const [loading, setLoading] =   useState(true)
 
 
     useEffect(()=> {
-        debugger
-        socket.addEventListener('message', (e)=> {
+        socket?.addEventListener('message', (e)=> {
 
             dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
             setLoading(false)
@@ -38,7 +36,7 @@ export const ChatMessages = () => {
         // @ts-ignore
         document.getElementById('messageBlocID').scrollTop = 9999
 
-    }, [])
+    }, [socket])
 
     useEffect(()=>{
         setLoading(false)
@@ -46,7 +44,6 @@ export const ChatMessages = () => {
         document.getElementById('messageBlocID').scrollTop = 9999
     },[loading])
 
-console.log(loading)
 
     return (
         <div id='messageBlocID' className={s.messageBloc}>
