@@ -6,9 +6,11 @@ import {chatAPI} from "../api/chatAPI";
 
 type initialStateType = {
     chatMessages: Array<chatMessagesType>
+    loadingStatus: boolean
 }
 let initialState: initialStateType = {
-    chatMessages: []
+    chatMessages: [],
+    loadingStatus: true
 }
 
 
@@ -17,6 +19,9 @@ const chatReducer = (state = initialState, action: ActionTypes): initialStateTyp
     switch (action.type) {
         case "SET_CHAT_MESSAGES" :
             stateClone.chatMessages = [...stateClone.chatMessages, ...action.messages]
+            return stateClone
+        case "SET_CHAT_LOADING" :
+            stateClone.loadingStatus = action.loadingStatus
             return stateClone
         default:
             return state
@@ -28,6 +33,7 @@ type ActionTypes = InferActionsTypes<typeof ChatActions>
 
 export const ChatActions = {
     setChatMessage: (messages: Array<chatMessagesType>) => ({type: "SET_CHAT_MESSAGES", messages} as const),
+    setChatLoading: (loadingStatus: boolean) => ({type: "SET_CHAT_LOADING", loadingStatus} as const),
 }
 
 let _newMessageHandler: ((messages: chatMessagesType[]) => void) | null = null
@@ -42,8 +48,10 @@ const newMessageHandlerCreator = (dispatch: Dispatch<ActionTypes>) => {
 
 
 export const startMessagesListening = () => async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(ChatActions.setChatLoading(true))
     chatAPI.startWS()
     chatAPI.subscribe(newMessageHandlerCreator(dispatch))
+    dispatch(ChatActions.setChatLoading(false))
 }
 export const stopMessagesListening = () => async (dispatch: Dispatch<ActionTypes>) => {
     chatAPI.unSubscribe(newMessageHandlerCreator(dispatch))
