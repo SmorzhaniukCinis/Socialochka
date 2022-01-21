@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ChatActions} from "../../../redux/Chat-reducer";
 import {getChatMessages} from "../../../redux/Selectors/ChatSelectors";
 import loader from "../../../defaultData/loaderForChat.svg";
+import ChatItem from "./ChatItem";
 
 
 
@@ -17,33 +18,36 @@ export type chatMessagesType = {
     userName:string
 }
 
-export const ChatMessages:FC<{socket:WebSocket | null}> = ({socket}) => {
+export const ChatMessages:FC = () => {
     const chatMessages =  useSelector(getChatMessages)
     const dispatch = useDispatch()
     const [loading, setLoading] =   useState(true)
 
 
     useEffect(()=> {
-        socket?.addEventListener('message', (e)=> {
-
-            dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
-            setLoading(false)
-            // @ts-ignore
-            document.getElementById('messageBlocID').scrollTop = 9999
-
-        })
-
         // @ts-ignore
-        document.getElementById('messageBlocID').scrollTop = 9999
+        document.getElementById('messageBlocID').scrollTop = 99999
+    },[chatMessages])
 
-    }, [socket])
-
-    useEffect(()=>{
+// =========================== here need to rewrite loading logic ===========================
+    // useEffect(()=> {
+    //     socket?.addEventListener('message', (e)=> {
+    //         dispatch(ChatActions.setChatMessage(JSON.parse(e.data)))
+    //         setLoading(false)
+    //         // @ts-ignore
+    //         document.getElementById('messageBlocID').scrollTop = 99999
+    //     })
+    //
+    //     // @ts-ignore
+    //     document.getElementById('messageBlocID').scrollTop = 99999
+    //
+    // }, [socket])
+    //
+     useEffect(()=>{
         setLoading(false)
         // @ts-ignore
-        document.getElementById('messageBlocID').scrollTop = 9999
+        document.getElementById('messageBlocID').scrollTop = 99999
     },[loading])
-
 
     return (
         <div id='messageBlocID' className={s.messageBloc}>
@@ -53,36 +57,3 @@ export const ChatMessages:FC<{socket:WebSocket | null}> = ({socket}) => {
         </div>
     );
 };
-
-
-
-
-type  propsType = {
-    messageData:chatMessagesType
-}
-const ChatItem:React.FC<propsType> = ({messageData}) => {
-
-    const history = useHistory()
-    const goToUserProfile = (id: number) => {
-        history.push(
-            {
-                pathname: '/profile',
-                search: `?id=${id}`
-            }
-        )
-    }
-
-
-
-    return (
-        <div className={s.MessageItem} onClick={()=>goToUserProfile(messageData.userId as number)}>
-            <div >
-                <Avatar className={s.avatar} alt={messageData.userName} src={messageData.photo}/>
-            </div>
-            <div>
-                <div  className={s.name}>{messageData.userName}</div><br/>
-                <span>{messageData.message}</span>
-            </div>
-        </div>
-    )
-}
