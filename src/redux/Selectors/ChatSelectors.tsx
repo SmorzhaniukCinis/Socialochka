@@ -5,6 +5,6 @@ export const getChatMessages = (state:AppStateType) => {
 
 }
 export const getLoadingStatus = (state:AppStateType) => {
-    return state.chatPage.loadingStatus
+    return state.chatPage.connectionStatus
 
 }
