@@ -15,7 +15,7 @@ const chatLink = 'https://media.istockphoto.com/vectors/black-and-white-chat-ico
 const FullNavbar:React.FC = () => {
     const dispatch = useDispatch()
     return (
-        <div>
+        <div className={s.container}>
             <div onClick={()=>dispatch(AppActions.setPopupMenu(false))} className={s.menuButtonBlock}>
                 <img className={s.mainNavIcon} src={menu} alt=""/>
                 <span  className={s.menuButton}>Menu</span>

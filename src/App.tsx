@@ -35,7 +35,7 @@ export const App: React.FC = () => {
             <div className='header'>
                 <Header/>
             </div>
-            <div className={isPopup ? 'navBar' : 'smallNavBar'}>
+            <div className='navBar'>
                 <Navbar/>
             </div>
             <div className='content'>

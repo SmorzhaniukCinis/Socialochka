@@ -18,7 +18,7 @@ const HiddenNavbar:React.FC = () => {
 
 
     return (
-        <div>
+        <div className={s.smallContainer}>
             <div  className={s.menuButtonBlock}>
                 <img onClick={() => dispatch(AppActions.setPopupMenu(true))} className={s.mainNavIcon} src={menu} alt=""/>
             </div>

@@ -3,12 +3,12 @@ import {useForm} from "react-hook-form";
 import s from "./ProfileDataForm.module.css"
 import {profileType} from "../../../../../Type/Types";
 import {LinkPopover} from "./LinkPopover";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateStatus, uploadProfileData} from "../../../../../redux/Priofile-reducer";
+import {getStatus} from "../../../../../redux/Selectors/ProfileSelectors";
 
 type props = {
     profile: profileType
-    status: string
     deactivateEditMode: (EditMode: boolean) => void
 }
 
@@ -24,6 +24,9 @@ type FormData = {
 export let ProfileDataForm: React.FC<props> = (props) => {
 
     const dispatch = useDispatch()
+
+    const status = useSelector(getStatus)
+
 
     const [youtube, setYoutubeURL] = useState(props.profile.contacts.youtube)
     const [github, setGithubURL] = useState(props.profile.contacts.github)
@@ -57,7 +60,7 @@ export let ProfileDataForm: React.FC<props> = (props) => {
                 </div>
                 <div>
                     <input placeholder="Enter your status"
-                           defaultValue={props.status} {...register("status", {maxLength: 20,})} />
+                           defaultValue={status} {...register("status", {maxLength: 20,})} />
                 </div>
                 <div>
                     <input placeholder="Where are you from?" className={errors.AboutMe && s.someError}

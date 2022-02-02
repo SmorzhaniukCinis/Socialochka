@@ -4,6 +4,7 @@
     display: inline-flex;
     height: 185px;
     width: 1000px;
+    z-index: 1;
 }
 .avaBlock {
     grid-area: avaBlock;
